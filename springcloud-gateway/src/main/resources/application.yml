@@ -1,7 +1,5 @@
-# Zuul? ?????? ???? ??
-
 server:
-    port: 8080
+    port: 8000
 
 eureka:
     client:
@@ -17,7 +15,7 @@ spring:
         gateway:
             routes:
                 - id: first-service
-                  uri: http://127.0.0.1:8081/  # ???? ??
+                  uri: http://127.0.0.1:8081/
                   predicates:
                       - Path=/first-service/**
                 - id: second-service
