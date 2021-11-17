@@ -10,10 +10,4 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/annual")
 public class AnnualController {
 
-    @GetMapping("")
-    public String index() {
-        return "index";
-    }
-
-
 }
