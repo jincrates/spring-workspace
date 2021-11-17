@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <title>The right to work.</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div class="container">
+    <!-- Include-style layouts 방법임. 추후 Hierachical-style loayouts로 변경해볼 것 -->
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+
+    <div class="jumbotron">
+        <p class="lead">회원 기능</p>
+        <p>
+            <a class="btn btn-lg btn-secondary" href="/members/new">회원 가입</a>
+            <a class="btn btn-lg btn-secondary" href="/members">회원 목록</a>
+        </p>
+        <p class="lead">연차 기능</p>
+        <p>
+            <a class="btn btn-lg btn-dark" href="/annual/new">연차 등록</a>
+            <a class="btn btn-lg btn-dark" href="/annual">연차 현황</a>
+        </p>
+        <p class="lead">관리자 기능</p>
+        <p>
+          <a class="btn btn-lg btn-info" href="/annual/setting">연차 설정</a>
+          <a class="btn btn-lg btn-info" href="/annual/manage">연차 관리</a>
+        </p>
+    </div>
+    <div th:replace="fragments/footer :: footer"/>
+</div> <!-- /container -->
+</body>
+</html>
