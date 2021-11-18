@@ -1,24 +1,24 @@
 package me.jincrates.work.entity;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Getter
+@ToString
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
-public class Member extends BaseTimeEntity {
+public class Member {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(unique = true)
     private String email;  //이메일을 아이디로 사용
 
     @Column(nullable = false)
@@ -34,7 +34,7 @@ public class Member extends BaseTimeEntity {
     private String position;  //직위
 
     @Column(nullable = false)
-    private Date joinDate; //입사일
+    private String joinDate; //입사일
 
     @Column(nullable = false)
     private String picture;
@@ -46,20 +46,6 @@ public class Member extends BaseTimeEntity {
     @Column(nullable = false)
     private Role role;
 
-    @OneToMany(mappedBy = "member")
-    private List<Annual> annual = new ArrayList<>();
-
-    @Builder
-    public Member(String name, String department, String position, String picture, int status, Role role) {
-        this.name = name;
-        this.department = department;
-        this.position = position;
-        this.picture = picture;
-        this.status = status;
-        this.role = role;
-    }
-
-    public String getRoleKey() {
-        return this.role.getKey();
-    }
+//    @OneToMany(mappedBy = "member")
+//    private List<Annual> annual = new ArrayList<>();
 }

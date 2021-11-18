@@ -4,26 +4,33 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
 @NoArgsConstructor
 @Entity
-public class Annual extends BaseTimeEntity {
+public class Annual extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String member;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Member member;
 
-    private Date joinDate;
+    @Column(nullable = false)
+    private LocalDateTime joinDate;
 
-    private double annual;
+    @Column(nullable = false)
+    private double annual;  //발생연차
 
-    private double monthAnnual;
+    @Column(nullable = false)
+    private double month; //발생월차
 
-    private double adjustment;
+    @Column(nullable = false)
+    private double adjusted; //조정연차
 
-    private double reamined;
+    @Column(nullable = false)
+    private double used; //사용연차
 }

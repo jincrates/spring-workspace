@@ -9,7 +9,7 @@ import java.util.Date;
 @Getter
 @NoArgsConstructor
 @Entity
-public class AnnualSetting extends BaseTimeEntity {
+public class AnnualSetting extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
