@@ -5,15 +5,9 @@ import me.jincrates.work.entity.Role;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
 
@@ -24,7 +18,7 @@ public class MemberRepositoryTest {
     @Autowired
     private MemberRepository repository;
 
-    @Test @Transactional
+    @Test
     public void insertMembers() {
         IntStream.rangeClosed(1, 100).forEach(i -> {
             //1부터 10까지 임의의 번호
@@ -35,9 +29,6 @@ public class MemberRepositoryTest {
                     .password("1111")
                     .name("USER" + i)
                     .joinDate(between("2001-01-01", "2021-12-31"))
-                    .department(String.valueOf(random))
-                    .position(String.valueOf(random))
-                    .picture("/")
                     .role(Role.USER)
                     .status(1)
                     .build();

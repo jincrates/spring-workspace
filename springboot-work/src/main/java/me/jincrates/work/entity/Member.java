@@ -28,16 +28,7 @@ public class Member {
     private String name;  //이름
 
     @Column(nullable = false)
-    private String department;  //부서
-
-    @Column(nullable = false)
-    private String position;  //직위
-
-    @Column(nullable = false)
     private String joinDate; //입사일
-
-    @Column(nullable = false)
-    private String picture;
 
     @Column(nullable = false)
     private int status;  //상태
