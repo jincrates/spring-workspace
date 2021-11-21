@@ -11,10 +11,10 @@ import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
+@Getter
 @MappedSuperclass   //@MappedSuperclass이 적용된 클래스는 테이블로 생성되지 않는다.
 @EntityListeners(value = { AuditingEntityListener.class })
-@Getter
-public class BaseEntity {
+public class BaseTimeEntity {
 
     @CreatedDate
     @Column(name = "regdate", updatable = false)

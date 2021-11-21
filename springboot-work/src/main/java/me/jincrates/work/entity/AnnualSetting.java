@@ -9,7 +9,7 @@ import java.util.Date;
 @Getter
 @NoArgsConstructor
 @Entity
-public class AnnualSetting extends BaseEntity {
+public class AnnualSetting extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +18,9 @@ public class AnnualSetting extends BaseEntity {
 
     @Column(nullable = false)
     private String type;  // 회계년도, 입사일
+
+    @Column(nullable = false)
+    private String baseYear;  // 기준연도
 
     @Column(nullable = false)
     private Date fromDate;  // 시작일
