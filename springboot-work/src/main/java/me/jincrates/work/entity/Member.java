@@ -31,7 +31,7 @@ public class Member extends BaseTimeEntity {
     private String joinDate; //입사일
 
     @Column(nullable = false)
-    private int status;  //상태
+    private String status;  //상태(Y: 사용, N: 미사용)
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

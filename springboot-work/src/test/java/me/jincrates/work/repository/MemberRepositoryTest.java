@@ -30,7 +30,7 @@ public class MemberRepositoryTest {
                     .name("USER" + i)
                     .joinDate(between("2001-01-01", "2021-12-31"))
                     .role(Role.USER)
-                    .status(1)
+                    .status("Y")
                     .build();
 
             repository.save(member);

@@ -1,13 +1,15 @@
 package me.jincrates.work.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Getter
+@ToString
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 public class AnnualSetting extends BaseTimeEntity {
 
