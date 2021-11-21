@@ -1,16 +1,17 @@
 package me.jincrates.work.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Getter
+@ToString
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
-public class Annual extends BaseEntity {
+public class Annual {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +21,7 @@ public class Annual extends BaseEntity {
     private Member member;
 
     @Column(nullable = false)
-    private LocalDateTime joinDate;
+    private String joinDate;
 
     @Column(nullable = false)
     private double annual;  //발생연차
