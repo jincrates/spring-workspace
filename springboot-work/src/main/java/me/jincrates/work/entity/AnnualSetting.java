@@ -16,13 +16,10 @@ public class AnnualSetting extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "setting_id")
-    private Long id;
+    private Long id;  // 기준연도
 
     @Column(nullable = false)
     private String type;  // 회계년도, 입사일
-
-    @Column(nullable = false)
-    private String baseYear;  // 기준연도
 
     @Column(nullable = false)
     private Date fromDate;  // 시작일
@@ -38,5 +35,4 @@ public class AnnualSetting extends BaseTimeEntity {
 
     @Column(nullable = false)
     private int min;  //최초 개수
-
 }

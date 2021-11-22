@@ -11,15 +11,18 @@ import java.util.Date;
 @AllArgsConstructor
 @Builder
 @Entity
-public class AnnualAdjustedLog extends BaseTimeEntity {
+public class AnnualAdjusted extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "adjusted_id")
     private Long id;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private Member member;  //사원키
+    @Column(nullable = false)
+    private Long baseYear;
+
+    @Column(nullable = false)
+    private String member;  //사원키
 
     @Column(nullable = false)
     private double adjusted;   //조정일수
