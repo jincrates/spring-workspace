@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"/>
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>기준연도</th>
+                <th>사용자</th>
+                <th>입사일자</th>
+                <th>발생연차</th>
+                <th>발생월차</th>
+                <th>조정일수</th>
+                <th>사용일수</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="annual : ${annualList}">
+                <td th:text="${annual.baseYear}"></td>
+                <td th:text="${annual.member.email}"></td>
+                <td th:text="${annual.joinDate}"></td>
+                <td th:text="${annual.annual}"></td>
+                <td th:text="${annual.month}"></td>
+                <td th:text="${annual.adjusted}"></td>
+                <td th:text="${annual.used}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:replace="fragments/footer :: footer"/>
+</div> <!-- /container -->
+</body>
+</html>

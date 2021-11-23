@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,10 +21,24 @@ public class AnnualService {
     private final MemberRepository memberRepository;
     private final AnnualRepository annualRepository;
 
-    public Annual createAnnual(AnnualDTO annualDTO) {
-        Optional<Member> findMember = memberRepository.findByEmail(annualDTO.getMember().getEmail());
+    public List<Annual> findAll() {
+        return annualRepository.findAll();
+    }
 
-        if (findMember.isEmpty()) {
+//    public Annual findByEmail(String email) {
+//        Optional<Annual> annual = annualRepository.findByEmail(email);
+//
+//        if (annual.isEmpty()) {
+//            throw new RuntimeException(String.format("Email[%s] not found", email));
+//        }
+//
+//        return annual.get();
+//    }
+
+    public Annual createAnnual(AnnualDTO annualDTO) {
+        Optional<Member> member = memberRepository.findByEmail(annualDTO.getMember().getEmail());
+
+        if (member.isEmpty()) {
             throw new RuntimeException("없는 사용자입니다.");
         }
 

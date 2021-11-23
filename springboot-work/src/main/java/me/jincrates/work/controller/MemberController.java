@@ -1,5 +1,6 @@
 package me.jincrates.work.controller;
 
+import me.jincrates.work.dto.PageRequestDTO;
 import me.jincrates.work.entity.Member;
 import me.jincrates.work.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,15 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping("/members")
 public class MemberController {
 
     @Autowired
     private MemberService service;
 
     @GetMapping("")
-    public List<Member> findAll(Model model) {
-        return service.findAll();
+    public String list(Model model) {
+        List<Member> members = service.findAll();
+        model.addAttribute("members", members);
+        return "members/memberList";
     }
 
     @GetMapping("/{email}")

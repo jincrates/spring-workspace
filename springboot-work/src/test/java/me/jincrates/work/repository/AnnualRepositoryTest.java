@@ -38,9 +38,10 @@ public class AnnualRepositoryTest {
                 double annual = calculateAnnual(member.getJoinDate());
 
                 Annual annualMember = Annual.builder()
+                        .baseYear(2021L)
                         .member(member)
                         .joinDate(member.getJoinDate())
-                        .annual(calculateAnnual(member.getJoinDate()))
+                        .annual(annual)
                         .month(0)
                         .adjusted(0)
                         .used(0)
