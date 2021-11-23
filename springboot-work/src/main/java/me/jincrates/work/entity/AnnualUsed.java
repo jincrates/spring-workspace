@@ -28,10 +28,10 @@ public class AnnualUsed extends BaseTimeEntity {
     private double used;   //사용일수
 
     @Column(nullable = false)
-    private Date usedDate;  //사용일
+    private Date usedFromDate;  //사용 시작일
 
     @Column(nullable = false)
-    private String status;  //상태(Y: 사용, N: 미사용)
+    private Date usedToDate;  //사용 종료일
 
     @Column(nullable = false)
     private String reason;  //사유

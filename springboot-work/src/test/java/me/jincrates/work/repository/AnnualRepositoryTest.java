@@ -1,12 +1,14 @@
 package me.jincrates.work.repository;
 
 import me.jincrates.work.entity.Annual;
+import me.jincrates.work.entity.AnnualUsed;
 import me.jincrates.work.entity.Member;
 import me.jincrates.work.entity.Role;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -22,6 +24,9 @@ public class AnnualRepositoryTest {
 
     @Autowired
     private AnnualRepository annualRepository;
+
+    @Autowired
+    private AnnualUsedRepository annualUsedRepository;
 
     @Autowired
     private MemberRepository memberRepository;
@@ -51,6 +56,33 @@ public class AnnualRepositoryTest {
             }
         });
     }
+
+    @Test
+    public void usedAnnual() {
+        AnnualUsed annualUsed = AnnualUsed.builder()
+                .baseYear(2021L)
+                .member("user1@jincrates.me")
+                .used(2)
+                .usedFromDate(stringToDate("2021-11-24"))
+                .usedToDate(stringToDate("2021-11-26"))
+                .reason("휴가")
+                .build();
+
+        annualUsedRepository.save(annualUsed);
+    }
+
+    @Test
+    public void findUsedCount() {
+        double result = 0;
+        String email = "user1@jincrates.me";
+        String fromDate = "2021-01-01";
+        String toDate = "2021-12-31";
+
+        //result = annualUsedRepository.findUsedCount(email, fromDate, toDate);
+
+        //System.out.println("사용한 연차: " + result);
+    }
+
 
     public double calculateAnnual(String joinDate) {
         double result = 0;
@@ -121,6 +153,15 @@ public class AnnualRepositoryTest {
 
     public String formatDate(Date date) {
         return new SimpleDateFormat("yyyy-MM-dd").format(date);
+    }
+
+    public Date stringToDate(String dateStr) {
+        try {
+            return new SimpleDateFormat("yyyy-MM-dd").parse(dateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public double between(String type, String fromDate, String toDate) {
