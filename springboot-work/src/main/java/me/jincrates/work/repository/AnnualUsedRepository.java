@@ -7,10 +7,8 @@ import org.springframework.data.repository.query.Param;
 
 public interface AnnualUsedRepository extends JpaRepository<AnnualUsed, String> {
 
-//    @Query(value = " SELECT SUM(u.used) "
-//                 + " FROM AnnualUsed u "
-//                 + " WHERE u.member = :email "
-//                 + " AND u.fromDate >= :fromDate "
-//                 + " AND u.toDate <= :toDate ")
-//    int findUsedCount(@Param("email") String email, @Param("fromDate") String fromDate, @Param("toDate") String toDate);
+    @Query(value = " SELECT SUM(u.used) "
+                 + " FROM AnnualUsed u "
+                 + " WHERE u.member = :email ")
+    double findUsedCount(@Param("email") String email);
 }

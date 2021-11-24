@@ -40,7 +40,7 @@ public class AnnualRepositoryTest {
 
             if (findMember.isPresent()) {
                 member = findMember.get();
-                double annual = calculateAnnual(member.getJoinDate());
+                double annual = calculate(member.getJoinDate());
 
                 Annual annualMember = Annual.builder()
                         .baseYear(2021L)
@@ -62,9 +62,9 @@ public class AnnualRepositoryTest {
         AnnualUsed annualUsed = AnnualUsed.builder()
                 .baseYear(2021L)
                 .member("user1@jincrates.me")
-                .used(2)
-                .usedFromDate(stringToDate("2021-11-24"))
-                .usedToDate(stringToDate("2021-11-26"))
+                .used(1.5)
+                .usedFromDate(convertToDate("2021-11-24"))
+                .usedToDate(convertToDate("2021-11-26"))
                 .reason("휴가")
                 .build();
 
@@ -75,16 +75,16 @@ public class AnnualRepositoryTest {
     public void findUsedCount() {
         double result = 0;
         String email = "user1@jincrates.me";
-        String fromDate = "2021-01-01";
-        String toDate = "2021-12-31";
+        //String fromDate = "2021-01-01";
+        //String toDate = "2021-12-31";
 
-        //result = annualUsedRepository.findUsedCount(email, fromDate, toDate);
+        result = annualUsedRepository.findUsedCount(email);
 
-        //System.out.println("사용한 연차: " + result);
+        System.out.println("사용한 연차: " + result);
     }
 
 
-    public double calculateAnnual(String joinDate) {
+    public double calculate(String joinDate) {
         double result = 0;
 
         //기준일자
@@ -155,7 +155,7 @@ public class AnnualRepositoryTest {
         return new SimpleDateFormat("yyyy-MM-dd").format(date);
     }
 
-    public Date stringToDate(String dateStr) {
+    public Date convertToDate(String dateStr) {
         try {
             return new SimpleDateFormat("yyyy-MM-dd").parse(dateStr);
         } catch (ParseException e) {

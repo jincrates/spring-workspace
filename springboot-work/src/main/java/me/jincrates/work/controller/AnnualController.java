@@ -3,6 +3,7 @@ package me.jincrates.work.controller;
 import lombok.extern.slf4j.Slf4j;
 import me.jincrates.work.entity.Annual;
 import me.jincrates.work.service.AnnualService;
+import me.jincrates.work.service.AnnualUsedService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,9 @@ public class AnnualController {
     @Autowired
     private AnnualService service;
 
+    @Autowired
+    private AnnualUsedService usedService;
+
     @GetMapping("")
     public String list(Model model) {
         List<Annual> annualList = service.findAll();
@@ -27,5 +31,9 @@ public class AnnualController {
 
         model.addAttribute("annualList", annualList);
         return "annual/annualList";
+    }
+
+    @GetMapping("/used")
+    public void findUsedCount() {
     }
 }
