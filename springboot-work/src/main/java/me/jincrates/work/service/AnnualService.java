@@ -25,16 +25,6 @@ public class AnnualService {
         return annualRepository.findAll();
     }
 
-//    public Annual findByEmail(String email) {
-//        Optional<Annual> annual = annualRepository.findByEmail(email);
-//
-//        if (annual.isEmpty()) {
-//            throw new RuntimeException(String.format("Email[%s] not found", email));
-//        }
-//
-//        return annual.get();
-//    }
-
     public Annual createAnnual(AnnualDTO annualDTO) {
         Optional<Member> member = memberRepository.findByEmail(annualDTO.getMember().getEmail());
 

@@ -75,10 +75,12 @@ public class AnnualRepositoryTest {
     public void findUsedCount() {
         double result = 0;
         String email = "user1@jincrates.me";
-        //String fromDate = "2021-01-01";
-        //String toDate = "2021-12-31";
 
-        result = annualUsedRepository.findUsedCount(email);
+        Optional<Double> findUsed = annualUsedRepository.findUsedCount(email);
+
+        if (findUsed.isPresent()) {
+            result = findUsed.get();
+        }
 
         System.out.println("사용한 연차: " + result);
     }

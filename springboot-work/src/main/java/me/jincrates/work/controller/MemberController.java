@@ -1,6 +1,6 @@
 package me.jincrates.work.controller;
 
-import me.jincrates.work.dto.PageRequestDTO;
+import me.jincrates.work.dto.MemberDTO;
 import me.jincrates.work.entity.Member;
 import me.jincrates.work.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +29,11 @@ public class MemberController {
     @GetMapping("/{email}")
     public Member findByEmail(@PathVariable("email") String email) {
         return service.findByEmail(email);
+    }
+
+    @GetMapping("/new")
+    public String createForm(Model model) {
+        model.addAttribute("createMember", new MemberDTO());
+        return "members/createMemberForm";
     }
 }
