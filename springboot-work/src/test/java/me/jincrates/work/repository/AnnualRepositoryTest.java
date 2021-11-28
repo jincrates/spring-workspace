@@ -83,12 +83,11 @@ public class AnnualRepositoryTest {
         System.out.println("사용한 연차: " + result);
     }
 
-
     public double calculate(String joinDate) {
         double result = 0;
 
         //기준일자
-        int year = 2021, month = 11, date = 21;
+        int year = 2021, month = 1, date = 1;
         String baseDate = formatDate(new Date(year - 1900, month - 1, date));
 
         //근속연수
@@ -96,37 +95,31 @@ public class AnnualRepositoryTest {
         double monthsBetween = between("MONTHS", joinDate, baseDate);
         double daysBetween = between("DAYS", joinDate, baseDate);
 
-        String yearFirstDate = joinDate.substring(0, 4) + "-01-01";  //입사연도 시작일
-        String yearLastDate = joinDate.substring(0, 4) + "-12-31";  //입사연도 종료일
-
-        // 입사연도의 한해 날짜수(윤년이 껴있는지 확인)
-        double leapYearBetween = between("DAYS", yearFirstDate, yearLastDate) + 1;
-        double workDaysBetween = between("DAYS", joinDate, yearLastDate);
-        double workMonthsBetween = between("MONTHS", joinDate, yearLastDate);
+        //비례연차 대상자: 기준일자의 연도보다 입사년도가 작은 경우(기준일 전녀도 입사자)
+        boolean isProportional = Integer.parseInt(joinDate.substring(0, 4)) < Integer.parseInt(baseDate.substring(0, 4));
 
         if (true) {
             // 회계년도 기준
-            if (monthsBetween < 24) {
-                if (monthsBetween < 12) {
-                    // 1년 미만 입사자 : 발생월차 계산(개정연차)
-                    result = monthsBetween;
-                } else {
-                    //비례연차(2년차 연차): 입사년 재직일수/365(윤년은 366))×15일 + 2년차 월차
-                    result = Math.round(workDaysBetween / leapYearBetween * 15) + (11 - workMonthsBetween);
+            if (daysBetween < 365) {
+                // 1년 미만 입사자 : 발생월차 계산(개정연차)
+                result = monthsBetween;
+
+                //비례연차 계산: 전년도 재직일수 / 365 * 15 + 발생월차
+                if (isProportional) {
+                    result = Math.floor(daysBetween / 365.0 * 15) + monthsBetween;
                 }
             } else {
-                // 2년차 이상 연차계산
-                result = 15 + (Math.round(monthsBetween / 12.0) + 1) / 2 - 1;
+                // 1년차 이상 연차계산: 최초발생연차 + (근속년수 - 1년) / 2 계산후 나머지는 버림
+                result = 15 + Math.floor((monthsBetween / 12.0 - 1) / 2.0);
             }
-
         } else {
             // 입사일 기준
-            if (monthsBetween < 12) {
+            if (daysBetween < 365) {
                 // 1년 미만 입사자 : 발생월차 계산(개정연차)
                 result = monthsBetween;
             } else {
-                // 2년차 이상 연차계산
-                result = 15 + (Math.round(daysBetween / 365.0) + 1) / 2 - 1;
+                // 1년차 이상 연차계산: 최초발생연차 + (근속년수 - 1년) / 2 계산후 나머지는 버림
+                result = 15 + Math.floor((monthsBetween / 12.0 - 1) / 2.0);
             }
         }
 
@@ -136,9 +129,6 @@ public class AnnualRepositoryTest {
         System.out.println("yearsBetween : " + yearsBetween);
         System.out.println("monthsBetween : " + monthsBetween);
         System.out.println("daysBetween : " + daysBetween);
-        System.out.println("workdaysBetween : " + workDaysBetween);
-        System.out.println("workMonthsBetween : " + workMonthsBetween);
-        System.out.println("leapYearBetween : " + leapYearBetween);
         System.out.println("=================================================");
         System.out.println("result : " + result);
         System.out.println("=================================================");
