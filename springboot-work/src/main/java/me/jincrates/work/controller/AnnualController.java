@@ -42,8 +42,13 @@ public class AnnualController {
     }
 
     @GetMapping("/used")
-    public void findUsedCount() {
+    public String usedList() {
+        return "annual/annualUsedList";
     }
 
-
+    @GetMapping("/setting")
+    public String setting(Model model) {
+        model.addAttribute("createMember", new MemberDTO());
+        return "annual/annualSetting";
+    }
 }
