@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<style>
+    .fieldError { border-color: #bd2130; }
+</style>
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <form role="form" action="/annual/new" th:object="${createAnnual}" method="post">
+        <div class="form-group">
+
+
+
+        </div>
+        <div class="form-group">
+            <label th:for="joinDate">입사일</label>
+            <input type="date" th:field="*{joinDate}" class="form-control"
+                   th:class="${#fields.hasErrors('joinDate')}? 'form-control fieldError' : 'form-control'">
+            <p th:if="${#fields.hasErrors('joinDate')}" th:errors="*{joinDate}">Incorrect data</p>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="button" class="btn btn-secondary" onclick="window.history.back();">Cancel</button>
+    </form>
+    <br/>
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+</html>

@@ -62,7 +62,7 @@ public class AnnualRepositoryTest {
         AnnualUsed annualUsed = AnnualUsed.builder()
                 .baseYear(2021L)
                 .member("user1@jincrates.me")
-                .used(1.5)
+                .used(2)
                 .usedFromDate(convertToDate("2021-11-24"))
                 .usedToDate(convertToDate("2021-11-26"))
                 .reason("휴가")

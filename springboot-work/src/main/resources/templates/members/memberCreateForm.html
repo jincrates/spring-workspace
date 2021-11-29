@@ -32,6 +32,12 @@
                    th:class="${#fields.hasErrors('name')}? 'form-control fieldError' : 'form-control'">
             <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Incorrect data</p>
         </div>
+        <div class="form-group">
+            <label th:for="joinDate">입사일</label>
+            <input type="date" th:field="*{joinDate}" class="form-control"
+                   th:class="${#fields.hasErrors('joinDate')}? 'form-control fieldError' : 'form-control'">
+            <p th:if="${#fields.hasErrors('joinDate')}" th:errors="*{joinDate}">Incorrect data</p>
+        </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>
         <button type="button" class="btn btn-secondary" onclick="window.history.back();">Cancel</button>
