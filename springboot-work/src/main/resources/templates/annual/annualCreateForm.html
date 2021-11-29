@@ -146,6 +146,10 @@
                 $("#modalTitle").val(info.event._def.title);
                 $("#modalStartDate").val(dateFormat(info.event._instance.range.start));
                 $("#modalEndDate").val(dateFormat(info.event._instance.range.end));
+            },
+            select: function(info) {
+                console.log(info);
+                alert('selected ' + info.startStr + ' to ' + info.endStr);
             }
         });
 
@@ -165,12 +169,12 @@
 </script>
 
 <script th:inline="javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         //모달창
         var modal = $('.modal');
 
         //object
-        $('#btnModal').click(function() {
+        $('#btnModal').click(function () {
             modal.modal('show');
         });
     });
