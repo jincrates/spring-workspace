@@ -37,12 +37,18 @@
                 </button>
             </div>
             <div class="modal-body">
+
                 <div class="form-group">
-                    <input class="form-control" type="text" name="replyText" placeholder="Reply Text...">
+                    <label th:for="title">일정</label>
+                    <input id="modalTitle" class="form-control" type="text" name="title" placeholder="일정을 입력하세요">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" name="replyer" placeholder="Replyer">
-                    <input type="hidden" name="rno">
+                    <label th:for="startDate">시작일</label>
+                    <input id="modalStartDate"  class="form-control" type="date" name="startDate">
+                </div>
+                <div class="form-group">
+                    <label th:for="endDate">종료일</label>
+                    <input id="modalEndDate"  class="form-control" type="date" name="endDate">
                 </div>
             </div>
             <div class="modal-footer">
@@ -54,6 +60,109 @@
         </div>
     </div>
 </div>
+
+<script th:inline="javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        var initialLocaleCode = 'ko';
+        var localeSelectorEl = document.getElementById('locale-selector');
+        var calendarEl = document.getElementById('calendar');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,dayGridWeek,dayGridDay'
+            },
+            initialView: 'dayGridMonth',  //첫화면 기본설정
+            themeSystem: 'bootstrap',  //테마
+            selectable: true,
+            locale: initialLocaleCode,  //다국어
+            buttonIcons: false, // show the prev/next text
+            weekNumbers: false,
+            navLinks: true, // can click day/week names to navigate views
+            editable: true,
+            dayMaxEvents: true, // allow "more" link when too many events
+            events: [
+                {
+                    title: 'All Day Event',
+                    start: '2021-12-01'
+                },
+                {
+                    title: 'Long Event',
+                    start: '2021-12-07',
+                    end: '2021-12-10'
+                },
+                {
+                    groupId: 999,
+                    title: 'Repeating Event',
+                    start: '2021-12-09T16:00:00'
+                },
+                {
+                    groupId: 999,
+                    title: 'Repeating Event',
+                    start: '2021-12-16T16:00:00'
+                },
+                {
+                    title: 'Conference',
+                    start: '2021-12-11',
+                    end: '2021-12-13'
+                },
+                {
+                    title: 'Meeting',
+                    start: '2021-12-12T10:30:00',
+                    end: '2021-12-12T12:30:00'
+                },
+                {
+                    title: 'Lunch',
+                    start: '2021-12-12T12:00:00'
+                },
+                {
+                    title: 'Meeting',
+                    start: '2021-12-12T14:30:00'
+                },
+                {
+                    title: 'Happy Hour',
+                    start: '2021-12-12T17:30:00'
+                },
+                {
+                    title: 'Dinner',
+                    start: '2021-12-12T20:00:00'
+                },
+                {
+                    title: 'Birthday Party',
+                    start: '2021-12-13T07:00:00'
+                },
+                {
+                    title: 'Click for Google',
+                    url: 'http://google.com/',
+                    start: '2021-12-28'
+                }
+            ],
+            eventClick: function(info) {
+                var modal = $('.modal');
+
+                modal.modal('show');
+
+                $("#modalTitle").val(info.event._def.title);
+                $("#modalStartDate").val(dateFormat(info.event._instance.range.start));
+                $("#modalEndDate").val(dateFormat(info.event._instance.range.end));
+            }
+        });
+
+        calendar.render();
+    });
+
+    function dateFormat(date) {
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+        let hour = date.getHours();
+
+        month = month >= 10 ? month : '0' + month;
+        day = day >= 10 ? day : '0' + day;
+
+        return date.getFullYear() + '-' + month + '-' + day;
+    }
+</script>
 
 <script th:inline="javascript">
     $(document).ready(function() {
