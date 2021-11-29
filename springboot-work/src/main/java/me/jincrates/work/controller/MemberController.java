@@ -32,8 +32,8 @@ public class MemberController {
     }
 
     @GetMapping("/new")
-    public String createForm(Model model) {
+    public String createMember(Model model) {
         model.addAttribute("createMember", new MemberDTO());
-        return "members/createMemberForm";
+        return "members/memberCreateForm";
     }
 }
