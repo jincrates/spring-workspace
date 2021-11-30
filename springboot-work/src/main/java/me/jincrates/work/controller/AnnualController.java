@@ -42,7 +42,9 @@ public class AnnualController {
 
     @GetMapping("/new")
     public String view(Model model) {
-        model.addAttribute("createAnnual", new AnnualDTO());
+        List<AnnualUsed> annualUsedList = usedService.findAll();
+
+        model.addAttribute("createAnnual", annualUsedList);
         return "annual/annualCreateForm";
     }
 

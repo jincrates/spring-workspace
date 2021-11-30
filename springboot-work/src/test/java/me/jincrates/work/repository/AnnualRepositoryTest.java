@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
@@ -84,6 +85,15 @@ public class AnnualRepositoryTest {
 
         System.out.println("사용한 연차: " + result);
     }
+
+    @Test
+    public void findUsedList() {
+        List<AnnualUsed> annuaUsedlList = annualUsedRepository.findAll();
+
+        System.out.println("사용한 연차 리스트===============================================");
+        System.out.println(annuaUsedlList);
+    }
+
 
     public double calculate(String joinDate) {
         double result = 0;
