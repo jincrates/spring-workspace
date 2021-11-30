@@ -1,6 +1,8 @@
 package me.jincrates.work.service;
 
 import lombok.RequiredArgsConstructor;
+import me.jincrates.work.dto.AnnualUsedDTO;
+import me.jincrates.work.entity.AnnualUsed;
 import me.jincrates.work.repository.AnnualUsedRepository;
 import me.jincrates.work.repository.MemberRepository;
 import org.springframework.stereotype.Service;
@@ -25,5 +27,25 @@ public class AnnualUsedService {
         }
 
         return result;
+    }
+
+    @Transactional
+    public AnnualUsed usedAnnual(AnnualUsedDTO usedDTO) {
+        return usedRepository.save(toEntity(usedDTO));
+    }
+
+
+    public AnnualUsed toEntity(AnnualUsedDTO dto) {
+
+        AnnualUsed entity = AnnualUsed.builder()
+                .baseYear(2021L)
+                .member("user1@jincrates.me")
+                .reason(dto.getReason())
+                .usedFromDate(dto.getUsedFromDate())
+                .usedToDate(dto.getUsedToDate())
+                .used(dto.getUsed())
+                .build();
+
+        return entity;
     }
 }

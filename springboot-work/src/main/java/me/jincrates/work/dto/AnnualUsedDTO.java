@@ -17,14 +17,11 @@ import java.util.Date;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AnnualUsedDTO {
 
-//    @NotNull
-//    private Long id;
-//
-//    @NotNull
-//    private Long baseYear;
-//
-//    @NotNull
-//    private Member member;
+    @NotNull
+    private Long baseYear;
+
+    @NotNull
+    private String member;
 
     @NotNull
     private double used;   //사용일수

@@ -19,6 +19,11 @@ import java.util.List;
 public class Member extends BaseTimeEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "member_id")
+    private Long id;
+
+    @Column(nullable = false, unique = true)
     private String email;  //이메일을 아이디로 사용
 
     @Column(nullable = false)

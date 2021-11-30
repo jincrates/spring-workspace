@@ -5,9 +5,11 @@ import me.jincrates.work.dto.AnnualDTO;
 import me.jincrates.work.dto.AnnualUsedDTO;
 import me.jincrates.work.dto.MemberDTO;
 import me.jincrates.work.entity.Annual;
+import me.jincrates.work.entity.AnnualUsed;
 import me.jincrates.work.service.AnnualService;
 import me.jincrates.work.service.AnnualUsedService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,8 +47,13 @@ public class AnnualController {
     }
 
     @PostMapping("/new")
-    public void create(@RequestBody AnnualUsedDTO annualUsedDTO) {
+    public ResponseEntity<AnnualUsed> usedAnnual(@RequestBody AnnualUsedDTO annualUsedDTO) {
+        AnnualUsed result = usedService.usedAnnual(annualUsedDTO);
+
         log.info(annualUsedDTO.toString());
+        log.info(result.toString());
+
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping("/used")
