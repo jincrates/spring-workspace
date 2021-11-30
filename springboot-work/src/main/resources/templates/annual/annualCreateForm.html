@@ -40,22 +40,26 @@
 
                 <div class="form-group">
                     <label th:for="title">일정</label>
-                    <input id="modalTitle" class="form-control" type="text" name="title" placeholder="일정을 입력하세요">
+                    <input class="form-control modalTitle" type="text" name="title" placeholder="일정을 입력하세요">
                 </div>
                 <div class="form-group">
                     <label th:for="startDate">시작일</label>
-                    <input id="modalStartDate"  class="form-control" type="date" name="startDate">
+                    <input class="form-control modalStartDate" type="date" name="startDate">
                 </div>
                 <div class="form-group">
                     <label th:for="endDate">종료일</label>
-                    <input id="modalEndDate"  class="form-control" type="date" name="endDate">
+                    <input class="form-control modalEndDate" type="date" name="endDate">
+                </div>
+                <div class="form-group">
+                    <label th:for="usedDays">사용일수</label>
+                    <input class="form-control modalUsedDays" type="number" name="usedDays" readonly>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger replyRemove">Remove</button>
-                <button type="button" class="btn btn-warning replyModify">Modify</button>
-                <button type="button" class="btn btn-primary replySave">Save</button>
-                <button type="button" class="btn btn-outline-secondary replyClose" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger btnRemove">Remove</button>
+                <button type="button" class="btn btn-warning btnModify">Modify</button>
+                <button type="button" class="btn btn-primary btnSave">Save</button>
+                <button type="button" class="btn btn-outline-secondary btnClose" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -63,6 +67,8 @@
 
 <script th:inline="javascript">
     document.addEventListener('DOMContentLoaded', function () {
+        var modal = $('.modal');
+
         var initialLocaleCode = 'ko';
         var localeSelectorEl = document.getElementById('locale-selector');
         var calendarEl = document.getElementById('calendar');
@@ -139,32 +145,44 @@
                 }
             ],
             eventClick: function(info) {
-                var modal = $('.modal');
-
                 modal.modal('show');
 
-                $("#modalTitle").val(info.event._def.title);
-                $("#modalStartDate").val(dateFormat(info.event._instance.range.start));
-                $("#modalEndDate").val(dateFormat(info.event._instance.range.end));
+                $(".modalTitle").val(info.event._def.title);
+                $(".modalStartDate").val(dateFormat(info.event._instance.range.start, 0));
+                $(".modalEndDate").val(dateFormat(info.event._instance.range.end, -1));
             },
             select: function(info) {
-                console.log(info);
-                alert('selected ' + info.startStr + ' to ' + info.endStr);
+                modal.modal('show');
+
+                $(".modalStartDate").val(dateFormat(info.start, 0));
+                $(".modalEndDate").val(dateFormat(info.end, -1));
+                $(".modalUsedDays").val(between(info.start, info.end));
             }
         });
 
         calendar.render();
     });
 
-    function dateFormat(date) {
-        let month = date.getMonth() + 1;
-        let day = date.getDate();
-        let hour = date.getHours();
+    function dateFormat(date, days) {
+        var result = new Date(date);
+        result.setDate(result.getDate() + days);
+
+        let month = result.getMonth() + 1;
+        let day = result.getDate();
+        let hour = result.getHours();
 
         month = month >= 10 ? month : '0' + month;
         day = day >= 10 ? day : '0' + day;
 
-        return date.getFullYear() + '-' + month + '-' + day;
+        return result.getFullYear() + '-' + month + '-' + day;
+    }
+
+    function between(startDate, endDate) {
+        var sDate = new Date(startDate);
+        var eDate = new Date(endDate);
+        var btMs = eDate.getTime() - sDate.getTime();
+
+        return btMs / (24 * 60 * 60 * 1000);
     }
 </script>
 
@@ -176,6 +194,19 @@
         //object
         $('#btnModal').click(function () {
             modal.modal('show');
+        });
+
+        //시작일, 종료일 변경 이벤트
+        $("#modalStartDate, #modalEndDate").change(function() {
+            var start = $(".modalStartDate").val();
+            var end = $(".modalEndDate").val();
+
+            $(".modalUsedDays").val(between(start, end) + 1);
+        });
+
+        //모달 Save 버튼
+        $('.btnSave').click(function() {
+            alert('save');
         });
     });
 </script>
