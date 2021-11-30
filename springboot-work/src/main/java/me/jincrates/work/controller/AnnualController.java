@@ -2,6 +2,7 @@ package me.jincrates.work.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import me.jincrates.work.dto.AnnualDTO;
+import me.jincrates.work.dto.AnnualUsedDTO;
 import me.jincrates.work.dto.MemberDTO;
 import me.jincrates.work.entity.Annual;
 import me.jincrates.work.service.AnnualService;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -36,9 +39,14 @@ public class AnnualController {
     }
 
     @GetMapping("/new")
-    public String createAnnual(Model model) {
+    public String view(Model model) {
         model.addAttribute("createAnnual", new AnnualDTO());
         return "annual/annualCreateForm";
+    }
+
+    @PostMapping("/new")
+    public void create(@RequestBody AnnualUsedDTO annualUsedDTO) {
+        log.info(annualUsedDTO.toString());
     }
 
     @GetMapping("/used")
