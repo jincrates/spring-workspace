@@ -43,8 +43,8 @@ public class AnnualController {
     @GetMapping("/new")
     public String view(Model model) {
         List<AnnualUsed> annualUsedList = usedService.findAll();
-
         model.addAttribute("createAnnual", annualUsedList);
+
         return "annual/annualCreateForm";
     }
 
@@ -59,7 +59,10 @@ public class AnnualController {
     }
 
     @GetMapping("/used")
-    public String usedList() {
+    public String usedList(Model model) {
+        List<AnnualUsed> annualUsedList = usedService.findAll();
+        model.addAttribute("annualUsedList", annualUsedList);
+
         return "annual/annualUsedList";
     }
 

@@ -10,22 +10,20 @@
             <tr>
                 <th>기준연도</th>
                 <th>사용자</th>
-                <th>입사일자</th>
-                <th>발생연차</th>
-                <th>발생월차</th>
-                <th>조정일수</th>
                 <th>사용일수</th>
+                <th>시작일</th>
+                <th>종료일</th>
+                <th>사유</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="annual : ${annualList}">
+            <tr th:each="annual : ${annualUsedList}">
                 <td th:text="${annual.baseYear}"></td>
-                <td th:text="${annual.member.email}"></td>
-                <td th:text="${annual.joinDate}"></td>
-                <td th:text="${annual.annual}"></td>
-                <td th:text="${annual.month}"></td>
-                <td th:text="${annual.adjusted}"></td>
+                <td th:text="${annual.member}"></td>
                 <td th:text="${annual.used}"></td>
+                <td th:text="${annual.usedFromDate}"></td>
+                <td th:text="${annual.usedToDate}"></td>
+                <td th:text="${annual.reason}"></td>
             </tr>
             </tbody>
         </table>
