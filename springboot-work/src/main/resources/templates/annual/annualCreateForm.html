@@ -60,6 +60,8 @@
 
 <script th:inline="javascript">
     document.addEventListener('DOMContentLoaded', function () {
+        getList();
+
         var modal = $('.modal');
 
         var initialLocaleCode = 'ko';
@@ -178,6 +180,20 @@
 
         return btMs / (24 * 60 * 60 * 1000);
     }
+
+    //사용한 일정 리스트 조회
+    function getList() {
+         $.ajax({
+                url: '/annual/new/json',
+                method: 'get',
+                //data: JSON.stringify(''),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function(data) {
+                    console.log(data);
+                }
+        });
+    }
 </script>
 
 <script th:inline="javascript">
@@ -206,7 +222,6 @@
                 usedToDate: $('input[name="endDate"]').val(),
                 used: $('input[name="usedDays"]').val(),
             }
-            console.log(annual);
 
             $.ajax({
                 url: '/annual/new',
