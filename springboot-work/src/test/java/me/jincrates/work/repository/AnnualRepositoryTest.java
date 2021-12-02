@@ -94,6 +94,12 @@ public class AnnualRepositoryTest {
         System.out.println(annuaUsedlList);
     }
 
+    @Test
+    public void removeUsed() {
+        Long usedId = 1L;
+
+        annualUsedRepository.deleteById(usedId);
+    }
 
     public double calculate(String joinDate) {
         double result = 0;
