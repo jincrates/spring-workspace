@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -63,10 +64,12 @@ public class AnnualController {
 
         //usedList에서 필요한 데이터만 calendarList에 담기
         for (AnnualUsed annualUsed : usedList) {
+            Date endAdd = new Date(annualUsed.getUsedToDate().getTime() + (1000 * 60 * 60 * 24));
+
             CalendarDTO calendarDTO = CalendarDTO.builder()
                     .title(annualUsed.getReason())
                     .start(annualUsed.getUsedFromDate())
-                    .end(annualUsed.getUsedToDate())
+                    .end(endAdd)
                     .build();
             calendarList.add(calendarDTO);
         }
