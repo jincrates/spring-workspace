@@ -60,7 +60,8 @@
 
 <script th:inline="javascript">
     document.addEventListener('DOMContentLoaded', function () {
-        getList();
+        var result = getList();
+        console.log(result);
 
         var modal = $('.modal');
 
@@ -183,16 +184,19 @@
 
     //사용한 일정 리스트 조회
     function getList() {
-         $.ajax({
+        var result = "";
+        $.ajax({
+                method: 'GET',
                 url: '/annual/new/json',
-                method: 'get',
-                //data: JSON.stringify(''),
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
+                async: false,
                 success: function(data) {
-                    console.log(data);
+                    result = data;
                 }
         });
+
+        return result;
     }
 </script>
 

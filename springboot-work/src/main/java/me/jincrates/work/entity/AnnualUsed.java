@@ -1,5 +1,6 @@
 package me.jincrates.work.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.*;
@@ -28,9 +29,11 @@ public class AnnualUsed extends BaseTimeEntity {
     private double used;   //사용일수
 
     @Column(nullable = false)
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date usedFromDate;  //사용 시작일
 
     @Column(nullable = false)
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date usedToDate;  //사용 종료일
 
     @Column(nullable = false)
