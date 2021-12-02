@@ -10,6 +10,8 @@ import java.util.Date;
 @Builder
 public class CalendarDTO {
 
+    private Long usedId;
+
     private String title;
 
     @JsonFormat(pattern="yyyy-MM-dd")

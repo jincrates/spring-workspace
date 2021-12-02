@@ -31,13 +31,18 @@ public class AnnualUsedService {
         return result;
     }
 
+    public List<AnnualUsed> findAll() {
+        return usedRepository.findAll();
+    }
+
     @Transactional
     public AnnualUsed usedAnnual(AnnualUsedDTO usedDTO) {
         return usedRepository.save(toEntity(usedDTO));
     }
 
-    public List<AnnualUsed> findAll() {
-        return usedRepository.findAll();
+    @Transactional
+    public void remove(Long usedId) {
+        usedRepository.deleteById(usedId);
     }
 
     public AnnualUsed toEntity(AnnualUsedDTO dto) {

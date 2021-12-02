@@ -11,13 +11,11 @@ import me.jincrates.work.service.AnnualService;
 import me.jincrates.work.service.AnnualUsedService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -67,6 +65,7 @@ public class AnnualController {
             Date endAdd = new Date(annualUsed.getUsedToDate().getTime() + (1000 * 60 * 60 * 24));
 
             CalendarDTO calendarDTO = CalendarDTO.builder()
+                    .usedId(annualUsed.getId())
                     .title(annualUsed.getReason())
                     .start(annualUsed.getUsedFromDate())
                     .end(endAdd)
@@ -90,6 +89,13 @@ public class AnnualController {
         model.addAttribute("annualUsedList", annualUsedList);
 
         return "annual/annualUsedList";
+    }
+
+    @DeleteMapping(value = "/used/{id}", produces = MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity<String> removeUsed(@PathVariable("id") Long id) {
+        usedService.remove(id);
+
+        return new ResponseEntity<>("removed", HttpStatus.OK);
     }
 
     @GetMapping("/setting")
