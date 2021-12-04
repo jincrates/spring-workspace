@@ -77,8 +77,8 @@ public class AnnualController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<AnnualUsed> usedAnnual(@RequestBody AnnualUsedDTO annualUsedDTO) {
-        AnnualUsed result = usedService.usedAnnual(annualUsedDTO);
+    public ResponseEntity<AnnualUsed> usedAnnual(@RequestBody AnnualUsedDTO request) {
+        AnnualUsed result = usedService.usedAnnual(request);
 
         return ResponseEntity.ok(result);
     }
@@ -97,6 +97,14 @@ public class AnnualController {
 
         return new ResponseEntity<>("removed", HttpStatus.OK);
     }
+
+    @PutMapping(value = "/used/{id}", produces = MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity<String> modifyUsed(@PathVariable("id") Long id, @RequestBody AnnualUsedDTO request) {
+        usedService.update(id, request);
+
+        return new ResponseEntity<>("modify", HttpStatus.OK);
+    }
+
 
     @GetMapping("/setting")
     public String setting(Model model) {

@@ -46,11 +46,8 @@ public class AnnualUsedService {
     }
 
     @Transactional
-    public void update(Long usedId) {
-        AnnualUsed annualUsed = usedRepository.getById(usedId);
-
-
-
+    public void update(Long usedId, AnnualUsedDTO usedDTO) {
+        usedRepository.update(usedId, usedDTO.getReason(), usedDTO.getUsed(), usedDTO.getUsedFromDate(), usedDTO.getUsedToDate());
     }
 
     public AnnualUsed toEntity(AnnualUsedDTO dto) {

@@ -12,8 +12,6 @@
 
     <form role="form" action="/annual/new" th:object="${createAnnual}" method="post">
         <button type="button" class="btn btn-primary" id="btnModal">modal</button>
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <button type="button" class="btn btn-secondary" onclick="window.history.back();">Cancel</button>
     </form>
     <br/>
     <div th:replace="fragments/footer :: footer" />
@@ -61,6 +59,7 @@
 
 <script th:inline="javascript">
     document.addEventListener('DOMContentLoaded', function () {
+        //모달창
         var modal = $('.modal');
 
         var initialLocaleCode = 'ko';
@@ -117,9 +116,9 @@
         var result = new Date(date);
         result.setDate(result.getDate() + days);
 
-        let month = result.getMonth() + 1;
-        let day = result.getDate();
-        let hour = result.getHours();
+        var month = result.getMonth() + 1;
+        var day = result.getDate();
+        var hour = result.getHours();
 
         month = month >= 10 ? month : '0' + month;
         day = day >= 10 ? day : '0' + day;
@@ -151,6 +150,25 @@
 
         return result;
     }
+
+    //ajax 사용 method
+    function ajax(method, url, data) {
+        var result = new Object();
+
+        $.ajax({
+            method: method,
+            url: url,
+            data: JSON.stringify(data),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            async: false,
+            complete: function(xhr) {
+                result = xhr;
+            }
+        });
+
+        return result;
+    }
 </script>
 
 <script th:inline="javascript">
@@ -173,61 +191,54 @@
 
         //모달 Save 버튼
         $('.btnSave').click(function() {
-            var dataJson = {
+            var data = {
                 reason: $('input[name="reason"]').val(),
                 usedFromDate: $('input[name="startDate"]').val(),
                 usedToDate: $('input[name="endDate"]').val(),
                 used: $('input[name="usedDays"]').val(),
             }
 
-            $.ajax({
-                method: 'POST',
-                url: '/annual/new',
-                data: JSON.stringify(dataJson),
-                contentType: 'application/json; charset=utf-8',
-                dataType: 'json',
-                success: function(data) {
-                    modal.modal('hide');
-                }
-            });
+            var result = ajax('POST', '/annual/new', data);
+
+            if(result.status === 200) {
+                alert(result.responseText);
+                $('.modal').modal('hide');
+                location.href = "/annual/new/";
+            }
         });
 
         //모달 Remove 버튼
         $('.btnRemove').click(function() {
             var id = $('input[name="usedId"]').val();
 
-            $.ajax({
-                method: 'DELETE',
-                url: '/annual/used/' + id,
-                contentType: 'application/json; charset=utf-8',
-                dataType: 'json',
-                success: function(data) {
-                    modal.modal('hide');
-                }
-            });
+            var result = ajax('DELETE', '/annual/used/' + id, "");
+            console.log(result);
+
+            if(result.status === 200) {
+                alert(result.responseText);
+                $('.modal').modal('hide');
+                location.href = "/annual/new/";
+            }
         });
 
         //모달 Modify 버튼
         $('.btnModify').click(function() {
             var id = $('input[name="usedId"]').val();
-            var dataJson = {
-                id: $('input[name="usedId"]').val(),
+
+            var data = {
                 reason: $('input[name="reason"]').val(),
                 usedFromDate: $('input[name="startDate"]').val(),
                 usedToDate: $('input[name="endDate"]').val(),
                 used: $('input[name="usedDays"]').val(),
             }
 
-            $.ajax({
-                method: 'PUT',
-                url: '/annual/used/' + id,
-                data: JSON.stringify(dataJson),
-                contentType: 'application/json; charset=utf-8',
-                dataType: 'json',
-                success: function(data) {
-                    modal.modal('hide');
-                }
-            });
+            var result = ajax('PUT', '/annual/used/' + id, data);
+
+            if(result.status === 200) {
+                alert(result.responseText);
+                $('.modal').modal('hide');
+                location.href = "/annual/new/";
+            }
         });
 
     });

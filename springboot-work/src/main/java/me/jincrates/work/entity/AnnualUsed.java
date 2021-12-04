@@ -2,6 +2,7 @@ package me.jincrates.work.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -11,6 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@DynamicUpdate // 변경한 필드만 대응
 @Entity
 public class AnnualUsed extends BaseTimeEntity {
 
@@ -38,4 +40,11 @@ public class AnnualUsed extends BaseTimeEntity {
 
     @Column(nullable = false)
     private String reason;  //사유
+
+    public void change(String reason, double used, Date usedFromDate, Date usedToDate) {
+        this.reason = reason;
+        this.used = used;
+        this.usedFromDate = usedFromDate;
+        this.usedToDate = usedToDate;
+    }
 }

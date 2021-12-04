@@ -85,11 +85,17 @@ public class AnnualRepositoryTest {
     public void modifyUsed() {
         Long usedId = 9L;
         AnnualUsed finded = annualUsedRepository.getById(usedId);
+        finded.change("테스트-수정", 3.0, convertToDate("2021-12-12"), convertToDate("2021-12-15"));
 
+        int result = annualUsedRepository.update(finded.getId(),
+                                                 finded.getReason(),
+                                                 finded.getUsed(),
+                                                 finded.getUsedFromDate(),
+                                                 finded.getUsedToDate());
 
+        AnnualUsed updated = annualUsedRepository.getById(usedId);
 
-
-        System.out.println(finded.toString());
+        System.out.println(updated);
     }
 
     @Test
