@@ -45,6 +45,14 @@ public class AnnualUsedService {
         usedRepository.deleteById(usedId);
     }
 
+    @Transactional
+    public void update(Long usedId) {
+        AnnualUsed annualUsed = usedRepository.getById(usedId);
+
+
+
+    }
+
     public AnnualUsed toEntity(AnnualUsedDTO dto) {
         AnnualUsed entity = AnnualUsed.builder()
                 .baseYear(2021L)

@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.transaction.Transactional;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -59,17 +60,36 @@ public class AnnualRepositoryTest {
     }
 
     @Test
-    public void usedAnnual() {
+    public void saveUsed() {
         AnnualUsed annualUsed = AnnualUsed.builder()
                 .baseYear(2021L)
                 .member("user1@jincrates.me")
-                .used(2)
-                .usedFromDate(convertToDate("2021-11-24"))
-                .usedToDate(convertToDate("2021-11-26"))
-                .reason("휴가")
+                .used(3)
+                .usedFromDate(convertToDate("2021-12-01"))
+                .usedToDate(convertToDate("2021-12-03"))
+                .reason("테스트")
                 .build();
 
         annualUsedRepository.save(annualUsed);
+    }
+
+    @Test
+    public void removeUsed() {
+        Long usedId = 1L;
+
+        annualUsedRepository.deleteById(usedId);
+    }
+
+    @Test
+    @Transactional
+    public void modifyUsed() {
+        Long usedId = 9L;
+        AnnualUsed finded = annualUsedRepository.getById(usedId);
+
+
+
+
+        System.out.println(finded.toString());
     }
 
     @Test
@@ -94,12 +114,7 @@ public class AnnualRepositoryTest {
         System.out.println(annuaUsedlList);
     }
 
-    @Test
-    public void removeUsed() {
-        Long usedId = 1L;
 
-        annualUsedRepository.deleteById(usedId);
-    }
 
     public double calculate(String joinDate) {
         double result = 0;

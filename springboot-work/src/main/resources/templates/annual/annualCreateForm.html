@@ -86,7 +86,6 @@
             eventClick: function(info) {
                 modal.modal('show');
 
-                console.log(info);
                 $(".modalId").val(info.event._def.extendedProps.usedId);
                 $(".modalTitle").val(info.event._def.title);
                 $(".modalStartDate").val(dateFormat(info.event._instance.range.start, 0));
@@ -100,7 +99,15 @@
                 $(".modalStartDate").val(dateFormat(info.start, 0));
                 $(".modalEndDate").val(dateFormat(info.end, -1));
                 $(".modalUsedDays").val(between(info.start, info.end));
-            }
+            },
+            eventDragStop: function(info) {
+                console.log(info);
+                alert('dropped!');
+            },
+            eventResizeStop: function(info) {
+                console.log(info);
+                alert('resized!');
+            },
         });
 
         calendar.render();
@@ -199,6 +206,30 @@
                 }
             });
         });
+
+        //모달 Modify 버튼
+        $('.btnModify').click(function() {
+            var id = $('input[name="usedId"]').val();
+            var dataJson = {
+                id: $('input[name="usedId"]').val(),
+                reason: $('input[name="reason"]').val(),
+                usedFromDate: $('input[name="startDate"]').val(),
+                usedToDate: $('input[name="endDate"]').val(),
+                used: $('input[name="usedDays"]').val(),
+            }
+
+            $.ajax({
+                method: 'PUT',
+                url: '/annual/used/' + id,
+                data: JSON.stringify(dataJson),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function(data) {
+                    modal.modal('hide');
+                }
+            });
+        });
+
     });
 </script>
 </body>
