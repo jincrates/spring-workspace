@@ -8,12 +8,8 @@
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
 
-    <div id='calendar'></div>
+    <div id='calendar' class="my-5"></div>
 
-    <form role="form" action="/annual/new" th:object="${createAnnual}" method="post">
-        <button type="button" class="btn btn-primary" id="btnModal">modal</button>
-    </form>
-    <br/>
     <div th:replace="fragments/footer :: footer" />
 </div> <!-- /container -->
 
@@ -99,13 +95,13 @@
                 $(".modalEndDate").val(dateFormat(info.end, -1));
                 $(".modalUsedDays").val(between(info.start, info.end));
             },
-            eventDragStop: function(info) {
-                console.log(info);
-                alert('dropped!');
+            eventDrop: function(info) {
+                setInfoData(info);
+                $('.btnModify').click();
             },
-            eventResizeStop: function(info) {
-                console.log(info);
-                alert('resized!');
+            eventResize: function(info) {
+                setInfoData(info);
+                $('.btnModify').click();
             },
         });
 
@@ -132,6 +128,14 @@
         var btMs = eDate.getTime() - sDate.getTime();
 
         return btMs / (24 * 60 * 60 * 1000);
+    }
+
+    function setInfoData(info) {
+        $(".modalId").val(info.event._def.extendedProps.usedId);
+        $(".modalTitle").val(info.event._def.title);
+        $(".modalStartDate").val(dateFormat(info.event._instance.range.start, 0));
+        $(".modalEndDate").val(dateFormat(info.event._instance.range.end, -1));
+        $(".modalUsedDays").val(between(info.event._instance.range.start, info.event._instance.range.end));
     }
 
     //사용한 일정 리스트 조회
@@ -203,7 +207,7 @@
             if(result.status === 200) {
                 alert(result.responseText);
                 $('.modal').modal('hide');
-                location.href = "/annual/new/";
+                location.reload();
             }
         });
 
@@ -217,7 +221,7 @@
             if(result.status === 200) {
                 alert(result.responseText);
                 $('.modal').modal('hide');
-                location.href = "/annual/new/";
+                location.reload();
             }
         });
 
@@ -237,7 +241,7 @@
             if(result.status === 200) {
                 alert(result.responseText);
                 $('.modal').modal('hide');
-                location.href = "/annual/new/";
+                location.reload();
             }
         });
 
