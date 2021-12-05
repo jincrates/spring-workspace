@@ -36,4 +36,6 @@ public class MemberController {
         model.addAttribute("createMember", new MemberDTO());
         return "members/memberCreateForm";
     }
+
+
 }
