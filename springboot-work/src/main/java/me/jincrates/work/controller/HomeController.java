@@ -13,4 +13,10 @@ public class HomeController {
         log.info("home controller");
         return "home";
     }
+
+    @RequestMapping("/signin")
+    public String signin() {
+        log.info("home controller");
+        return "/login/signin";
+    }
 }
