@@ -453,6 +453,11 @@
                 opacity: 0;
             }
         }
+
+        input[type=date]:invalid::-webkit-datetime-edit-text        { display: none; }
+        input[type=date]:invalid::-webkit-datetime-edit-month-field { display: none; }
+        input[type=date]:invalid::-webkit-datetime-edit-day-field   { display: none; }
+        input[type=date]:invalid::-webkit-datetime-edit-year-field  { display: none; }
     </style>
 
     <script>
@@ -511,12 +516,14 @@
                 <div class="bar"></div>
             </div>
             <div class="input-container">
-                <input type="text" id="up-name" required="required">
+                <input type="text" id="up-name" required="required" min="2">
                 <label for="up-name">이름</label>
                 <div class="bar"></div>
             </div>
             <div class="input-container">
                 <input type="date" id="up-joindate" required="required">
+                <!--<input type="text" id="up-joindate" required="required" placeholder="YYYY.MM.DD" onfocus="(this.type='date')" onblur="(this.type='text')">-->
+                <!--<input type="text" id="up-joindate" required="required" maxlength="10" onkeyup="insertHyphen(this)">-->
                 <label for="up-joindate">입사일</label>
                 <div class="bar"></div>
             </div>
@@ -537,6 +544,54 @@
     $('.close').on('click', function () {
         $('.container').stop().removeClass('active');
     });
+
+    $('#up-joindate').focus(function () {
+        $(this).attr('placeholder', 'YYYY-MM-DD');
+    });
+    $('#up-joindate').blur(function () {
+        $(this).attr('placeholder', '');
+    });
+
+     function insertHyphen(obj) {
+        // DELETE 키버튼이 눌리지 않은 경우에만 실행
+        if(event.keyCode != 8) {
+            // 숫자와 하이픈(-)기호의 값만 존재하는 경우 실행
+            if(obj.value.replace(/[0-9 \-]/g, "").length == 0) {
+                // 하이픈(-)기호를 제거한다.
+                let number = obj.value.replace(/[^0-9]/g,"");
+                let ymd = "";
+
+                // 문자열의 길이에 따라 Year, Month, Day 앞에 하이픈(-)기호를 삽입한다.
+                if(number.length < 4) {
+                    return number;
+                } else if(number.length < 6){
+                    ymd += number.substr(0, 4);
+                    ymd += "-";
+                    ymd += number.substr(4);
+                } else {
+                    ymd += number.substr(0, 4);
+                    ymd += "-";
+                    ymd += number.substr(4, 2);
+                    ymd += "-";
+                    ymd += number.substr(6);
+                }
+
+                obj.value = ymd;
+
+            } else {
+                alert("숫자 이외의 값은 입력하실 수 없습니다.");
+
+                //숫자와 하이픈(-)기호 이외의 모든 값은 삭제한다.
+                obj.value = obj.value.replace(/[^0-9 ^\-]/g,"");
+
+                return false;
+            }
+
+        } else {
+            return false;
+        }
+    }
+
 </script>
 
 </body>
