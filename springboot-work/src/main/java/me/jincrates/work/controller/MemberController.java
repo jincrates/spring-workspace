@@ -3,6 +3,7 @@ package me.jincrates.work.controller;
 import me.jincrates.work.dto.MemberDTO;
 import me.jincrates.work.dto.ResponseDTO;
 import me.jincrates.work.entity.Member;
+import me.jincrates.work.security.TokenProvider;
 import me.jincrates.work.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,9 @@ public class MemberController {
 
     @Autowired
     private MemberService service;
+
+    @Autowired
+    private TokenProvider tokenProvider;
 
     @GetMapping("")
     public String list(Model model) {
@@ -71,9 +75,15 @@ public class MemberController {
         Member member = service.getByCredentials(memberDTO.getEmail(), memberDTO.getPassword());
 
         if (member != null) {
+            String token = tokenProvider.create(member);
+
             MemberDTO responseMemberDTO = MemberDTO.builder()
-                    .email(member.getEmail())
                     .id(member.getId())
+                    .token(token)
+                    .email(member.getEmail())
+                    .password(member.getPassword())
+                    .username(member.getUsername())
+                    .joinDate(member.getJoinDate())
                     .build();
 
             return ResponseEntity.ok().body(responseMemberDTO);
