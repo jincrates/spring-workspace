@@ -27,9 +27,9 @@ public class MemberRepositoryTest {
             Member member = Member.builder()
                     .email("user" + i + "@jincrates.me")
                     .password("1111")
-                    .name("USER" + i)
+                    .username("USER" + i)
                     .joinDate(between("2001-01-01", "2021-12-31"))
-                    .role(Role.USER)
+                    //.role(Role.USER)
                     .status("Y")
                     .build();
 
