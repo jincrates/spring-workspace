@@ -23,6 +23,9 @@ public class Member extends BaseTimeEntity {
     @Column(name = "member_id")
     private Long id;
 
+    @Column(nullable = false)
+    private String username;  //이름
+
     @Column(nullable = false, unique = true)
     private String email;  //이메일을 아이디로 사용
 
@@ -30,17 +33,10 @@ public class Member extends BaseTimeEntity {
     private String password;  //패스워드
 
     @Column(nullable = false)
-    private String name;  //이름
-
-    @Column(nullable = false)
     private String joinDate; //입사일
 
     @Column(nullable = false)
     private String status;  //상태(Y: 사용, N: 미사용)
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Role role;
 
 //    @OneToMany(mappedBy = "member")
 //    private List<Annual> annual = new ArrayList<>();

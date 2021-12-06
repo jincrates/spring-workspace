@@ -26,9 +26,9 @@ public class AnnualService {
     }
 
     public Annual createAnnual(AnnualDTO annualDTO) {
-        Optional<Member> member = memberRepository.findByEmail(annualDTO.getMember().getEmail());
+        Member member = memberRepository.findByEmail(annualDTO.getMember().getEmail());
 
-        if (member.isEmpty()) {
+        if (member == null) {
             throw new RuntimeException("없는 사용자입니다.");
         }
 
@@ -38,7 +38,7 @@ public class AnnualService {
     }
 
     public Annual toEntity(AnnualDTO dto) {
-        Member member = memberRepository.findByEmail(dto.getMember().getEmail()).orElse(null);
+        Member member = memberRepository.findByEmail(dto.getMember().getEmail());
 
         Annual entity = Annual.builder()
                 .baseYear(dto.getBaseYear())

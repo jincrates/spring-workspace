@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Slf4j
 @Controller
-public class AuthController {
+public class HomeController {
 
     @RequestMapping("/")
     public String home() {
@@ -19,6 +19,4 @@ public class AuthController {
         log.info("home controller");
         return "/login/signin";
     }
-
-
 }

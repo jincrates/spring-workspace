@@ -14,16 +14,10 @@ import me.jincrates.work.entity.Member;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class MemberDTO {
-
-    @NotNull
+    private Long id;
+    private String token;
+    private String username;
     private String email;
-
-    @NotNull
     private String password;
-
-    @NotNull
-    private String name;
-
-    @NotNull
     private String joinDate;
 }
