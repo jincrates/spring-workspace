@@ -14,9 +14,9 @@ public class HomeController {
         return "home";
     }
 
-    @RequestMapping("/signin")
-    public String signin() {
+    @RequestMapping("/login")
+    public String login() {
         log.info("home controller");
-        return "/login/signin";
+        return "/login/login";
     }
 }
