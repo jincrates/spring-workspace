@@ -27,18 +27,17 @@ public class AnnualServiceTest {
 
     @Test
     public void createAnnual() {
-        Optional<Member> findMember = memberRepository.findByEmail("user1@jincrates.me");
-        Member member = new Member();
+        Member findMember = memberRepository.findByEmail("user1@jincrates.me");
 
-        if (findMember.isPresent()) {
-            member = findMember.get();
+        if (findMember == null) {
+            return;
         }
 
         AnnualDTO annualDTO = AnnualDTO.builder()
                 .baseYear(2021L)
-                .member(member)
-                .joinDate(member.getJoinDate())
-                .annual(calculateAnnual(member.getJoinDate()))
+                .member(findMember)
+                .joinDate(findMember.getJoinDate())
+                .annual(calculateAnnual(findMember.getJoinDate()))
                 .month(0)
                 .adjusted(0)
                 .used(0)

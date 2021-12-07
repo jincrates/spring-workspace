@@ -11,16 +11,14 @@
                 <th>이름</th>
                 <th>이메일</th>
                 <th>입사일</th>
-                <th>권한</th>
                 <th>상태</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="member : ${members}">
-                <td th:text="${member.name}"></td>
+                <td th:text="${member.username}"></td>
                 <td th:text="${member.email}"></td>
                 <td th:text="${member.joinDate}"></td>
-                <td th:text="${member.role}"></td>
                 <td th:text="${member.status}"></td>
             </tr>
             </tbody>

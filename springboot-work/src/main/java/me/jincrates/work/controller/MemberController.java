@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/members")
+@RequestMapping("")
 public class MemberController {
 
     @Autowired
@@ -23,25 +23,25 @@ public class MemberController {
     @Autowired
     private TokenProvider tokenProvider;
 
-    @GetMapping("")
+    @GetMapping("/members")
     public String list(Model model) {
         List<Member> members = service.findAll();
         model.addAttribute("members", members);
         return "members/memberList";
     }
 
-    @GetMapping("/{email}")
+    @GetMapping("/members/{email}")
     public Member findByEmail(@PathVariable("email") String email) {
         return service.findByEmail(email);
     }
 
-    @GetMapping("/new")
+    @GetMapping("/members/new")
     public String createMember(Model model) {
         model.addAttribute("createMember", new MemberDTO());
         return "members/memberCreateForm";
     }
 
-    @PostMapping("/signup")
+    @PostMapping("/auth/signup")
     public ResponseEntity<?> registerMember(@RequestBody MemberDTO memberDTO) {
         try {
             //요청을 이용해 저장할 사용자 만들기
@@ -70,7 +70,7 @@ public class MemberController {
         }
     }
 
-    @PostMapping("/signin")
+    @PostMapping("/auth/signin")
     public ResponseEntity<?> authenticate(@RequestBody MemberDTO memberDTO) {
         Member member = service.getByCredentials(memberDTO.getEmail(), memberDTO.getPassword());
 

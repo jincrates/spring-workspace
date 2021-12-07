@@ -37,17 +37,15 @@ public class AnnualRepositoryTest {
     public void insertAnnual() {
         IntStream.rangeClosed(1, 100).forEach(i -> {
 
-            Optional<Member> findMember = memberRepository.findByEmail("user" + i + "@jincrates.me");
-            Member member = new Member();
+            Member findMember = memberRepository.findByEmail("user" + i + "@jincrates.me");
 
-            if (findMember.isPresent()) {
-                member = findMember.get();
-                double annual = calculate(member.getJoinDate());
+            if (findMember !=null) {
+                double annual = calculate(findMember.getJoinDate());
 
                 Annual annualMember = Annual.builder()
                         .baseYear(2021L)
-                        .member(member)
-                        .joinDate(member.getJoinDate())
+                        .member(findMember)
+                        .joinDate(findMember.getJoinDate())
                         .annual(annual)
                         .month(0)
                         .adjusted(0)
