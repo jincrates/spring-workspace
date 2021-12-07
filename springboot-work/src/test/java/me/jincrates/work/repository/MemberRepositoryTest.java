@@ -5,6 +5,7 @@ import me.jincrates.work.entity.Role;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -17,6 +18,7 @@ public class MemberRepositoryTest {
 
     @Autowired
     private MemberRepository repository;
+    private PasswordEncoder passwordEncoder;
 
     @Test
     public void insertMembers() {
@@ -26,7 +28,7 @@ public class MemberRepositoryTest {
 
             Member member = Member.builder()
                     .email("user" + i + "@jincrates.me")
-                    .password("1111")
+                    .password(passwordEncoder.encode("1111"))
                     .username("USER" + i)
                     .joinDate(between("2001-01-01", "2021-12-31"))
                     //.role(Role.USER)

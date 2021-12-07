@@ -1,16 +1,14 @@
 package me.jincrates.work.service;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.jincrates.work.entity.Member;
 import me.jincrates.work.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
-
 
 @Slf4j
 @Service
@@ -48,8 +46,15 @@ public class MemberService {
         return  member;
     }
 
-    public Member getByCredentials(String email, String password) {
-        return memberRepository.findByEmailAndPassword(email, password);
+    public Member getByCredentials(String email, String password, PasswordEncoder encoder) {
+        Member originMember = memberRepository.findByEmail(email);
+
+        // matches 메서드를 이용해 패스워드가 같은지 확인
+        if (originMember != null && encoder.matches(password, originMember.getPassword())) {
+            return originMember;
+        }
+
+        return null;
     }
 }
 
