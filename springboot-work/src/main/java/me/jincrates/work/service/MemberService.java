@@ -52,3 +52,4 @@ public class MemberService {
         return memberRepository.findByEmailAndPassword(email, password);
     }
 }
+
