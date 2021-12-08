@@ -52,7 +52,7 @@
         </div>
     </div>
 </div>
-
+<script th:inline="javascript" src="/js/custom.js"></script>
 <script th:inline="javascript">
     document.addEventListener('DOMContentLoaded', function () {
         //모달창
@@ -154,27 +154,7 @@
 
         return result;
     }
-
-    //ajax 사용 method
-    function ajax(method, url, data) {
-        var result = new Object();
-
-        $.ajax({
-            method: method,
-            url: url,
-            data: JSON.stringify(data),
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            async: false,
-            complete: function(xhr) {
-                result = xhr;
-            }
-        });
-
-        return result;
-    }
 </script>
-
 <script th:inline="javascript">
     $(document).ready(function () {
         //모달창
@@ -244,7 +224,6 @@
                 location.reload();
             }
         });
-
     });
 </script>
 </body>
