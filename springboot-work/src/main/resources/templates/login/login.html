@@ -479,17 +479,17 @@
         <h1 class="title">Login</h1>
         <form>
             <div class="input-container">
-                <input type="email" id="in-email" required="required">
-                <label for="in-email">이메일</label>
+                <input type="email" id="loginId" name="loginId" required="required">
+                <label for="loginId">이메일</label>
                 <div class="bar"></div>
             </div>
             <div class="input-container">
-                <input type="password" id="in-password" required="required">
-                <label for="in-password">비밀번호</label>
+                <input type="password" id="loginPwd" name="loginPwd" required="required">
+                <label for="loginPwd">비밀번호</label>
                 <div class="bar"></div>
             </div>
             <div class="button-container">
-                <button><span>Go</span></button>
+                <button type="button" onclick="signin();"><span>Go</span></button>
             </div>
             <div class="footer"><a href="#">Forgot your password?</a></div>
         </form>
@@ -596,8 +596,6 @@
     //회원가입
     function signUp() {
         var data = {
-            id: 1,
-            token: '1'
             email: $('input[name="email"]').val(),
             password: $('input[name="password"]').val(),
             username: $('input[name="username"]').val(),
@@ -610,6 +608,22 @@
             alert('Sign Up Success');
         }
     };
+
+    //로그인
+    function signin() {
+        var data = {
+            email: $('input[name="loginId"]').val(),
+            password: $('input[name="loginPwd"]').val(),
+        }
+
+        var result = ajax('POST', '/auth/signin', data);
+
+        if(result.status === 200) {
+            location.href = "/";
+        } else {
+            alert('로그인 실패');
+        }
+    }
 
     //ajax 사용 method
     function ajax(method, url, data) {
