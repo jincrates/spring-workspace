@@ -28,3 +28,7 @@ spring:
         hibernate:
             ddl-auto: update #create-drop
             show-sql: true
+
+    logging:
+        level:
+            me.jincrates: DEBUG

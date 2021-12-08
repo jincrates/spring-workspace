@@ -521,10 +521,10 @@
                 <div class="bar"></div>
             </div>
             <div class="input-container">
-                <input type="date" id="joindate" name="joindate" required="required">
+                <input type="date" id="joinDate" name="joinDate" required="required">
                 <!--<input type="text" id="up-joindate" required="required" placeholder="YYYY.MM.DD" onfocus="(this.type='date')" onblur="(this.type='text')">-->
                 <!--<input type="text" id="up-joindate" required="required" maxlength="10" onkeyup="insertHyphen(this)">-->
-                <label for="joindate">입사일</label>
+                <label for="joinDate">입사일</label>
                 <div class="bar"></div>
             </div>
             <div class="button-container">
@@ -596,10 +596,12 @@
     //회원가입
     function signUp() {
         var data = {
+            id: 1,
+            token: '1'
             email: $('input[name="email"]').val(),
             password: $('input[name="password"]').val(),
             username: $('input[name="username"]').val(),
-            joinDate: $('input[name="joindate"]').val(),
+            joinDate: $('input[name="joinDate"]').val(),
         }
 
         var result = ajax('POST', '/auth/signup', data);

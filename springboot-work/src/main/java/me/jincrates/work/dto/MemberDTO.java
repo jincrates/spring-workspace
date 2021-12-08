@@ -2,14 +2,11 @@ package me.jincrates.work.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.sun.istack.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import me.jincrates.work.entity.Member;
 
-@Getter
 @Builder
+@Getter @ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)

@@ -22,6 +22,7 @@ public class MemberService {
         return memberRepository.findAll();
     }
 
+    @Transactional
     public Member create(Member member) {
         if(member == null || member.getEmail() == null) {
             throw new RuntimeException("Invalid arguments");

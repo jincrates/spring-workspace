@@ -18,6 +18,8 @@ public class MemberRepositoryTest {
 
     @Autowired
     private MemberRepository repository;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Test
@@ -31,12 +33,33 @@ public class MemberRepositoryTest {
                     .password(passwordEncoder.encode("1111"))
                     .username("USER" + i)
                     .joinDate(between("2001-01-01", "2021-12-31"))
-                    //.role(Role.USER)
                     .status("Y")
                     .build();
 
             repository.save(member);
         });
+    }
+
+    @Test
+    public void insertMember() {
+        //1부터 10까지 임의의 번호
+        long i = 999L;
+
+        Member member = Member.builder()
+                .email("user" + i + "@jincrates.me")
+                .password(passwordEncoder.encode("1111"))
+                .username("USER" + i)
+                .joinDate(between("2001-01-01", "2021-12-31"))
+                .status("Y")
+                .build();
+
+        repository.save(member);
+    }
+
+    @Test
+    public void encodePassword() {
+        String pwd = passwordEncoder.encode("1111");
+        System.out.println(pwd);
     }
 
     public static String between(String fromDate, String toDate) {

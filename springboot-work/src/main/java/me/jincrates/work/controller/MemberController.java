@@ -26,6 +26,7 @@ public class MemberController {
     @Autowired
     private TokenProvider tokenProvider;
 
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @GetMapping("/members")
@@ -50,26 +51,6 @@ public class MemberController {
     public ResponseEntity<?> registerMember(@RequestBody MemberDTO memberDTO) {
         log.info("memberDTO : {}", memberDTO.toString());
 
-        Member member = Member.builder()
-                .email(memberDTO.getEmail())
-                .username(memberDTO.getUsername())
-                .password(passwordEncoder.encode(memberDTO.getPassword()))
-                .joinDate(memberDTO.getJoinDate())
-                .status("Y")
-                .build();
-        log.info("member : {}", member.toString());
-
-        Member registeredMember = service.create(member);
-        log.info("registeredMember : {}", registeredMember.toString());
-
-        MemberDTO registerMemberDTO = MemberDTO.builder()
-                .email(registeredMember.getEmail())
-                .id(registeredMember.getId())
-                .username(registeredMember.getUsername())
-                .build();
-
-        return ResponseEntity.ok().body(registerMemberDTO);
-        /*
         try {
             //요청을 이용해 저장할 사용자 만들기
             Member member = Member.builder()
@@ -80,13 +61,8 @@ public class MemberController {
                     .status("Y")
                     .build();
 
-            log.info("member : {}", member.toString());
-
             //서비스를 이용해 리포지터리에 사용자 저장
             Member registeredMember = service.create(member);
-
-
-            log.info("registeredMember : {}", registeredMember.toString());
 
             MemberDTO registerMemberDTO = MemberDTO.builder()
                     .email(registeredMember.getEmail())
@@ -95,14 +71,12 @@ public class MemberController {
                     .build();
 
             return ResponseEntity.ok().body(registerMemberDTO);
-        } catch (Exception e) {
-            log.info("회원가입 오류 : {}", e.getMessage());
 
+        } catch (Exception e) {
             ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
+
             return ResponseEntity.badRequest().body(responseDTO);
         }
-
-        */
     }
 
     @PostMapping("/auth/signin")
