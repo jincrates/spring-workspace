@@ -8,6 +8,7 @@ import me.jincrates.work.security.TokenProvider;
 import me.jincrates.work.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,19 +31,19 @@ public class MemberController {
     private PasswordEncoder passwordEncoder;
 
     @GetMapping("/members")
-    public String list(Model model) {
+    public String list(@AuthenticationPrincipal String memberId, Model model) {
         List<Member> members = service.findAll();
         model.addAttribute("members", members);
         return "members/memberList";
     }
 
     @GetMapping("/members/{email}")
-    public Member findByEmail(@PathVariable("email") String email) {
+    public Member findByEmail(@AuthenticationPrincipal String memberId, @PathVariable("email") String email) {
         return service.findByEmail(email);
     }
 
     @GetMapping("/members/new")
-    public String createMember(Model model) {
+    public String createMember(@AuthenticationPrincipal String memberId, Model model) {
         model.addAttribute("createMember", new MemberDTO());
         return "members/memberCreateForm";
     }
