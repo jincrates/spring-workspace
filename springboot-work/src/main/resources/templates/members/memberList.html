@@ -4,6 +4,30 @@
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+
+    <!--검색영역 시작-->
+    <form action="/board/list" method="get" id="searchForm">
+        <div class="input-group">
+            <input type="hidden" name="page" value="1">
+            <div class="input-group-prepend">
+                <select class="custom-select outline-hidden" name="type">
+                    <option>- 선택 -</option>
+                    <option value="n">이름</option>
+                    <option value="e">이메일</option>
+                    <option value="ne">이름 + 이메일</option>
+                </select>
+            </div>&nbsp;
+
+            <input type="text" class="form-control outline-hidden" name="keyword">&nbsp;
+            <div class="input-group-append outline-hidden" id="button-addon4">
+                <button class="btn btn-outline-secondary btn-search outline-hidden" type="button">Search</button>
+                <button class="btn btn-outline-secondary btn-clear outline-hidden" type="button">Clear</button>
+            </div>
+        </div>
+    </form>
+    <!--검색영역 끝-->
+    <br />
+
     <div>
         <table class="table table-hover">
             <thead>
@@ -24,6 +48,24 @@
             </tbody>
         </table>
     </div>
+
+    <!-- 페이징영역 -->
+    <!--<ul class="pagination h-25 justify-content-center align-items-center">
+        <li class="page-item" th:if="${result.prev}">
+            <a class="page-link" th:href="@{/board/list(page=${result.start - 1}, type=${pageRequestDTO.type}, keyword=${pageRequestDTO.keyword})}" tabindex="-1">Previous</a>
+        </li>
+
+        <li th:class="'page-item ' + ${result.page == page ? 'active' : ''}" th:each="page : ${result.pageList}">
+            <a class="page-link" th:href="@{/board/list(page=${page}, type=${pageRequestDTO.type}, keyword=${pageRequestDTO.keyword})}">
+                [[${page}]]
+            </a>
+        </li>
+
+        <li class="page-item" th:if="${result.next}">
+            <a class="page-link" th:href="@{/board/list(page=${result.end + 1}, type=${pageRequestDTO.type}, keyword=${pageRequestDTO.keyword})}">Next</a>
+        </li>
+    </ul>-->
+
     <div th:replace="fragments/footer :: footer"/>
 </div> <!-- /container -->
 </body>
