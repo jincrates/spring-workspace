@@ -23,12 +23,11 @@ spring:
         password: bootuser
     jpa:
         properties:
+            dialect: org.hibernate.dialect.MySQLDialect
             hibernate:
                 format_sql: true
-        hibernate:
-            ddl-auto: update #create-drop
-            show-sql: true
-
+                ddl-auto: update #create-drop
+                show-sql: true
     logging:
         level:
             me.jincrates: DEBUG
