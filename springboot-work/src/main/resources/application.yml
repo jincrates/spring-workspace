@@ -23,7 +23,7 @@ spring:
         password: bootuser
     jpa:
         hibernate:
-            ddl-auto: create-drop
+            ddl-auto: update #create-drop
         properties:
             hibernate:
                 format_sql: true

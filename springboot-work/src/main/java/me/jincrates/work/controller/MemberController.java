@@ -2,6 +2,7 @@ package me.jincrates.work.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import me.jincrates.work.dto.MemberDTO;
+import me.jincrates.work.dto.PageRequestDTO;
 import me.jincrates.work.dto.ResponseDTO;
 import me.jincrates.work.entity.Member;
 import me.jincrates.work.security.TokenProvider;
@@ -31,19 +32,18 @@ public class MemberController {
     private PasswordEncoder passwordEncoder;
 
     @GetMapping("/members")
-    public String list(@AuthenticationPrincipal String memberId, Model model) {
-        List<Member> members = service.findAll();
-        model.addAttribute("members", members);
+    public String list(Model model) {
+        model.addAttribute("members", service.findAll());
         return "members/memberList";
     }
 
     @GetMapping("/members/{email}")
-    public Member findByEmail(@AuthenticationPrincipal String memberId, @PathVariable("email") String email) {
+    public Member findByEmail(@PathVariable("email") String email) {
         return service.findByEmail(email);
     }
 
     @GetMapping("/members/new")
-    public String createMember(@AuthenticationPrincipal String memberId, Model model) {
+    public String createMember(Model model) {
         model.addAttribute("createMember", new MemberDTO());
         return "members/memberCreateForm";
     }

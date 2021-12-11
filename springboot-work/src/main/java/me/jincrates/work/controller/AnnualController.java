@@ -34,7 +34,7 @@ public class AnnualController {
     private AnnualUsedService usedService;
 
     @GetMapping("")
-    public String list(@AuthenticationPrincipal String memberId, Model model) {
+    public String list(Model model) {
         List<Annual> annualList = service.findAll();
 
         log.info(annualList.toString());
@@ -44,7 +44,7 @@ public class AnnualController {
     }
 
     @GetMapping("/new")
-    public String view(@AuthenticationPrincipal String memberId, Model model) {
+    public String view(Model model) {
         List<AnnualUsed> annualUsedList = usedService.findAll();
         model.addAttribute("createAnnual", annualUsedList);
 
@@ -105,7 +105,6 @@ public class AnnualController {
 
         return new ResponseEntity<>("modify", HttpStatus.OK);
     }
-
 
     @GetMapping("/setting")
     public String setting(Model model) {
