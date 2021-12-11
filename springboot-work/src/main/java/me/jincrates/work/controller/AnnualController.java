@@ -36,17 +36,18 @@ public class AnnualController {
     @GetMapping("")
     public String list(Model model) {
         List<Annual> annualList = service.findAll();
-
-        log.info(annualList.toString());
-
         model.addAttribute("annualList", annualList);
+
         return "annual/annualList";
     }
 
     @GetMapping("/new")
     public String view(Model model) {
         List<AnnualUsed> annualUsedList = usedService.findAll();
-        model.addAttribute("createAnnual", annualUsedList);
+        model.addAttribute("annualUsedList", annualUsedList);
+
+        log.info("====================================================");
+        log.info(annualUsedList.toString());
 
         return "annual/annualCreateForm";
     }
@@ -57,7 +58,7 @@ public class AnnualController {
 //    }
 
     @GetMapping("/new/json")
-    public ResponseEntity<List<CalendarDTO>> usedListJson(@AuthenticationPrincipal String memberId) {
+    public ResponseEntity<List<CalendarDTO>> usedListJson() {
         List<AnnualUsed> usedList = usedService.findAll();
         List<CalendarDTO> calendarList = new ArrayList<>();
 

@@ -6,6 +6,9 @@ function ajax(method, url, data) {
         method: method,
         url: url,
         data: JSON.stringify(data),
+        headers: {
+            Authorization: 'Bearer '+ localStorage.getItem("ACCESS_TOKEN")
+        },
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         async: false,

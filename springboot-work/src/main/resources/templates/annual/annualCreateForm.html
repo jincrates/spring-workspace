@@ -14,31 +14,18 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>일정(시작일 ~ 종료일)</th>
+                    <th>시작일</th>
+                    <th>종료일</th>
                     <th>사용일수</th>
                     <th>사유</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>2021-12-01 ~ 2021-12-03</td>
-                    <td>3일</td>
-                    <td>휴식</td>
-                </tr>
-                <tr>
-                    <td>2021-12-01 ~ 2021-12-03</td>
-                    <td>3일</td>
-                    <td>휴식</td>
-                </tr>
-                <tr>
-                    <td>2021-12-01 ~ 2021-12-03</td>
-                    <td>3일</td>
-                    <td>휴식</td>
-                </tr>
-                <tr>
-                    <td>2021-12-01 ~ 2021-12-03</td>
-                    <td>3일</td>
-                    <td>휴식</td>
+                <tr th:each="annualUsed : ${annualUsedList}">
+                    <td th:text="${#dates.format(annualUsed.usedFromDate, 'yyyy-MM-dd')}"></td>
+                    <td th:text="${#dates.format(annualUsed.usedToDate, 'yyyy-MM-dd')}"></td>
+                    <td th:text="${annualUsed.used}"></td>
+                    <td th:text="${annualUsed.reason}"></td>
                 </tr>
             </tbody>
         </table>
