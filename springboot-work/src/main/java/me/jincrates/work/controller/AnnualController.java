@@ -46,16 +46,8 @@ public class AnnualController {
         List<AnnualUsed> annualUsedList = usedService.findAll();
         model.addAttribute("annualUsedList", annualUsedList);
 
-        log.info("====================================================");
-        log.info(annualUsedList.toString());
-
         return "annual/annualCreateForm";
     }
-
-//    @GetMapping("/new/json")
-//    public ResponseEntity<List<AnnualUsed>> usedListJson() {
-//        return new ResponseEntity<>(usedService.findAll(), HttpStatus.OK);
-//    }
 
     @GetMapping("/new/json")
     public ResponseEntity<List<CalendarDTO>> usedListJson() {

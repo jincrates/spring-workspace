@@ -7,6 +7,7 @@ import me.jincrates.work.dto.ResponseDTO;
 import me.jincrates.work.entity.Member;
 import me.jincrates.work.security.TokenProvider;
 import me.jincrates.work.service.MemberService;
+import org.apache.catalina.session.StandardSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Slf4j
@@ -34,6 +36,7 @@ public class MemberController {
     @GetMapping("/members")
     public String list(Model model) {
         model.addAttribute("members", service.findAll());
+
         return "members/memberList";
     }
 
@@ -45,13 +48,12 @@ public class MemberController {
     @GetMapping("/members/new")
     public String createMember(Model model) {
         model.addAttribute("createMember", new MemberDTO());
+
         return "members/memberCreateForm";
     }
 
     @PostMapping("/auth/signup")
     public ResponseEntity<?> registerMember(@RequestBody MemberDTO memberDTO) {
-        log.info("memberDTO : {}", memberDTO.toString());
-
         try {
             //요청을 이용해 저장할 사용자 만들기
             Member member = Member.builder()
@@ -81,10 +83,23 @@ public class MemberController {
     }
 
     @PostMapping("/auth/signin")
-    public ResponseEntity<?> authenticate(@RequestBody MemberDTO memberDTO) {
+    public ResponseEntity<?> authenticate(HttpSession session, @RequestBody MemberDTO memberDTO) {
         Member member = service.getByCredentials(memberDTO.getEmail(), memberDTO.getPassword(), passwordEncoder);
+        log.info("sign ================================================");
+        log.info(member.toString());
 
         if (member != null) {
+            // 세션값 설정
+            session.setAttribute("user_id", member.getEmail());
+            session.setAttribute("user_name", member.getUsername());
+
+            // 세션 유지시간 설정(초단위)
+            // 60 * 30 = 30분
+            //session.setMaxInactiveInterval(60 * 30);
+
+            // 세션 시간을 무한대로 설정
+            session.setMaxInactiveInterval(-1);
+
             String token = tokenProvider.create(member);
 
             MemberDTO responseMemberDTO = MemberDTO.builder()

@@ -48,7 +48,7 @@ function signin() {
     //로그인 성공
     if(result.status === 200) {
         var response = result.responseJSON;
-
+        console.log(response);
         //로컬 스토리지에 저장(key-value)
         //쿠키와 비슷하지만 로컬 스토리지는 도메인마다 따로 저장되기 때문에 다른 도메인의 로컬 스토리지는 알지 못한다.
         localStorage.setItem("ACCESS_TOKEN", response.token);
