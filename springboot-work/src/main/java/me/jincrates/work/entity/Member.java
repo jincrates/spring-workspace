@@ -19,15 +19,10 @@ import java.util.List;
 public class Member extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "member_id")
-    private Long id;
+    private String email;  //이메일을 아이디로 사용
 
     @Column(nullable = false)
     private String username;  //이름
-
-    @Column(nullable = false, unique = true)
-    private String email;  //이메일을 아이디로 사용
 
     @Column(nullable = false)
     private String password;  //패스워드
@@ -37,6 +32,10 @@ public class Member extends BaseTimeEntity {
 
     @Column(nullable = false)
     private String status;  //상태(Y: 사용, N: 미사용)
+
+    @OneToOne
+    @JoinColumn(name = "annual_id")
+    private Annual annual;
 
 //    @OneToMany(mappedBy = "member")
 //    private List<Annual> annual = new ArrayList<>();
