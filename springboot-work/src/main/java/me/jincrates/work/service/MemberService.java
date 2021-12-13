@@ -78,7 +78,6 @@ public class MemberService {
 
     public MemberDTO entityToDTO(Member entity) {
         MemberDTO dto = MemberDTO.builder()
-                .id(entity.getId())
                 .email(entity.getEmail())
                 .joinDate(entity.getJoinDate())
                 .username(entity.getUsername())

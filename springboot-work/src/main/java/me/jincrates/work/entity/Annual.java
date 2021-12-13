@@ -24,7 +24,7 @@ public class Annual extends BaseTimeEntity {
     @Column(nullable = false)
     private Long baseYear;
 
-    @OneToOne(mappedBy = "anuual")
+    @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
     @Column(nullable = false)

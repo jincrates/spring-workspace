@@ -69,7 +69,6 @@ public class MemberController {
 
             MemberDTO registerMemberDTO = MemberDTO.builder()
                     .email(registeredMember.getEmail())
-                    .id(registeredMember.getId())
                     .username(registeredMember.getUsername())
                     .build();
 
@@ -103,7 +102,6 @@ public class MemberController {
             String token = tokenProvider.create(member);
 
             MemberDTO responseMemberDTO = MemberDTO.builder()
-                    .id(member.getId())
                     .token(token)
                     .email(member.getEmail())
                     .username(member.getUsername())

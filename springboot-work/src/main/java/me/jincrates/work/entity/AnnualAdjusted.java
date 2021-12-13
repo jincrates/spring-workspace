@@ -21,7 +21,6 @@ public class AnnualAdjusted extends BaseTimeEntity {
     @Column(nullable = false)
     private Long baseYear;
 
-    @OneToOne
     @Column(nullable = false)
     private String member;  //사원키
 

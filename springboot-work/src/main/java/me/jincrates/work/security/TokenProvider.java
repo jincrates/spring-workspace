@@ -25,7 +25,7 @@ public class TokenProvider {
                 //header에 들어갈 내용 및 서명을 위하기 위한 SECRET_KEY
                 .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
                 //payload에 들어갈 내용
-                .setSubject(member.getId().toString()) //sub
+                .setSubject(member.getEmail().toString()) //sub
                 .setIssuer("work app") //iss
                 .setIssuedAt(new Date())  //iat
                 .setExpiration(expiryDate) //exp

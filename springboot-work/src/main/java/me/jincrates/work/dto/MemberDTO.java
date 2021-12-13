@@ -11,10 +11,9 @@ import me.jincrates.work.entity.Member;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class MemberDTO {
-    private Long id;
     private String token;
-    private String username;
     private String email;
+    private String username;
     private String password;
     private String joinDate;
 }

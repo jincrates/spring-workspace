@@ -32,11 +32,4 @@ public class Member extends BaseTimeEntity {
 
     @Column(nullable = false)
     private String status;  //상태(Y: 사용, N: 미사용)
-
-    @OneToOne
-    @JoinColumn(name = "annual_id")
-    private Annual annual;
-
-//    @OneToMany(mappedBy = "member")
-//    private List<Annual> annual = new ArrayList<>();
 }
