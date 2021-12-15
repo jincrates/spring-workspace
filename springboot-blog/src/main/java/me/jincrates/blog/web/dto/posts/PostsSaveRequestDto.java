@@ -8,6 +8,7 @@ import me.jincrates.blog.domain.posts.Posts;
 @Getter
 @NoArgsConstructor
 public class PostsSaveRequestDto {
+
     private String title;
     private String content;
     private String author;
