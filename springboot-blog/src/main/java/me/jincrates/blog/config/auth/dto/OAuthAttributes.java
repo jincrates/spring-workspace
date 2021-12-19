@@ -25,6 +25,15 @@ public class OAuthAttributes {
     }
 
     public static OAuthAttributes of(String registrationId, String userNameAttributeName, Map<String, Object> attributes) {
+        //kakao
+        if("kakao".equals(registrationId)) {
+            return ofKakao("id", attributes);
+        }
+        //naver
+        if("naver".equals(registrationId)) {
+            return ofNaver("id", attributes);
+        }
+        //google
         return ofGoogle(userNameAttributeName, attributes);
     }
 
@@ -33,6 +42,33 @@ public class OAuthAttributes {
                 .name((String) attributes.get("name"))
                 .email((String) attributes.get("email"))
                 .picture((String) attributes.get("picture"))
+                .attributes(attributes)
+                .nameAttributeKey(userNameAttributeName)
+                .build();
+    }
+
+    private static OAuthAttributes ofNaver(String userNameAttributeName, Map<String, Object> attributes) {
+        Map<String, Object> response = (Map<String, Object>) attributes.get("response");
+
+        return OAuthAttributes.builder()
+                .name((String) response.get("name"))
+                .email((String) response.get("email"))
+                .picture((String) response.get("profile_image"))
+                .attributes(response)
+                .nameAttributeKey(userNameAttributeName)
+                .build();
+    }
+
+    private static OAuthAttributes ofKakao(String userNameAttributeName, Map<String, Object> attributes) {
+        // kakao는 kakao_account에 유저정보가 있다. (email)
+        Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
+        // kakao_account안에 또 profile이라는 JSON객체가 있다. (nickname, profile_image)
+        Map<String, Object> kakaoProfile = (Map<String, Object>) kakaoAccount.get("profile");
+
+        return OAuthAttributes.builder()
+                .name((String) kakaoProfile.get("nickname"))
+                .email((String) kakaoAccount.get("email"))
+                .picture((String) kakaoProfile.get("profile_image_url"))
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
