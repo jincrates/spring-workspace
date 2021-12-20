@@ -1,37 +1,37 @@
-spring:
-    profiles:
-        include: real-oauth
-    jpa:
-        properties:
-            hibernate:
-                dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-                show_sql: true
-    session:
-        store-type: jdbc
-
-
 #spring:
 #    profiles:
-#        include: oauth
-#
+#        include: real-oauth
 #    jpa:
-#        database-platform: org.hibernate.dialect.H2Dialect
-#        hibernate:
-#            ddl-auto: update
 #        properties:
 #            hibernate:
-#                format_sql: true
-#                show_sql: false
-#
-#    h2:
-#        console:
-#            enabled: true
-#
-#    datasource:
-#        url: jdbc:h2:mem:testdb
-#        driverClassName: org.h2.Driver
-#        username: sa
-#        password:
-#
+#                dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+#                show_sql: true
 #    session:
 #        store-type: jdbc
+
+
+spring:
+    profiles:
+        include: oauth
+
+    jpa:
+        database-platform: org.hibernate.dialect.H2Dialect
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                format_sql: true
+                show_sql: false
+
+    h2:
+        console:
+            enabled: true
+
+    datasource:
+        url: jdbc:h2:mem:testdb
+        driverClassName: org.h2.Driver
+        username: sa
+        password:
+
+    session:
+        store-type: jdbc
