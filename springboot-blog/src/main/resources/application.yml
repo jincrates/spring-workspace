@@ -8,8 +8,6 @@
 #                show_sql: true
 #    session:
 #        store-type: jdbc
-
-
 spring:
     profiles:
         include: oauth
