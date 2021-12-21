@@ -2,10 +2,13 @@ package me.jincrates.blog.web;
 
 import lombok.RequiredArgsConstructor;
 import me.jincrates.blog.service.posts.PostsService;
+import me.jincrates.blog.web.dto.posts.PostsListResponseDto;
 import me.jincrates.blog.web.dto.posts.PostsResponseDto;
 import me.jincrates.blog.web.dto.posts.PostsSaveRequestDto;
 import me.jincrates.blog.web.dto.posts.PostsUpdateRequestDto;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -32,5 +35,10 @@ public class PostsApiController {
     public Long delete(@PathVariable Long id) {
         postsService.delete(id);
         return id;
+    }
+
+    @GetMapping("/api/v1/posts/list")
+    public List<PostsListResponseDto> findAll() {
+        return postsService.findAllDesc();
     }
 }
