@@ -12,6 +12,8 @@ var main = {
         $('#btn-delete').on('click', function () {
             _this.delete();
         });
+
+        $('.summernote').summernote();
     },
     save : function () {
         var data = {
