@@ -1,0 +1,37 @@
+<div class="header m-3">
+    <div style="height: 120px;">
+        <h1 class="m-0 typing"></h1>
+    </div>
+
+    <!--로그인 기능 영역-->
+    <div class="row">
+        <div class="col-md-6">
+            <a href="/posts/save" role="button" class="btn btn-primary">글 등록</a>
+            {{#userName}}
+                Logged in as: <span id="user">{{userName}}</span>
+                <a href="/logout" class="btn btn-info active" role="button">Logout</a>
+            {{/userName}}
+            {{^userName}}
+                <a href="/oauth2/authorization/google" class="btn btn-secondary" role="button">Google Login</a>
+                <a href="/oauth2/authorization/naver" class="btn btn-success" role="button">Naver Login</a>
+                <a href="/oauth2/authorization/kakao" class="btn btn-warning" role="button">Kakao Login</a>
+            {{/userName}}
+        </div>
+    </div>
+</div>
+
+<script>
+    const content = "안녕하세요. \n 철학하는 개발자 Jincrates입니다.";
+    const text = document.querySelector(".typing");
+    let i = 0;
+
+    function typing(){
+        let txt = content[i++];
+        text.innerHTML += txt=== "\n" ? "<br/>": txt;
+        if (i > content.length) {
+            text.textContent = "";
+            i = 0;
+        }
+    }
+    setInterval(typing, 250)
+</script>
