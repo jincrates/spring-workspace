@@ -1,29 +1,14 @@
-<!-- Navigation-->
-<nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
-    <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="index.html">JIN_CRATES</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            Menu
-            <i class="fas fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ms-auto py-4 py-lg-0">
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.html">Home</a></li>
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">About</a></li>
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post.html">Post</a></li>
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="contact.html">Contact</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
 <!-- Page Header-->
 <header class="masthead" style="background-image: url('assets/img/home-bg.jpg')">
     <div class="container position-relative px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
-                <div class="site-heading">
-                    <h1 class="typing"></h1>
+                <div class="site-heading text-start">
+                    <div class="typingTxtArea py-2" style="min-height: 150px">
+                        <p class="typing typing-1"></p>
+                        <br>
+                        <p class="typing typing-2"></p>
+                    </div>
                     <span class="subheading fst-italic">Know Yourself</span>
                 </div>
             </div>
@@ -31,37 +16,153 @@
     </div>
 </header>
 
-<div class="header m-3">
-    <!--로그인 기능 영역-->
-    <div class="row">
-        <div class="col-md-6">
-            <a href="/posts/save" role="button" class="btn btn-primary">글 등록</a>
-            {{#userName}}
-                Logged in as: <span id="user">{{userName}}</span>
-                <a href="/logout" class="btn btn-info active" role="button">Logout</a>
-            {{/userName}}
-            {{^userName}}
-                <a href="/oauth2/authorization/google" class="btn btn-secondary" role="button">Google Login</a>
-                <a href="/oauth2/authorization/naver" class="btn btn-success" role="button">Naver Login</a>
-                <a href="/oauth2/authorization/kakao" class="btn btn-warning" role="button">Kakao Login</a>
-            {{/userName}}
+<!-- 로그인 버튼 임시-->
+<div class="container position-relative px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-xl-7">
+            <!--로그인 기능 영역-->
+            <div class="row">
+                <div class="col-md-10">
+                    <a href="/posts/save" role="button" class="btn btn-primary">글 등록</a>
+                    {{#userName}}
+                        Logged in as: <span id="user">{{userName}}</span>
+                        <a href="/logout" class="btn btn-info active" role="button">Logout</a>
+                    {{/userName}}
+                    {{^userName}}
+                        <a href="/oauth2/authorization/google" class="btn btn-secondary" role="button">GOOGLE</a>
+                        <a href="/oauth2/authorization/naver" class="btn btn-success" role="button">NAVER</a>
+                        <a href="/oauth2/authorization/kakao" class="btn btn-warning" role="button">KAKAO</a>
+                    {{/userName}}
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<hr />
 
+<style>
+    p.typing {display: inline-block; font-size:50px; line-height: 24px; padding:0; margin: 5px 5px 36px 5px;}
+    p.cursor {animation: cursor 0.4s infinite;}
+
+    @keyframes cursor {
+      0%{border-right: 2px solid #fff}
+      50%{border-right: 2px solid #00ff0000}
+      100%{border-right: 2px solid #fff}
+    }
+</style>
 <script>
-    const content = "안녕하세요. \n 철학하는 개발자 Jincrates입니다.";
-    const text = document.querySelector(".typing");
-    let i = 0;
+    // https://westzero.tistory.com/112
+    String.prototype.toKorChars = function() {
+        var cCho = [ 'ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ' ],
+            cJung = [ 'ㅏ', 'ㅐ', 'ㅑ', 'ㅒ', 'ㅓ', 'ㅔ', 'ㅕ', 'ㅖ', 'ㅗ', 'ㅘ', 'ㅙ', 'ㅚ', 'ㅛ', 'ㅜ', 'ㅝ', 'ㅞ', 'ㅟ', 'ㅠ', 'ㅡ', 'ㅢ', 'ㅣ' ],
+            cJong = [ '', 'ㄱ', 'ㄲ', 'ㄳ', 'ㄴ', 'ㄵ', 'ㄶ', 'ㄷ', 'ㄹ', 'ㄺ', 'ㄻ', 'ㄼ', 'ㄽ', 'ㄾ', 'ㄿ', 'ㅀ', 'ㅁ', 'ㅂ', 'ㅄ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ' ], cho, jung, jong;
+        var str = this,
+            cnt = str.length,
+            chars = [],
+            cCode;
+
+        for (var i = 0; i < cnt; i++) {
+            cCode = str.charCodeAt(i);
+            if (cCode == 32) {
+              chars.push(" ");
+              continue;
+            } // 한글이 아닌 경우
+            if (cCode < 0xAC00 || cCode > 0xD7A3) {
+                chars.push(str.charAt(i)); continue;
+            }
+            cCode = str.charCodeAt(i) - 0xAC00;
+
+            jong = cCode % 28;  // 종성
+            jung = ((cCode - jong) / 28 ) % 21  // 중성
+            cho = (((cCode - jong) / 28 ) - jung ) / 21  // 초성
+
+            // 테스트라는 문장이 있으면 ㅌ테ㅅ스ㅌ트 형식으로 저장되도록함 (타이핑을 위해서)
+            chars.push(cCho[cho]);
+            chars.push(String.fromCharCode( 44032 + (cho * 588) + (jung  * 28)));
+            if (cJong[jong] !== '') {
+                chars.push(String.fromCharCode( 44032 + (cho * 588) + (jung  * 28) + jong ));
+            }
+        }
+
+        return chars;
+    }
+
+    //타이핑할 문장
+    var typingText1  = "안녕하세요.";
+    var typingText2  = "철학하는 개발자 Jincrates입니다.";
+    var typingArr1 = [], typingArr2 = [];
+
+    // 한글자씩자름
+    typingText1 = typingText1.split('');
+    typingText2 = typingText2.split('');
+
+    //각글자 초성,중성,종성으로 나눔
+    for(var i = 0; i < typingText1.length; i++) {
+        typingArr1[i] = typingText1[i].toKorChars();
+    }
+    for(var i = 0; i < typingText2.length; i++) {
+        typingArr2[i] = typingText2[i].toKorChars();
+    }
+
+    //출력할 엘리먼트요소 가져옴
+    var typingArea1 = document.getElementsByClassName("typing-1")[0];
+    var typingArea2 = document.getElementsByClassName("typing-2")[0];
+
+    var text = "";
+    var i = 0;
+    var j = 0;
+
+    //총글자수
+    var imax1 = typingArr1.length;
+    var imax2 = typingArr2.length;
+
+    //setInterval을 이용해 반복적으로 출력
+    var inter = setInterval(typing, 150);
+    var inter2;
 
     function typing(){
-        let txt = content[i++];
-        text.innerHTML += txt=== "\n" ? "<br/>": txt;
-        if (i > content.length) {
-            text.textContent = "";
+        //글자수만큼 반복후 종료
+        typingArea1.classList.add("cursor");
+        if(i <= imax1 - 1){
+            //각 글자가 초성 중성 종성 순서대로 추가되도록
+            var jmax1 = typingArr1[i].length;
+            typingArea1.innerHTML = text + typingArr1[i][j];
+            j++;
+            if(j == jmax1) {
+                text +=  typingArr1[i][j-1];//초성중성종성 순서대로 출력된 글자는 저장 ( 다음 글자와 이어붙이기 위해서 )
+                i++;
+                j = 0;
+            }
+        } else {
+            clearInterval(inter);
+            text = "";
             i = 0;
+            j = 0;
+            setTimeout(function() {
+                typingArea1.classList.remove("cursor");
+                setTimeout(function() {
+                    typingArea2.classList.add("cursor");
+                    setTimeout(function() {
+                        inter2 = setInterval(typing2, 150);
+                    }, 400);
+                }, 300);
+            }, 400);
         }
     }
-    setInterval(typing, 250)
+
+    function typing2(){
+        //글자수만큼 반복후 종료
+        if(i <= imax2 - 1){
+            //각 글자가 초성 중성 종성 순서대로 추가되도록
+            var jmax2 = typingArr2[i].length;
+            typingArea2.innerHTML = text + typingArr2[i][j];
+            j++;
+            if(j == jmax2){
+                text += typingArr2[i][j-1];//초성중성종성 순서대로 출력된 글자는 저장 ( 다음 글자와 이어붙이기 위해서 )
+                i++;
+                j = 0;
+            }
+        } else{
+            clearInterval(inter);
+        }
+    }
 </script>

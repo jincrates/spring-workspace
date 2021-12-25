@@ -39,4 +39,14 @@ public class IndexController {
 
         return "/posts/posts-update";
     }
+
+    @GetMapping("/about")
+    public String about(@LoginUser SessionUser user) {
+        return "about";
+    }
+
+    @GetMapping("/contact")
+    public String contact(@LoginUser SessionUser user) {
+        return "contact";
+    }
 }
