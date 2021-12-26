@@ -2,10 +2,6 @@ spring:
     profiles:
         include: oauth
 
-    mustache:
-        suffix: .html
-        prefix: classpath:/templates/
-
     jpa:
         database-platform: org.hibernate.dialect.H2Dialect
         hibernate:
