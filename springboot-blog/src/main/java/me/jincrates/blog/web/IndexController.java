@@ -29,7 +29,7 @@ public class IndexController {
 
     @GetMapping("/posts/save")
     public String postsSave() {
-        return "/posts/posts-save";
+        return "posts/posts-save";
     }
 
     @GetMapping("/posts/update/{id}")
@@ -37,7 +37,7 @@ public class IndexController {
         PostsResponseDto dto = postsService.findById(id);
         model.addAttribute("post", dto);
 
-        return "/posts/posts-update";
+        return "posts/posts-update";
     }
 
     @GetMapping("/about")
