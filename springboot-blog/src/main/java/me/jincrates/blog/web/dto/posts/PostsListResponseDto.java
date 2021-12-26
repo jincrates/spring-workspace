@@ -13,14 +13,14 @@ import java.util.Locale;
 public class PostsListResponseDto {
     private Long id;
     private String title;
-    private String content;
+    private String subtitle;
     private String author;
     private String modifiedDate;
 
     public PostsListResponseDto(Posts entity) {
         this.id = entity.getId();
         this.title = entity.getTitle();
-        this.content = entity.getContent();
+        this.subtitle = entity.getSubtitle();
         this.author = entity.getAuthor();
         this.modifiedDate = entity.getModifiedDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 hh:mm"));
         //this.modifiedDate = DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL).format(entity.getModifiedDate());

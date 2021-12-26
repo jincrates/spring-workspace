@@ -9,11 +9,13 @@ import lombok.NoArgsConstructor;
 public class PostsUpdateRequestDto {
 
     private String title;
+    private String subtitle;
     private String content;
 
     @Builder
-    public PostsUpdateRequestDto(String title, String content) {
+    public PostsUpdateRequestDto(String title, String subtitle, String content) {
         this.title = title;
+        this.subtitle = subtitle;
         this.content = content;
     }
 }

@@ -16,6 +16,7 @@ var main = {
     save : function () {
         var data = {
             title: $('#title').val(),
+            subtitle: $('#subtitle').val(),
             author: $('#author').val(),
             content: $('#content').val()
         };
@@ -36,6 +37,7 @@ var main = {
     update : function () {
         var data = {
             title: $('#title').val(),
+            subtitle: $('#subtitle').val(),
             content: $('#content').val()
         };
 

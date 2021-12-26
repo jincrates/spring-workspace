@@ -64,9 +64,11 @@ public class PostsApiControllerTest {
     public void Posts_등록된다() throws Exception {
         //given
         String title = "title";
+        String subtitle = "subtitle";
         String content = "content";
         PostsSaveRequestDto requestDto = PostsSaveRequestDto.builder()
                 .title(title)
+                .subtitle(subtitle)
                 .content(content)
                 .author("author")
                 .build();
@@ -91,16 +93,19 @@ public class PostsApiControllerTest {
         //given
         Posts savedPosts = postsRepository.save(Posts.builder()
                 .title("title")
+                .subtitle("subtitle")
                 .content("content")
                 .author("author")
                 .build());
 
         Long updateId = savedPosts.getId();
         String expectedTitle = "title2";
+        String expectedSubTitle = "subtitle2";
         String expectedContent = "content2";
 
         PostsUpdateRequestDto requestDto = PostsUpdateRequestDto.builder()
                 .title(expectedTitle)
+                .subtitle(expectedSubTitle)
                 .content(expectedContent)
                 .build();
 
@@ -115,6 +120,7 @@ public class PostsApiControllerTest {
         //then
         List<Posts> all = postsRepository.findAll();
         assertThat(all.get(0).getTitle()).isEqualTo(expectedTitle);
+        assertThat(all.get(0).getSubtitle()).isEqualTo(expectedSubTitle);
         assertThat(all.get(0).getContent()).isEqualTo(expectedContent);
     }
 }
