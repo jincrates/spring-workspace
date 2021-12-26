@@ -11151,6 +11151,9 @@ header.masthead .site-heading h1,
 header.masthead .site-heading .h1 {
   font-size: 3rem;
 }
+header.masthead .site-heading .typing {
+font-size: 40px;
+}
 header.masthead .page-heading .subheading,
 header.masthead .site-heading .subheading {
   font-size: 1.5rem;
@@ -11189,9 +11192,12 @@ header.masthead .post-heading .meta a {
     padding-bottom: 12.5rem;
   }
   header.masthead .page-heading h1, header.masthead .page-heading .h1,
-header.masthead .site-heading h1,
-header.masthead .site-heading .h1 {
+  header.masthead .site-heading h1,
+  header.masthead .site-heading .h1 {
     font-size: 5rem;
+  }
+  header.masthead .site-heading .typing {
+    font-size: 50px;
   }
   header.masthead .post-heading h1, header.masthead .post-heading .h1 {
     font-size: 3.5rem;

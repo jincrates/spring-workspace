@@ -4,12 +4,10 @@
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
                 <div class="site-heading text-start">
-                    <div class="typingTxtArea py-2" style="min-height: 150px">
+                    <div class="typingTxtArea py-2" style="height: 160px">
                         <p class="typing typing-1"></p>
-                        <br>
-                        <p class="typing typing-2"></p>
+                        <span class="subheading fst-italic typing-2"></span>
                     </div>
-                    <span class="subheading fst-italic">Know Yourself</span>
                 </div>
             </div>
         </div>
@@ -40,8 +38,9 @@
 </div>
 
 <style>
-    p.typing {display: inline-block; font-size:50px; line-height: 24px; padding:0; margin: 5px 5px 36px 5px;}
+    p.typing {margin: 0; font-weight: 900}
     p.cursor {animation: cursor 0.4s infinite;}
+    span.typing-2 {margin-left: 5px;}
 
     @keyframes cursor {
       0%{border-right: 2px solid #fff}
@@ -87,8 +86,8 @@
     }
 
     //타이핑할 문장
-    var typingText1  = "안녕하세요.";
-    var typingText2  = "철학하는 개발자 Jincrates입니다.";
+    var typingText1  = "안녕하세요. /철학하는 개발자 Jincrates입니다.";
+    var typingText2  = "Know Yourself";
     var typingArr1 = [], typingArr2 = [];
 
     // 한글자씩자름
@@ -121,11 +120,12 @@
 
     function typing(){
         //글자수만큼 반복후 종료
-        typingArea1.classList.add("cursor");
+        //typingArea1.classList.add("cursor");
         if(i <= imax1 - 1){
             //각 글자가 초성 중성 종성 순서대로 추가되도록
             var jmax1 = typingArr1[i].length;
-            typingArea1.innerHTML = text + typingArr1[i][j];
+            var innerText = text + typingArr1[i][j];
+            typingArea1.innerHTML = innerText.replace("/", "<br/>");
             j++;
             if(j == jmax1) {
                 text +=  typingArr1[i][j-1];//초성중성종성 순서대로 출력된 글자는 저장 ( 다음 글자와 이어붙이기 위해서 )
@@ -138,9 +138,9 @@
             i = 0;
             j = 0;
             setTimeout(function() {
-                typingArea1.classList.remove("cursor");
+                //typingArea1.classList.remove("cursor");
                 setTimeout(function() {
-                    typingArea2.classList.add("cursor");
+                    //typingArea2.classList.add("cursor");
                     setTimeout(function() {
                         inter2 = setInterval(typing2, 150);
                     }, 400);
