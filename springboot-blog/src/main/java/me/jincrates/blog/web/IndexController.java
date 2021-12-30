@@ -32,7 +32,15 @@ public class IndexController {
         if (user != null) {
             model.addAttribute("userName", user.getName());
         }
-        return "posts/posts-save";
+        return "posts/posts-edit";
+    }
+
+    @GetMapping("/posts/view/{id}")
+    public String postsView(@PathVariable Long id, Model model) {
+        PostsResponseDto dto = postsService.findById(id);
+        model.addAttribute("post", dto);
+
+        return "posts/posts-view";
     }
 
     @GetMapping("/posts/update/{id}")
@@ -40,7 +48,7 @@ public class IndexController {
         PostsResponseDto dto = postsService.findById(id);
         model.addAttribute("post", dto);
 
-        return "posts/posts-update";
+        return "posts/posts-edit";
     }
 
     @GetMapping("/about")

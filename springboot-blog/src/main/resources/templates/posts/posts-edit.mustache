@@ -6,8 +6,14 @@
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
                 <div class="post-heading">
-                    <h1><input type="text" class="input-white w-100" id="title" placeholder="제목을 입력하세요"></h1>
-                    <h2 class="subheading"><input type="text" class="input-white w-100" id="subtitle" placeholder="부제를 입력하세요"></h2>
+                    {{#post}}
+                        <h1><input type="text" class="input-white w-100" id="title" placeholder="제목을 입력하세요" value="{{post.title}}"></h1>
+                        <h2 class="subheading"><input type="text" class="input-white w-100" id="subtitle" placeholder="부제를 입력하세요" value="{{post.subtitle}}"></h2>
+                    {{/post}}
+                    {{^post}}
+                        <h1><input type="text" class="input-white w-100" id="title" placeholder="제목을 입력하세요"></h1>
+                        <h2 class="subheading"><input type="text" class="input-white w-100" id="subtitle" placeholder="부제를 입력하세요"></h2>
+                    {{/post}}
                     <span class="meta">
                         Posted by
                         {{#userName}}
@@ -29,14 +35,24 @@
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
-                <textarea class="form-control editor" id="content"></textarea>
+                {{#post}}
+                    <textarea class="form-control editor" id="content">{{post.content}}</textarea>
+                {{/post}}
+                {{^post}}
+                    <textarea class="form-control editor" id="content"></textarea>
+                {{/post}}
             </div>
         </div>
 
         <div class="row gx-4 gx-lg-5 justify-content-center my-2">
             <div class="col-md-10 col-lg-8 col-xl-7">
                 <a href="/" role="button" class="btn btn-secondary">취소</a>
-                <button type="button" class="btn btn-primary" id="btn-save">등록</button>
+                {{#post}}
+                    <button type="button" class="btn btn-primary" id="btn-update">수정완료</button>
+                {{/post}}
+                {{^post}}
+                    <button type="button" class="btn btn-primary" id="btn-save">등록</button>
+                {{/post}}
             </div>
         </div>
     </div>
