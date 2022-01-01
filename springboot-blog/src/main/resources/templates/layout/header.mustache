@@ -37,7 +37,14 @@
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/about">About</a></li>
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/">Post</a></li>
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/contact">Contact</a></li>
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/signup">Login / Logout</a></li>
+                <li class="nav-item">
+                    {{#userName}}
+                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="/logout">Logout</a>
+                    {{/userName}}
+                    {{^userName}}
+                        <a class="nav-link px-lg-3 py-3 py-lg-4" href="/auth/signin">Login</a>
+                    {{/userName}}
+                </li>
             </ul>
         </div>
     </div>

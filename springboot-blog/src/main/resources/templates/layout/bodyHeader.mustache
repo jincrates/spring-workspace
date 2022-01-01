@@ -14,28 +14,14 @@
     </div>
 </header>
 
-<!-- 로그인 버튼 임시-->
 <div class="container px-4 px-lg-5">
     <div class="row gx-4 gx-lg-5 justify-content-center">
-        <div class="col-md-10 col-lg-8 col-xl-7">
-            <!--로그인 기능 영역-->
-            <div class="row">
-                <div class="col-md-10 col-lg-8 col-xl-7">
-                    <a href="/posts/save" role="button" class="btn btn-primary p-2">WRITE</a>
-                    {{#userName}}
-                        <span id="user" hidden>{{userName}}</span>
-                        <a href="/logout"  role="button" class="btn btn-info active p-2">Logout</a>
-                    {{/userName}}
-                    {{^userName}}
-                        <a href="/oauth2/authorization/google" class="btn btn-secondary p-2" role="button">GOOGLE</a>
-                        <a href="/oauth2/authorization/naver" class="btn btn-success p-2" role="button">NAVER</a>
-                        <a href="/oauth2/authorization/kakao" class="btn btn-warning p-2" role="button">KAKAO</a>
-                    {{/userName}}
-                </div>
-            </div>
+        <div class="col-md-10 col-lg-8 col-xl-7 text-start">
+            <a href="/posts/save" role="button" class="btn btn-primary p-2">WRITE</a>
         </div>
     </div>
 </div>
+
 
 <style>
     p.typing {margin: 0; font-weight: 900}
