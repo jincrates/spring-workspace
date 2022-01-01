@@ -60,4 +60,14 @@ public class IndexController {
     public String contact(@LoginUser SessionUser user) {
         return "contact";
     }
+
+    @GetMapping("/auth/signup")
+    public String signup() {
+        return "users/signup";
+    }
+
+    @GetMapping("/auth/signin")
+    public String signin() {
+        return "users/signin";
+    }
 }

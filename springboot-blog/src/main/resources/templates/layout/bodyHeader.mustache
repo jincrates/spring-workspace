@@ -23,7 +23,7 @@
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <a href="/posts/save" role="button" class="btn btn-primary p-2">WRITE</a>
                     {{#userName}}
-                        Logged in as: <span id="user">{{userName}}</span>
+                        <span id="user" hidden>{{userName}}</span>
                         <a href="/logout"  role="button" class="btn btn-info active p-2">Logout</a>
                     {{/userName}}
                     {{^userName}}
