@@ -6,22 +6,32 @@
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
                 <div class="post-heading">
-                    {{#post}}
-                        <h1><input type="text" class="input-white w-100" id="title" placeholder="제목을 입력하세요" value="{{post.title}}"></h1>
-                        <h2 class="subheading"><input type="text" class="input-white w-100" id="subtitle" placeholder="부제를 입력하세요" value="{{post.subtitle}}"></h2>
-                    {{/post}}
-                    {{^post}}
-                        <h1><input type="text" class="input-white w-100" id="title" placeholder="제목을 입력하세요"></h1>
-                        <h2 class="subheading"><input type="text" class="input-white w-100" id="subtitle" placeholder="부제를 입력하세요"></h2>
-                    {{/post}}
+                    <h1>
+                        <input type="text" class="input-white w-100" id="title" placeholder="제목을 입력하세요"
+                            {{#post}}
+                               value="{{post.title}}"
+                            {{/post}}
+                        />
+                    </h1>
+                    <h2 class="subheading">
+                        <input type="text" class="input-white w-100" id="subtitle" placeholder="부제를 입력하세요"
+                            {{#post}}
+                                value="{{post.subtitle}}"
+                            {{/post}}
+                        />
+                    </h2>
                     <span class="meta">
                         Posted by
-                        {{#userName}}
-                            <input type="text" class="input-white w-30" id="author" value="{{userName}}" readonly>
-                        {{/userName}}
-                        {{^userName}}
-                            <input type="text" class="input-white w-30" id="author" placeholder="작성자를 입력하세요">
-                        {{/userName}}
+                        <input type="text" class="input-white w-30" id="author" placeholder="작성자를 입력하세요"
+                            {{#post}}
+                                value="{{post.author}}" readonly
+                            {{/post}}
+                            {{^post}}
+                                {{#userName}}
+                                    value="{{userName}}" readonly
+                                {{/userName}}
+                            {{/post}}
+                        />
                         <small class="mx-1"></small>
                     </span>
                 </div>
@@ -35,12 +45,11 @@
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
-                {{#post}}
-                    <textarea class="form-control editor" id="content">{{post.content}}</textarea>
-                {{/post}}
-                {{^post}}
-                    <textarea class="form-control editor" id="content"></textarea>
-                {{/post}}
+                <textarea class="form-control editor" id="content">
+                    {{#post}}
+                        {{post.content}}
+                    {{/post}}
+                </textarea>
             </div>
         </div>
 
@@ -48,6 +57,7 @@
             <div class="col-md-10 col-lg-8 col-xl-7">
                 <a href="/" role="button" class="btn btn-secondary">취소</a>
                 {{#post}}
+                    <input type="hidden" id="id" value="{{post.id}}" />
                     <button type="button" class="btn btn-primary" id="btn-update">수정완료</button>
                 {{/post}}
                 {{^post}}
