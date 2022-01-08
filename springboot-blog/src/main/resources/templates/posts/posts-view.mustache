@@ -30,8 +30,11 @@
         <div class="row gx-4 gx-lg-5 justify-content-center my-2">
             <div class="col-md-10 col-lg-8 col-xl-7">
                 <a href="/" role="button" class="btn btn-secondary">취소</a>
-                <a href="/posts/update/{{post.id}}" role="button" class="btn btn-primary">수정</a>
-                <button type="button" class="btn btn-danger" id="btn-delete">삭제</button>
+
+                {{#isAuthor}}
+                    <a href="/posts/update/{{post.id}}" role="button" class="btn btn-primary">수정</a>
+                    <button type="button" class="btn btn-danger" id="btn-delete">삭제</button>
+                {{/isAuthor}}
             </div>
         </div>
     </div>

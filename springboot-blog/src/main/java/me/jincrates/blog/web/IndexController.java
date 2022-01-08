@@ -36,9 +36,16 @@ public class IndexController {
     }
 
     @GetMapping("/posts/view/{id}")
-    public String postsView(@PathVariable Long id, Model model) {
+    public String postsView(@PathVariable Long id, Model model, @LoginUser SessionUser user) {
         PostsResponseDto dto = postsService.findById(id);
         model.addAttribute("post", dto);
+
+        if (user != null) {
+            // 게시글 작성자 Name과 로그인 사용자 Name이 같은지 확인
+            if (dto.getAuthor().equals(user.getName())) {
+                model.addAttribute("isAuthor", user.getName());
+            }
+        }
 
         return "posts/posts-view";
     }

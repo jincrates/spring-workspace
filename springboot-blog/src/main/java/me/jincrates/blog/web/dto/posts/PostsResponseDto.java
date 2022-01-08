@@ -1,6 +1,5 @@
 package me.jincrates.blog.web.dto.posts;
 
-import lombok.Builder;
 import lombok.Getter;
 import me.jincrates.blog.domain.posts.Posts;
 
