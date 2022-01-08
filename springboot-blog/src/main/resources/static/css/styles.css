@@ -11239,9 +11239,17 @@ header.masthead .post-heading .meta a {
   text-decoration: none;
   color: #0085A1;
 }
+.post-preview > a > .post-category {
+  display: inline-block;
+  margin: 1px 10px 9px 0;
+  font-size: 0.875em;
+  padding-right: 1px;
+  background: linear-gradient(to top, rgba(251, 243, 219, 1) 50%, transparent 50%);
+  /*margin-top: 1.875rem;
+  margin-bottom: 0.625rem;*/
+}
 .post-preview > a > .post-title {
   font-size: 1.875rem;
-  margin-top: 1.875rem;
   margin-bottom: 0.625rem;
 }
 .post-preview > a > .post-subtitle {
