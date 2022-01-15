@@ -11239,7 +11239,7 @@ header.masthead .post-heading .meta a {
   text-decoration: none;
   color: #0085A1;
 }
-.post-preview > a > .post-category {
+.post-preview > a > .post-category-header {
   display: inline-block;
   margin: 1px 10px 9px 0;
   font-size: 0.875em;
@@ -11261,6 +11261,10 @@ header.masthead .post-heading .meta a {
   font-style: italic;
   margin-top: 0;
   color: #6c757d;
+}
+.post-preview > .post-meta > .post-category {
+  padding-right: 8px;
+  color: #0085A1;
 }
 .post-preview > .post-meta > a {
   text-decoration: none;

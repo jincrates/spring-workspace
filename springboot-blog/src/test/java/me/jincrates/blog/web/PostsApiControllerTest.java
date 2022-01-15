@@ -63,10 +63,12 @@ public class PostsApiControllerTest {
     @WithMockUser(roles="USER")
     public void Posts_등록된다() throws Exception {
         //given
+        String category = "category";
         String title = "title";
         String subtitle = "subtitle";
         String content = "content";
         PostsSaveRequestDto requestDto = PostsSaveRequestDto.builder()
+                .category(category)
                 .title(title)
                 .subtitle(subtitle)
                 .content(content)
@@ -83,6 +85,7 @@ public class PostsApiControllerTest {
 
         //then
         List<Posts> all = postsRepository.findAll();
+        assertThat(all.get(0).getCategory()).isEqualTo(category);
         assertThat(all.get(0).getTitle()).isEqualTo(title);
         assertThat(all.get(0).getContent()).isEqualTo(content);
     }
@@ -92,6 +95,7 @@ public class PostsApiControllerTest {
     public void Posts_수정된다() throws Exception {
         //given
         Posts savedPosts = postsRepository.save(Posts.builder()
+                .category("category")
                 .title("title")
                 .subtitle("subtitle")
                 .content("content")
@@ -99,11 +103,13 @@ public class PostsApiControllerTest {
                 .build());
 
         Long updateId = savedPosts.getId();
+        String expectedCategory = "category2";
         String expectedTitle = "title2";
         String expectedSubTitle = "subtitle2";
         String expectedContent = "content2";
 
         PostsUpdateRequestDto requestDto = PostsUpdateRequestDto.builder()
+                .category(expectedCategory)
                 .title(expectedTitle)
                 .subtitle(expectedSubTitle)
                 .content(expectedContent)
@@ -119,6 +125,7 @@ public class PostsApiControllerTest {
 
         //then
         List<Posts> all = postsRepository.findAll();
+        assertThat(all.get(0).getCategory()).isEqualTo(expectedCategory);
         assertThat(all.get(0).getTitle()).isEqualTo(expectedTitle);
         assertThat(all.get(0).getSubtitle()).isEqualTo(expectedSubTitle);
         assertThat(all.get(0).getContent()).isEqualTo(expectedContent);

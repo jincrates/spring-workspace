@@ -9,13 +9,15 @@ import me.jincrates.blog.domain.posts.Posts;
 @NoArgsConstructor
 public class PostsSaveRequestDto {
 
+    private String category;
     private String title;
     private String subtitle;
     private String content;
     private String author;
 
     @Builder
-    public PostsSaveRequestDto(String title, String subtitle, String content, String author) {
+    public PostsSaveRequestDto(String category, String title, String subtitle, String content, String author) {
+        this.category = category;
         this.title = title;
         this.subtitle = subtitle;
         this.content = content;
@@ -24,6 +26,7 @@ public class PostsSaveRequestDto {
 
     public Posts toEntity() {
         return Posts.builder()
+                .category(category)
                 .title(title)
                 .subtitle(subtitle)
                 .content(content)

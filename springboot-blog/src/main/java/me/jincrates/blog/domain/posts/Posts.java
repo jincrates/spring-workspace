@@ -17,6 +17,9 @@ public class Posts extends BaseTimeEntity {
     private Long id;
 
     @Column(length = 500, nullable = false)
+    private String category;
+
+    @Column(length = 500, nullable = false)
     private String title;
 
     @Column(length = 500, nullable = false)
@@ -28,14 +31,16 @@ public class Posts extends BaseTimeEntity {
     private String author;
 
     @Builder
-    public Posts(String title, String subtitle, String content, String author) {
+    public Posts(String category, String title, String subtitle, String content, String author) {
+        this.category = category;
         this.title = title;
         this.subtitle = subtitle;
         this.content = content;
         this.author = author;
     }
 
-    public void update(String title, String subtitle, String content) {
+    public void update(String category, String title, String subtitle, String content) {
+        this.category = category;
         this.title = title;
         this.subtitle = subtitle;
         this.content = content;

@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 public class PostsResponseDto {
 
     private Long id;
+    private String category;
     private String title;
     private String subtitle;
     private String content;
@@ -17,6 +18,7 @@ public class PostsResponseDto {
 
     public PostsResponseDto(Posts entity) {
         this.id = entity.getId();
+        this.category = entity.getCategory();
         this.title = entity.getTitle();
         this.subtitle = entity.getSubtitle();
         this.content = entity.getContent();
