@@ -35,7 +35,7 @@ public class ItemRepositoryTest {
         IntStream.rangeClosed(1, 100).forEach(i -> {
             Item item = Item.builder()
                     .itemNm("테스트 상품 " + i)
-                    .price(10000)
+                    .price(10000 + i)
                     .itemDetail("테스트 상품 상세 설명 " + i)
                     .itemSellStatus(ItemSellStatus.SELL)
                     .stockNumber(100)
@@ -57,6 +57,15 @@ public class ItemRepositoryTest {
     public void 상품명_OR_상품상세설명_조회() {
         this.상품저장_리스트_조회();
         List<Item> itemList = itemRepository.findByItemNmOrItemDetail("테스트 상품 1", "테스트 상품 상세 설명 5");
+        for(Item item : itemList) {
+            System.out.println(item.toString());
+        }
+    }
+
+    @Test
+    public void 가격_LessThan_조회() {
+        this.상품저장_리스트_조회();
+        List<Item> itemList = itemRepository.findByPriceLessThan(10005);
         for(Item item : itemList) {
             System.out.println(item.toString());
         }
