@@ -18,7 +18,7 @@ public class ItemRepositoryTest {
     ItemRepository itemRepository;
 
     @Test
-    public void 상품저장_테스트() {
+    public void 상품저장() {
         Item item = Item.builder()
                 .itemNm("테스트 상품")
                 .price(10000)
@@ -31,7 +31,7 @@ public class ItemRepositoryTest {
     }
 
     @Test
-    public void 상품저장_리스트_테스트() {
+    public void 상품저장_리스트_조회() {
         IntStream.rangeClosed(1, 100).forEach(i -> {
             Item item = Item.builder()
                     .itemNm("테스트 상품 " + i)
@@ -45,9 +45,18 @@ public class ItemRepositoryTest {
     }
 
     @Test
-    public void 상품명_조회_테스트() {
-        this.상품저장_리스트_테스트();
+    public void 상품명_조회() {
+        this.상품저장_리스트_조회();
         List<Item> itemList = itemRepository.findByItemNm("테스트 상품 1");
+        for(Item item : itemList) {
+            System.out.println(item.toString());
+        }
+    }
+
+    @Test
+    public void 상품명_OR_상품상세설명_조회() {
+        this.상품저장_리스트_조회();
+        List<Item> itemList = itemRepository.findByItemNmOrItemDetail("테스트 상품 1", "테스트 상품 상세 설명 5");
         for(Item item : itemList) {
             System.out.println(item.toString());
         }
