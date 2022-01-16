@@ -12,4 +12,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     //LessThan 조건 처리
     List<Item> findByPriceLessThan(Integer price);
+
+    //OrderBy로 정렬 처리하기
+    List<Item> findByPriceLessThanOrderByPriceDesc(Integer price);
 }

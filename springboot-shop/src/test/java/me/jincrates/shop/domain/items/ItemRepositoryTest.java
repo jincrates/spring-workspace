@@ -70,4 +70,13 @@ public class ItemRepositoryTest {
             System.out.println(item.toString());
         }
     }
+
+    @Test
+    public void 가격_내림차순_조회() {
+        this.상품저장_리스트_조회();
+        List<Item> itemList = itemRepository.findByPriceLessThanOrderByPriceDesc(10005);
+        for(Item item : itemList) {
+            System.out.println(item.toString());
+        }
+    }
 }
