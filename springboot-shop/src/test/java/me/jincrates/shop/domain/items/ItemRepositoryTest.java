@@ -137,7 +137,7 @@ public class ItemRepositoryTest {
 
         Pageable pageable = PageRequest.of(0, 5);
         Page<Item> itemPagingResult = itemRepository.findAll(booleanBuilder, pageable);
-        System.out.print("total elements: " + itemPagingResult.getTotalElements());
+        System.out.println("total elements: " + itemPagingResult.getTotalElements());
 
         List<Item> resultItemList = itemPagingResult.getContent();
         printList(resultItemList);
