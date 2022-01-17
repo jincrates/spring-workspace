@@ -1,21 +1,30 @@
 package me.jincrates.shop.domain.items;
 
-import org.junit.jupiter.api.DisplayName;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.jpa.impl.JPAQuery;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.thymeleaf.util.StringUtils;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class ItemRepositoryTest {
 
     @Autowired
     ItemRepository itemRepository;
+
+    @PersistenceContext
+    EntityManager em;
 
     @Test
     public void 상품저장() {
@@ -32,7 +41,7 @@ public class ItemRepositoryTest {
 
     @Test
     public void 상품저장_리스트_조회() {
-        IntStream.rangeClosed(1, 100).forEach(i -> {
+        IntStream.rangeClosed(1, 70).forEach(i -> {
             Item item = Item.builder()
                     .itemNm("테스트 상품 " + i)
                     .price(10000 + i)
@@ -40,7 +49,17 @@ public class ItemRepositoryTest {
                     .itemSellStatus(ItemSellStatus.SELL)
                     .stockNumber(100)
                     .build();
-            Item savedItem = itemRepository.save(item);
+            itemRepository.save(item);
+        });
+        IntStream.rangeClosed(71, 100).forEach(i -> {
+            Item item = Item.builder()
+                    .itemNm("테스트 상품 " + i)
+                    .price(10000 + i)
+                    .itemDetail("테스트 상품 상세 설명 " + i)
+                    .itemSellStatus(ItemSellStatus.SOLD_OUT)
+                    .stockNumber(0)
+                    .build();
+            itemRepository.save(item);
         });
     }
 
@@ -84,6 +103,45 @@ public class ItemRepositoryTest {
         this.상품저장_리스트_조회();
         List<Item> itemList = itemRepository.findByItemDetailByNative("테스트 상품 상세 설명 1");
         printList(itemList);
+    }
+
+    @Test
+    public void QueryDsl_조회() {
+        this.상품저장_리스트_조회();
+        JPAQueryFactory queryFactory = new JPAQueryFactory(em);
+        QItem qItem = QItem.item;
+        JPAQuery<Item> query = queryFactory.selectFrom(qItem)
+                .where(qItem.itemSellStatus.eq(ItemSellStatus.SELL))
+                .where(qItem.itemDetail.like("%" + "테스트 상품 상세 설명 1" + "%"))
+                .orderBy(qItem.price.desc());
+        List<Item> itemList = query.fetch();
+        printList(itemList);
+    }
+
+    @Test
+    public void QueryDsl_상품조회() {
+        this.상품저장_리스트_조회();
+
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        QItem item = QItem.item;
+        String itemDetail = "테스트 상품 상세 설명";
+        int price = 10003;
+        String itemSellStat = "SELL";
+
+        booleanBuilder.and(item.itemDetail.like("%" + itemDetail + "%"));
+        booleanBuilder.and(item.price.gt(price));
+
+        if (StringUtils.equals(itemSellStat, ItemSellStatus.SELL)) {
+            booleanBuilder.and(item.itemSellStatus.eq(ItemSellStatus.SELL));
+        }
+
+        Pageable pageable = PageRequest.of(0, 5);
+        Page<Item> itemPagingResult = itemRepository.findAll(booleanBuilder, pageable);
+        System.out.print("total elements: " + itemPagingResult.getTotalElements());
+
+        List<Item> resultItemList = itemPagingResult.getContent();
+        printList(resultItemList);
+
     }
 
     public void printList(List<Item> itemList) {
