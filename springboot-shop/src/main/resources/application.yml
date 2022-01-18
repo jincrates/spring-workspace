@@ -4,6 +4,9 @@ server:
     port: 8080
 
 spring:
+    devtools:
+        livereload:
+            enabled: true
     h2:
         console:
             enabled: true
@@ -32,3 +35,6 @@ spring:
                     type:
                         descriptor:
                             sql: trace
+
+    thymeleaf:
+        cache: false
