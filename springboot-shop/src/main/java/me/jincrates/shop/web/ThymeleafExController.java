@@ -26,12 +26,7 @@ public class ThymeleafExController {
                 .itemNm("테스트 상품1")
                 .price(10000)
                 .build();
-
         ItemDto itemDto = new ItemDto(entity);
-//        itemDto.setItemNm("테스트 상품1");
-//        itemDto.setItemDetail("상품 상세설명");
-//        itemDto.setPrice(10000);
-//        itemDto.setCreatedDate(LocalDateTime.now());
 
         model.addAttribute("itemDto", itemDto);
         return "thymeleafEx/thymeleafEx02";

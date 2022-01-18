@@ -8,7 +8,6 @@ import me.jincrates.shop.domain.items.Item;
 import java.time.LocalDateTime;
 
 @Getter
-@Setter
 @NoArgsConstructor
 public class ItemDto {
     private Long id;
@@ -25,7 +24,7 @@ public class ItemDto {
         this.price = entity.getPrice();
         this.itemDetail = entity.getItemDetail();
         //this.sellStatCd = entity.getItemSellStatus().toString();
-        this.createdDate = entity.getCreatedDate();
+        this.createdDate = LocalDateTime.now(); //entity.getCreatedDate();
         //this.modifiedDate = entity.getModifiedDate();
     }
 }
