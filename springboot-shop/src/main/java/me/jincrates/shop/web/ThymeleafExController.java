@@ -74,20 +74,13 @@ public class ThymeleafExController {
 
     @GetMapping(value="/ex05")
     public String thymeleafExample05(Model model) {
-        List<ItemDto> itemDtoList = new ArrayList<>();
-
-        for (int i = 1; i <= 10; i++) {
-            Item entity = Item.builder()
-                    .itemDetail("상품 상세 설명" + i)
-                    .itemNm("테스트 상품" +i)
-                    .price(10000 * i)
-                    .build();
-
-            ItemDto itemDto = new ItemDto(entity);
-            itemDtoList.add(itemDto);
-        }
-
-        model.addAttribute("itemDtoList", itemDtoList);
         return "thymeleafEx/thymeleafEx05";
+    }
+
+    @GetMapping(value="/ex06")
+    public String thymeleafExample06(String param1, String param2, Model model) {
+        model.addAttribute("param1", param1);
+        model.addAttribute("param2", param2);
+        return "thymeleafEx/thymeleafEx06";
     }
 }

@@ -5,29 +5,16 @@
     <title>Title</title>
 </head>
 <body>
-    <h1>상품 리스트 출력 예제</h1>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>순번</th>
-                <th>상품명</th>
-                <th>상세설명</th>
-                <th>가격</th>
-                <th>등록일</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="itemDto, status: ${itemDtoList}">
-                <td th:switch="${status.even}">
-                    <span th:case=true>짝수</span>
-                    <span th:case=false>홀수</span>
-                </td>
-                <td th:text="${itemDto.itemNm}"></td>
-                <td th:text="${itemDto.itemDetail}"></td>
-                <td th:text="${itemDto.price}"></td>
-                <td th:text="${itemDto.createdDate}"></td>
-            </tr>
-        </tbody>
-    </table>
+    <h1>Thymeleaf 링크처리 예제 페이지</h1>
+    <div>
+        <a th:href="@{/thymeleaf/ex01}">예제1 페이지로 이동</a>
+    </div>
+    <div>
+        <a th:href="@{https://www.thymeleaf.org/}">thymeleaf 공식 페이지로 이동</a>
+    </div>
+    <div>
+        <a th:href="@{/thymeleaf/ex06(param1 = '파라미터 데이터1',
+            param2 = '파라미터 데이터2')}">thymeleaf 파라미터 전달</a>
+    </div>
 </body>
 </html>
