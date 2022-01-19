@@ -42,7 +42,7 @@ public class ThymeleafExController {
             Item entity = Item.builder()
                     .itemDetail("상품 상세 설명" + i)
                     .itemNm("테스트 상품" +i)
-                    .price(10000 + i)
+                    .price(10000 * i)
                     .build();
 
             ItemDto itemDto = new ItemDto(entity);
@@ -51,5 +51,43 @@ public class ThymeleafExController {
 
         model.addAttribute("itemDtoList", itemDtoList);
         return "thymeleafEx/thymeleafEx03";
+    }
+
+    @GetMapping(value="/ex04")
+    public String thymeleafExample04(Model model) {
+        List<ItemDto> itemDtoList = new ArrayList<>();
+
+        for (int i = 1; i <= 10; i++) {
+            Item entity = Item.builder()
+                    .itemDetail("상품 상세 설명" + i)
+                    .itemNm("테스트 상품" +i)
+                    .price(10000 * i)
+                    .build();
+
+            ItemDto itemDto = new ItemDto(entity);
+            itemDtoList.add(itemDto);
+        }
+
+        model.addAttribute("itemDtoList", itemDtoList);
+        return "thymeleafEx/thymeleafEx04";
+    }
+
+    @GetMapping(value="/ex05")
+    public String thymeleafExample05(Model model) {
+        List<ItemDto> itemDtoList = new ArrayList<>();
+
+        for (int i = 1; i <= 10; i++) {
+            Item entity = Item.builder()
+                    .itemDetail("상품 상세 설명" + i)
+                    .itemNm("테스트 상품" +i)
+                    .price(10000 * i)
+                    .build();
+
+            ItemDto itemDto = new ItemDto(entity);
+            itemDtoList.add(itemDto);
+        }
+
+        model.addAttribute("itemDtoList", itemDtoList);
+        return "thymeleafEx/thymeleafEx05";
     }
 }
