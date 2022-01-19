@@ -2,16 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-    <title>Title</title>
+    <head>
+        <title>Title</title>
+        <th:block th:replace="fragments/config :: configFragment"></th:block>
+    </head>
 
     <header th:replace="fragments/header :: headerFragment"></header>
 
-    <!-- MAIN CONTENT -->
-    <div id="content" layout:fragment="content1">나 디폴트 컨텐츠1 자식이 오버라이딩 안해서 나옴!!!</div>
-    <div layout:fragment="content2">나 디폴트 컨텐츠2!!!</div>
-    <!-- // MAIN CONTENT -->
+    <body layout:fragment="content">
 
+    </body>
 
-    <footer th:replace="fragments/footer :: footerFragment"></footer>
-
+<!--    <footer th:replace="fragments/footer :: footerFragment"></footer>-->
 </html>
