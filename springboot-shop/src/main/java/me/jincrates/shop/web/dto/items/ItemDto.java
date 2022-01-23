@@ -1,8 +1,7 @@
-package me.jincrates.shop.web.dto.item;
+package me.jincrates.shop.web.dto.items;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import me.jincrates.shop.domain.items.Item;
 
 import java.time.LocalDateTime;
