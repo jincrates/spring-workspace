@@ -15,6 +15,9 @@ public class MemberFormDto {
 
     @Builder
     public MemberFormDto(Member entity) {
-
+        this.name = entity.getName();
+        this.email = entity.getEmail();
+        this.password = entity.getPassword();
+        this.address = entity.getAddress();
     }
 }
