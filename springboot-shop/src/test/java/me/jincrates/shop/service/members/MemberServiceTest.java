@@ -43,4 +43,17 @@ public class MemberServiceTest {
         assertEquals(member.getPassword(), savedMember.getPassword());
         assertEquals(member.getRole(), savedMember.getRole());
     }
+
+    @Test
+    public void 중복_회원가입() {
+        Member member1 = createMember();
+        Member member2 = createMember();
+        memberService.saveMember(member1);
+
+        Throwable e = assertThrows(IllegalStateException.class, () -> {
+            memberService.saveMember(member2);
+        });
+
+        assertEquals("이미 가입된 회원입니다.", e.getMessage());
+    }
 }
