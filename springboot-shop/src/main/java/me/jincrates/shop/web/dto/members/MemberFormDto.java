@@ -31,10 +31,10 @@ public class MemberFormDto {
     private String address;
 
     @Builder
-    public MemberFormDto(Member entity) {
-        this.name = entity.getName();
-        this.email = entity.getEmail();
-        this.password = entity.getPassword();
-        this.address = entity.getAddress();
+    public MemberFormDto(String name, String email, String password, String address) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.address = address;
     }
 }

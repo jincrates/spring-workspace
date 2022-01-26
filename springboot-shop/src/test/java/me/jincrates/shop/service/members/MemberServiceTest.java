@@ -21,13 +21,12 @@ public class MemberServiceTest {
     PasswordEncoder passwordEncoder;
 
     public Member createMember() {
-        Member entity = Member.builder()
+        MemberFormDto memberFormDto = MemberFormDto.builder()
                 .email("test@email.com")
                 .name("홍길동")
                 .address("서울시 강서구 화곡본동")
                 .password("1234")
                 .build();
-        MemberFormDto memberFormDto = new MemberFormDto(entity);
 
         return Member.createMember(memberFormDto, passwordEncoder);
     }
