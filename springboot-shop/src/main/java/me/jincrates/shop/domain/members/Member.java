@@ -9,8 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 
-@Getter
-@ToString
+@Getter @ToString
 @NoArgsConstructor
 @Table(name = "member")
 @Entity

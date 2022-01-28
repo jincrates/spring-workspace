@@ -5,9 +5,7 @@ import me.jincrates.shop.domain.BaseTimeEntity;
 
 import javax.persistence.*;
 
-
-@Getter
-@ToString
+@Getter @ToString
 @NoArgsConstructor
 @Table(name = "item")
 @Entity
