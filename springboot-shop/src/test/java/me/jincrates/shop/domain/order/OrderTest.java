@@ -3,6 +3,8 @@ package me.jincrates.shop.domain.order;
 import me.jincrates.shop.domain.items.Item;
 import me.jincrates.shop.domain.items.ItemRepository;
 import me.jincrates.shop.domain.items.ItemSellStatus;
+import me.jincrates.shop.domain.members.Member;
+import me.jincrates.shop.domain.members.MemberRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,9 @@ public class OrderTest {
     @Autowired
     ItemRepository itemRepository;
 
+    @Autowired
+    MemberRepository memberRepository;
+
     @PersistenceContext
     EntityManager em;
 
@@ -39,6 +44,34 @@ public class OrderTest {
                 .stockNumber(100)
                 .build();
         return item;
+    }
+
+    public Order createOrder() {
+        Order order = new Order();
+
+        IntStream.rangeClosed(1, 10).forEach(i -> {
+            Item item = this.createItem();
+            itemRepository.save(item);
+
+            OrderItem orderItem = OrderItem.builder()
+                    .item(item)
+                    .count(10)
+                    .orderPrice(1000)
+                    .order(order)
+                    .build();
+
+            order.getOrderItems().add(orderItem);
+        });
+
+        Member member = new Member();
+        memberRepository.save(member);
+
+        order.builder()
+                .member(member)
+                .build();
+        orderRepository.save(order);
+
+        return order;
     }
 
     @Test
@@ -66,5 +99,13 @@ public class OrderTest {
         Order savedOrder = orderRepository.findById(order.getId())
                 .orElseThrow(EntityNotFoundException::new);
         assertEquals(10, savedOrder.getOrderItems().size());
+    }
+
+    @Test
+    @DisplayName("고아객체 제거 테스트")
+    public void orphanRemovalTest() {
+        Order order = this.createOrder();
+        order.getOrderItems().remove(0);
+        em.flush();
     }
 }
