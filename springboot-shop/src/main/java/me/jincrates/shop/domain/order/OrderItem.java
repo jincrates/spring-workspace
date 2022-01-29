@@ -1,5 +1,6 @@
 package me.jincrates.shop.domain.order;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -32,4 +33,12 @@ public class OrderItem extends BaseTimeEntity {
     private int orderPrice;  //주문가격
 
     private int count;  //수량
+
+    @Builder
+    public OrderItem(Item item, Order order, int orderPrice, int count) {
+        this.item = item;
+        this.order = order;
+        this.orderPrice = orderPrice;
+        this.count = count;
+    }
 }

@@ -1,0 +1,70 @@
+package me.jincrates.shop.domain.order;
+
+import me.jincrates.shop.domain.items.Item;
+import me.jincrates.shop.domain.items.ItemRepository;
+import me.jincrates.shop.domain.items.ItemSellStatus;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.PersistenceContext;
+
+import java.util.stream.IntStream;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@SpringBootTest
+@Transactional
+public class OrderTest {
+
+    @Autowired
+    OrderRepository orderRepository;
+
+    @Autowired
+    ItemRepository itemRepository;
+
+    @PersistenceContext
+    EntityManager em;
+
+    public Item createItem() {
+        Item item = Item.builder()
+                .itemNm("테스트 상품")
+                .price(10000)
+                .itemDetail("상세 설명")
+                .itemSellStatus(ItemSellStatus.SELL)
+                .stockNumber(100)
+                .build();
+        return item;
+    }
+
+    @Test
+    @DisplayName("영속성 전이 테스트")
+    public void cascadeTest() {
+        Order order = new Order();
+
+        IntStream.rangeClosed(1, 10).forEach(i -> {
+            Item item = this.createItem();
+            itemRepository.save(item);
+
+            OrderItem orderItem = OrderItem.builder()
+                    .item(item)
+                    .count(10)
+                    .orderPrice(1000)
+                    .order(order)
+                    .build();
+
+            order.getOrderItems().add(orderItem);
+        });
+
+        orderRepository.saveAndFlush(order);
+        em.clear();
+
+        Order savedOrder = orderRepository.findById(order.getId())
+                .orElseThrow(EntityNotFoundException::new);
+        assertEquals(10, savedOrder.getOrderItems().size());
+    }
+}
