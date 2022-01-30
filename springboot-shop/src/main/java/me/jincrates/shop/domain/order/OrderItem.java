@@ -4,18 +4,16 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import me.jincrates.shop.domain.BaseTimeEntity;
+import me.jincrates.shop.BaseEntity;
 import me.jincrates.shop.domain.items.Item;
-import me.jincrates.shop.domain.members.Member;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Getter @ToString
 @NoArgsConstructor
 @Table(name = "order_item")
 @Entity
-public class OrderItem extends BaseTimeEntity {
+public class OrderItem extends BaseEntity {
 
     @Id
     @GeneratedValue
