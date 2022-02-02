@@ -39,9 +39,28 @@ public class ItemFormDto {
     private static ModelMapper modelMapper = new ModelMapper();
 
     @Builder
-    public 
+    public ItemFormDto(String itemNm, Integer price, String itemDetail, Integer stockNumber, ItemSellStatus itemSellStatus) {
+        this.itemNm = itemNm;
+        this.price = price;
+        this.itemDetail = itemDetail;
+        this.stockNumber = stockNumber;
+        this.itemSellStatus = itemSellStatus;
+    }
+
+    public Item toEntity(ItemFormDto dto) {
+        Item entity = Item.builder()
+                .itemNm(dto.itemNm)
+                .itemDetail(dto.itemDetail)
+                .stockNumber(dto.stockNumber)
+                .itemSellStatus(dto.itemSellStatus)
+                .price(dto.price)
+                .build();
+
+        return entity;
+    }
 
     public Item createItem() {
+
         return modelMapper.map(this, Item.class);
     }
 
