@@ -2,11 +2,13 @@ package me.jincrates.shop.domain.items;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import me.jincrates.shop.BaseEntity;
 
 import javax.persistence.*;
 
 @Getter
+@NoArgsConstructor
 @Table(name = "item_imh")
 @Entity
 public class ItemImg extends BaseEntity {

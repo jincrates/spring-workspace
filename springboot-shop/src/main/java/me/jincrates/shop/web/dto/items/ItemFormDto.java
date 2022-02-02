@@ -1,6 +1,8 @@
 package me.jincrates.shop.web.dto.items;
 
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import me.jincrates.shop.domain.items.Item;
 import me.jincrates.shop.domain.items.ItemSellStatus;
 import org.modelmapper.ModelMapper;
@@ -11,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@NoArgsConstructor
 public class ItemFormDto {
 
     private Long id;
@@ -34,6 +37,9 @@ public class ItemFormDto {
     private List<Long> itemImgIds = new ArrayList<>();
 
     private static ModelMapper modelMapper = new ModelMapper();
+
+    @Builder
+    public 
 
     public Item createItem() {
         return modelMapper.map(this, Item.class);
