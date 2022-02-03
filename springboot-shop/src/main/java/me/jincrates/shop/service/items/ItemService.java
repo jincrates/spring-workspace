@@ -28,7 +28,6 @@ public class ItemService {
         Item item = itemFormDto.toEntity(itemFormDto);
         System.out.println("===================================");
         System.out.println(item);
-
         itemRepository.save(item);
 
         //이미지 등록
@@ -37,6 +36,9 @@ public class ItemService {
                     .item(item)
                     .repimgYn(i == 0 ? "Y" : "N")
                     .build();
+            System.out.println("===================================");
+            System.out.println(itemImg);
+
             itemImgService.saveItemImg(itemImg, itemImgFileList.get(i));
         }
 

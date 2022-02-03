@@ -3,11 +3,12 @@ package me.jincrates.shop.domain.items;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import me.jincrates.shop.BaseEntity;
 
 import javax.persistence.*;
 
-@Getter
+@Getter @ToString
 @NoArgsConstructor
 @Table(name = "item_imh")
 @Entity
