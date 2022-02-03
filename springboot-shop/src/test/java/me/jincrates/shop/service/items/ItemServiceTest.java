@@ -33,6 +33,7 @@ public class ItemServiceTest {
     List<MultipartFile> createMultipartFiles() throws Exception {
         List<MultipartFile> multipartFileList = new ArrayList<>();
 
+        //path 제일 앞에 경로를 /User로 수정함
         for (int i = 0; i < 5; i++) {
             String path = "/Users/jincrates/projects/upload/shop/item/";
             String imageName = "image" + i + ".jpg";
