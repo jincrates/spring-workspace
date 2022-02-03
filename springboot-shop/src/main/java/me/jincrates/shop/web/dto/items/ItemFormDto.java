@@ -3,6 +3,7 @@ package me.jincrates.shop.web.dto.items;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import me.jincrates.shop.domain.items.Item;
 import me.jincrates.shop.domain.items.ItemSellStatus;
 import org.modelmapper.ModelMapper;
@@ -12,7 +13,7 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
+@Getter @ToString
 @NoArgsConstructor
 public class ItemFormDto {
 

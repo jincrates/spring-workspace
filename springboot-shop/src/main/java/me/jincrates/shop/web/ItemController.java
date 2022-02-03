@@ -30,6 +30,8 @@ public class ItemController {
     public String itemNew(@Valid ItemFormDto itemFormDto, BindingResult bindingResult, Model model,
                           @RequestParam("itemImgFile")List<MultipartFile> itemImgFileList) {
 
+        System.out.println(itemFormDto);
+
         if (bindingResult.hasErrors()) {
             return "item/itemForm";
         }
