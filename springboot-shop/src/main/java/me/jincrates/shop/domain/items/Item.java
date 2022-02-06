@@ -1,6 +1,7 @@
 package me.jincrates.shop.domain.items;
 
 import lombok.*;
+import me.jincrates.shop.BaseEntity;
 import me.jincrates.shop.domain.BaseTimeEntity;
 
 import javax.persistence.*;
@@ -9,7 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Table(name = "item")
 @Entity
-public class Item extends BaseTimeEntity {
+public class Item extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
