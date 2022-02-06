@@ -32,12 +32,12 @@ public class CartTest {
     EntityManager em;
 
     public Member createMember() {
-        MemberFormDto memberFormDto = MemberFormDto.builder()
-                .email("test.email.com")
-                .name("테스트")
-                .address("서울시")
-                .password("1111")
-                .build();
+        MemberFormDto memberFormDto = new MemberFormDto();
+        memberFormDto.setEmail("test@email.com");
+        memberFormDto.setName("테스트");
+        memberFormDto.setAddress("서울시");
+        memberFormDto.setPassword("1111");
+
         return Member.createMember(memberFormDto, passwordEncoder);
     }
 

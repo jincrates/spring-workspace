@@ -21,12 +21,11 @@ public class MemberServiceTest {
     PasswordEncoder passwordEncoder;
 
     public Member createMember() {
-        MemberFormDto memberFormDto = MemberFormDto.builder()
-                .email("test@email.com")
-                .name("홍길동")
-                .address("서울시 강서구 화곡본동")
-                .password("1234")
-                .build();
+        MemberFormDto memberFormDto = new MemberFormDto();
+        memberFormDto.setEmail("test@email.com");
+        memberFormDto.setName("테스트");
+        memberFormDto.setAddress("서울시 강서구 화곡본동");
+        memberFormDto.setPassword("1111");
 
         return Member.createMember(memberFormDto, passwordEncoder);
     }

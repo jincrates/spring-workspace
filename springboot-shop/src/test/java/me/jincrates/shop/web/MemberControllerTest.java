@@ -31,12 +31,12 @@ public class MemberControllerTest {
     PasswordEncoder passwordEncoder;
 
     public Member createMember(String email, String password) {
-        MemberFormDto memberFormDto = MemberFormDto.builder()
-                .email(email)
-                .name("테스트")
-                .address("서울시")
-                .password(password)
-                .build();
+        MemberFormDto memberFormDto = new MemberFormDto();
+        memberFormDto.setEmail(email);
+        memberFormDto.setName("테스트");
+        memberFormDto.setAddress("서울시");
+        memberFormDto.setPassword(password);
+
         Member member = Member.createMember(memberFormDto, passwordEncoder);
         return memberService.saveMember(member);
     }

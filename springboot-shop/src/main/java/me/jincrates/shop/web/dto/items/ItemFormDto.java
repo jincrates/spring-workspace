@@ -1,9 +1,6 @@
 package me.jincrates.shop.web.dto.items;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import me.jincrates.shop.domain.items.Item;
 import me.jincrates.shop.domain.items.ItemSellStatus;
 import org.modelmapper.ModelMapper;
@@ -13,8 +10,7 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter @ToString
-@NoArgsConstructor
+@Getter @Setter @ToString
 public class ItemFormDto {
 
     private Long id;
@@ -39,29 +35,7 @@ public class ItemFormDto {
 
     private static ModelMapper modelMapper = new ModelMapper();
 
-    @Builder
-    public ItemFormDto(String itemNm, Integer price, String itemDetail, Integer stockNumber, ItemSellStatus itemSellStatus) {
-        this.itemNm = itemNm;
-        this.price = price;
-        this.itemDetail = itemDetail;
-        this.stockNumber = stockNumber;
-        this.itemSellStatus = itemSellStatus;
-    }
-
-    public Item toEntity(ItemFormDto dto) {
-        Item entity = Item.builder()
-                .itemNm(dto.itemNm)
-                .itemDetail(dto.itemDetail)
-                .stockNumber(dto.stockNumber)
-                .itemSellStatus(dto.itemSellStatus)
-                .price(dto.price)
-                .build();
-
-        return entity;
-    }
-
     public Item createItem() {
-
         return modelMapper.map(this, Item.class);
     }
 

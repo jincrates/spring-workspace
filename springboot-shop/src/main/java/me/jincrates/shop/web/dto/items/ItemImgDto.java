@@ -3,11 +3,12 @@ package me.jincrates.shop.web.dto.items;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import me.jincrates.shop.domain.items.Item;
 import me.jincrates.shop.domain.items.ItemImg;
 import org.modelmapper.ModelMapper;
 
-@Getter
+@Getter @Setter
 public class ItemImgDto {
 
     private Long id;
