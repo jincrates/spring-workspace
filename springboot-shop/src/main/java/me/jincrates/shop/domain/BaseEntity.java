@@ -1,4 +1,4 @@
-package me.jincrates.shop;
+package me.jincrates.shop.domain;
 
 import lombok.Getter;
 import me.jincrates.shop.domain.BaseTimeEntity;

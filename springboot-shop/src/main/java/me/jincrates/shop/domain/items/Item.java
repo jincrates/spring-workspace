@@ -1,8 +1,7 @@
 package me.jincrates.shop.domain.items;
 
 import lombok.*;
-import me.jincrates.shop.BaseEntity;
-import me.jincrates.shop.domain.BaseTimeEntity;
+import me.jincrates.shop.domain.BaseEntity;
 
 import javax.persistence.*;
 

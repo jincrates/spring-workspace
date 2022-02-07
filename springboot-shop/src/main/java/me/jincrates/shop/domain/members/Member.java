@@ -4,7 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import me.jincrates.shop.BaseEntity;
+import me.jincrates.shop.domain.BaseEntity;
 import me.jincrates.shop.web.dto.members.MemberFormDto;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -48,7 +48,7 @@ public class Member extends BaseEntity {
                 .email(dto.getEmail())
                 .address(dto.getAddress())
                 .password(passwordEncoder.encode(dto.getPassword()))
-                .role(MemberRole.USER)
+                .role(MemberRole.ADMIN)
                 .build();
         return member;
     }

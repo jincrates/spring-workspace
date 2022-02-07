@@ -4,7 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import me.jincrates.shop.BaseEntity;
+import me.jincrates.shop.domain.BaseEntity;
 
 import javax.persistence.*;
 

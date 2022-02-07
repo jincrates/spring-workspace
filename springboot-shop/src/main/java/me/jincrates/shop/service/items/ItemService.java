@@ -6,6 +6,9 @@ import me.jincrates.shop.domain.items.ItemImg;
 import me.jincrates.shop.domain.items.ItemImgRepository;
 import me.jincrates.shop.domain.items.ItemRepository;
 import me.jincrates.shop.web.dto.items.ItemFormDto;
+import me.jincrates.shop.web.dto.items.ItemSearchDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,8 +29,6 @@ public class ItemService {
         //상품 등록
         Item item = itemFormDto.createItem();
         //Item item = itemFormDto.toEntity(itemFormDto);
-        System.out.println("===================================");
-        System.out.println(item);
         itemRepository.save(item);
 
         //이미지 등록
@@ -36,7 +37,6 @@ public class ItemService {
                     .item(item)
                     .repimgYn(i == 0 ? "Y" : "N")
                     .build();
-            System.out.println("===================================");
             System.out.println(itemImg);
 
             itemImgService.saveItemImg(itemImg, itemImgFileList.get(i));
@@ -45,4 +45,8 @@ public class ItemService {
         return item.getId();
     }
 
+    @Transactional(readOnly = true)
+    public Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
+        return itemRepository.getAdminItemPage(itemSearchDto, pageable);
+    }
 }
