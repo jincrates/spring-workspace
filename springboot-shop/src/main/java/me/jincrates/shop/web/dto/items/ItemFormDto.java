@@ -42,4 +42,17 @@ public class ItemFormDto {
     public static ItemFormDto of(Item item) {
         return modelMapper.map(item, ItemFormDto.class);
     }
+
+    @Builder
+    public Item toEntity(ItemFormDto dto) {
+        Item entity = Item.builder()
+                .itemNm(dto.itemNm)
+                .itemDetail(dto.itemDetail)
+                .itemSellStatus(dto.itemSellStatus)
+                .price(dto.price)
+                .stockNumber(dto.stockNumber)
+                .build();
+
+        return entity;
+    }
 }

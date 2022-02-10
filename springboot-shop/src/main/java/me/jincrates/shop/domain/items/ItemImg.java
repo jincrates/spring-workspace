@@ -10,7 +10,7 @@ import javax.persistence.*;
 
 @Getter @ToString
 @NoArgsConstructor
-@Table(name = "item_imh")
+@Table(name = "item_img")
 @Entity
 public class ItemImg extends BaseEntity {
 

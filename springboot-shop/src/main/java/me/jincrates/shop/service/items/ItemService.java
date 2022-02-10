@@ -31,8 +31,10 @@ public class ItemService {
     public Long saveItem(ItemFormDto itemFormDto, List<MultipartFile> itemImgFileList) throws Exception {
 
         //상품 등록
-        Item item = itemFormDto.createItem();
-        //Item item = itemFormDto.toEntity(itemFormDto);
+        //Item item = itemFormDto.createItem();
+        Item item = itemFormDto.toEntity(itemFormDto);
+        System.out.println("=======================");
+        System.out.println(item);
         itemRepository.save(item);
 
         //이미지 등록
