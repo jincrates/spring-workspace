@@ -1,5 +1,5 @@
 server:
-    port: 8080
+    port: 80
 
 spring:
     devtools:
@@ -21,7 +21,7 @@ spring:
 
     jpa:
         hibernate:
-            ddl-auto: update  #validate
+            ddl-auto: create-drop  #validate
         properties:
             hibernate:
                 format_sql: true

@@ -35,6 +35,7 @@ public class ItemService {
         Item item = itemFormDto.toEntity(itemFormDto);
         System.out.println("=======================");
         System.out.println(item);
+        System.out.println(itemImgFileList);
         itemRepository.save(item);
 
         //이미지 등록
