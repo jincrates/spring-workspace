@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.test.context.TestPropertySource;
 import org.thymeleaf.util.StringUtils;
 
 import javax.persistence.EntityManager;
@@ -18,6 +19,7 @@ import java.util.stream.IntStream;
 
 
 @SpringBootTest
+@TestPropertySource(locations="classpath:application-test.yml")
 public class ItemRepositoryTest {
 
     @Autowired
