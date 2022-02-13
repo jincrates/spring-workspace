@@ -42,7 +42,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
             dateTime = dateTime.minusMonths(6);
         }
 
-        return QItem.item.createDate.after(dateTime);
+        return QItem.item.createdDate.after(dateTime);
     }
 
     private BooleanExpression searchByLike(String searchBy, String searchQuery) {

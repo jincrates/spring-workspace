@@ -55,11 +55,11 @@
             <tr th:each="item, status: ${items.getContent()}">
                 <td th:text="${item.id}"></td>
                 <td>
-                    <a th:href="'/admin/item/'+${item.id}" th:text="${item.itemNm}"></a>
+                    <a th:href="'/item/'+${item.id}" th:text="${item.itemNm}"></a>
                 </td>
                 <td th:text="${item.itemSellStatus}"></td>
                 <td th:text="${item.createdBy}"></td>
-                <td th:text="${item.createDate}"></td>
+                <td th:text="${item.createdDate}"></td>
             </tr>
             </tbody>
         </table>

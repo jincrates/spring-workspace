@@ -33,9 +33,6 @@ public class ItemService {
         //상품 등록
         //Item item = itemFormDto.createItem();
         Item item = itemFormDto.toEntity(itemFormDto);
-        System.out.println("=======================");
-        System.out.println(item);
-        System.out.println(itemImgFileList);
         itemRepository.save(item);
 
         //이미지 등록
@@ -44,8 +41,6 @@ public class ItemService {
                     .item(item)
                     .repimgYn(i == 0 ? "Y" : "N")
                     .build();
-            System.out.println(itemImg);
-
             itemImgService.saveItemImg(itemImg, itemImgFileList.get(i));
         }
 

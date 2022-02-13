@@ -65,9 +65,6 @@ public class ItemController {
         model.addAttribute("items", items);
         model.addAttribute("itemSearchDto", itemSearchDto);
         model.addAttribute("maxPage", 5);
-
-        System.out.println("=======================");
-        System.out.println(items.getContent());
         
         return "item/itemMng";
     }
@@ -77,6 +74,9 @@ public class ItemController {
         ItemFormDto itemFormDto = itemService.getItemDtl(itemId);
         model.addAttribute("item", itemFormDto);
 
+        System.out.println("===============================");
+        System.out.println(itemFormDto);
+        
         return "item/itemDtl";
     }
 }
