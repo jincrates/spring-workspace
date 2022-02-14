@@ -38,7 +38,7 @@ public class MemberTest {
         Member member = memberRepository.findById(newMember.getId())
                 .orElseThrow(EntityNotFoundException::new);
 
-        System.out.println("create time : " + member.getCreateDate());
+        System.out.println("create time : " + member.getCreatedDate());
         System.out.println("modify time : " + member.getModifiedDate());
         System.out.println("create member : " + member.getCreatedBy());
         System.out.println("modify member : " + member.getModifiedBy());

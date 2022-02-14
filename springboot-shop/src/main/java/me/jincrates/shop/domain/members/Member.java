@@ -1,16 +1,15 @@
 package me.jincrates.shop.domain.members;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import me.jincrates.shop.domain.BaseEntity;
 import me.jincrates.shop.web.dto.members.MemberFormDto;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 
-@Getter @ToString
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @Table(name = "member")
 @Entity

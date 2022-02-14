@@ -1,15 +1,14 @@
 package me.jincrates.shop.domain.order;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import me.jincrates.shop.domain.BaseEntity;
 import me.jincrates.shop.domain.items.Item;
 
 import javax.persistence.*;
 
-@Getter @ToString
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @Table(name = "order_item")
 @Entity
@@ -38,5 +37,19 @@ public class OrderItem extends BaseEntity {
         this.order = order;
         this.orderPrice = orderPrice;
         this.count = count;
+    }
+
+    public static OrderItem createOrderItem(Item item, int count) {
+        OrderItem orderItem = new OrderItem();
+        orderItem.setItem(item);
+        orderItem.setCount(count);
+        orderItem.setOrderPrice(item.getPrice());
+
+        item.removeStock(count);
+        return orderItem;
+    }
+
+    public int getTotalPrice() {
+        return orderPrice * count;
     }
 }

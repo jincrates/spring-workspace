@@ -2,10 +2,13 @@ package me.jincrates.shop.domain.items;
 
 import lombok.*;
 import me.jincrates.shop.domain.BaseEntity;
+import me.jincrates.shop.exception.OutOfStockException;
 
 import javax.persistence.*;
 
-@Getter @ToString
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @Table(name = "item")
 @Entity
@@ -51,12 +54,11 @@ public class Item extends BaseEntity {
     /**
      * stock 감소
      */
-    public void removeStock(int quantity) {
-        int restStock = this.stockNumber -= quantity;
+    public void removeStock(int stockNumber) {
+        int restStock = this.stockNumber - stockNumber;
         if (restStock < 0) {
-            //throw new NotEnoughStockException("need more stock");
+            throw new OutOfStockException("상품의 재고가 부족합니다. (현재 재고 수량:" + this.stockNumber + ")");
         }
-
         this.stockNumber = restStock;
     }
 }

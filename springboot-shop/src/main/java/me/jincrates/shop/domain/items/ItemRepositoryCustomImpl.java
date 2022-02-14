@@ -1,6 +1,5 @@
 package me.jincrates.shop.domain.items;
 
-import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import me.jincrates.shop.web.dto.items.ItemSearchDto;

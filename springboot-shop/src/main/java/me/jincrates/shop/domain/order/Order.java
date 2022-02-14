@@ -1,9 +1,6 @@
 package me.jincrates.shop.domain.order;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import me.jincrates.shop.domain.BaseTimeEntity;
 import me.jincrates.shop.domain.members.Member;
 
@@ -12,7 +9,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter @ToString
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @Table(name = "orders")  // 정렬할때 order 키워드가 있어서 orders로 지정
 @Entity
@@ -39,5 +38,29 @@ public class Order extends BaseTimeEntity {
     @Builder
     public Order(Member member) {
         this.member = member;
+    }
+
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem.setOrder(this);
+    }
+
+    public static Order createOrder(Member member, List<OrderItem> orderItemList) {
+        Order order = new Order();
+        order.setMember(member);
+        for (OrderItem orderItem : orderItemList) {
+            order.addOrderItem(orderItem);
+        }
+        order.setOrderStatus(OrderStatus.ORDER);
+        order.setOrderDate(LocalDateTime.now());
+        return order;
+    }
+
+    public int getTotalPrice() {
+        int totalPrice = 0;
+        for (OrderItem orderItem : orderItems) {
+            totalPrice += orderItem.getTotalPrice();
+        }
+        return totalPrice;
     }
 }
