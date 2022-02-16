@@ -1,18 +1,18 @@
 package me.jincrates.shop.domain.cart;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+import me.jincrates.shop.domain.BaseEntity;
 import me.jincrates.shop.domain.members.Member;
 
 import javax.persistence.*;
 
-@Getter @ToString
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @Table(name = "cart")
 @Entity
-public class Cart {
+public class Cart extends BaseEntity {
 
     @Id
     @Column(name = "cart_id")
@@ -26,6 +26,12 @@ public class Cart {
     @Builder
     public Cart(Member member) {
         this.member = member;
+    }
+
+    public static Cart createCart(Member member) {
+       Cart cart = new Cart();
+       cart.setMember(member);
+       return cart;
     }
 }
 
