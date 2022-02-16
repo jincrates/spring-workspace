@@ -57,7 +57,7 @@
                 <td>
                     <a th:href="'/item/'+${item.id}" th:text="${item.itemNm}"></a>
                 </td>
-                <td th:text="${item.itemSellStatus}"></td>
+                <td th:text="${item.itemSellStatus.toString().equals('SELL')} ? '판매중' : '품절'"></td>
                 <td th:text="${item.createdBy}"></td>
                 <td th:text="${item.createdDate}"></td>
             </tr>
