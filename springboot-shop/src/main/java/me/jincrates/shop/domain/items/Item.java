@@ -47,8 +47,8 @@ public class Item extends BaseEntity {
     /**
      * stock 증가
      */
-    public void addStock(int quantity) {
-        this.stockNumber += quantity;
+    public void addStock(int stockNumber) {
+        this.stockNumber += stockNumber;
     }
 
     /**

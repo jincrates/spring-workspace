@@ -8,6 +8,7 @@ import me.jincrates.shop.domain.members.MemberRepository;
 import me.jincrates.shop.domain.order.Order;
 import me.jincrates.shop.domain.order.OrderItem;
 import me.jincrates.shop.domain.order.OrderRepository;
+import me.jincrates.shop.domain.order.OrderStatus;
 import me.jincrates.shop.web.dto.order.OrderDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -77,5 +78,24 @@ public class OrderServiceTest {
         int totalPrice = orderDto.getCount() * item.getPrice();
 
         assertEquals(totalPrice, order.getTotalPrice());
+    }
+
+    @Test
+    @DisplayName("주문 취소 테스트")
+    public void cancelOrder() {
+        Item item = saveItem();
+        Member member = memberRepository.findByEmail("test@email.com");//saveMember();
+
+        OrderDto orderDto = new OrderDto();
+        orderDto.setCount(10);
+        orderDto.setItemId(item.getId());
+        Long orderId = orderService.order(orderDto, member.getEmail());
+
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(EntityNotFoundException::new);
+        orderService.cancelOrder(orderId);
+
+        assertEquals(OrderStatus.CANCEL, order.getOrderStatus());
+        assertEquals(100, item.getStockNumber());
     }
 }
