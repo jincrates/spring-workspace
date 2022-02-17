@@ -18,3 +18,12 @@ spring:
                 show_sql: true
         defer-datasource-initialization: true
         database-platform: org.hibernate.dialect.H2Dialect
+
+
+    servlet:
+        multipart:
+            maxFileSize: 20MB
+            maxRequestSize: 100MB
+
+itemImgLocation: /Users/jincrates/projects/upload/shop/item # C:/shop/item
+uploadPath: file:///Users/jincrates/projects/upload/shop/  #file:///C:/shop/
