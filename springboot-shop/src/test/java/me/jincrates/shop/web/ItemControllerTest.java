@@ -16,7 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@TestPropertySource(locations="classpath:application-test.yml")
+@TestPropertySource(properties = {"spring.config.location=classpath:application-test.yml"})
 public class ItemControllerTest {
 
     @Autowired

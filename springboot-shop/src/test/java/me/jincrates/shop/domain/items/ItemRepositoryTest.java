@@ -19,7 +19,7 @@ import java.util.stream.IntStream;
 
 
 @SpringBootTest
-@TestPropertySource(locations="classpath:application-test.yml")
+@TestPropertySource(properties = {"spring.config.location=classpath:application-test.yml"})
 public class ItemRepositoryTest {
 
     @Autowired

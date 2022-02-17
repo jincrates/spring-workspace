@@ -20,7 +20,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
-@TestPropertySource(locations="classpath:application-test.yml")
+@TestPropertySource(properties = {"spring.config.location=classpath:application-test.yml"})
 public class MemberControllerTest {
 
     @Autowired
