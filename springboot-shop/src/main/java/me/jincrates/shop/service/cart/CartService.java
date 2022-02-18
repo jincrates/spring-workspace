@@ -9,11 +9,14 @@ import me.jincrates.shop.domain.items.Item;
 import me.jincrates.shop.domain.items.ItemRepository;
 import me.jincrates.shop.domain.members.Member;
 import me.jincrates.shop.domain.members.MemberRepository;
+import me.jincrates.shop.web.dto.cart.CartDetailDto;
 import me.jincrates.shop.web.dto.cart.CartItemDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Transactional
 @Service
@@ -45,5 +48,20 @@ public class CartService {
             cartItemRepository.save(cartItem);
             return cartItem.getId();
         }
+    }
+
+    @Transactional(readOnly = true)
+    public List<CartDetailDto> getCartList(String email) {
+
+        List<CartDetailDto> cartDetailDtoList = new ArrayList<>();
+
+        Member member = memberRepository.findByEmail(email);
+        Cart cart = cartRepository.findByMemberId(member.getId());
+        if (cart == null) {
+            return cartDetailDtoList;
+        }
+
+        cartDetailDtoList = cartItemRepository.findCartDetailDtoList(cart.getId());
+        return cartDetailDtoList;
     }
 }
