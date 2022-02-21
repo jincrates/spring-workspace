@@ -9,20 +9,20 @@ public class Session02 {
 
     public static String solution(String str) {
         int ascii = 0;
+        String result = "";
 
-        for (int i = 0, max = str.length(); i < max; i++) {
-            ascii = (int) str.charAt(i);
-            System.out.println(str.charAt(i) + " : " +  ascii);
+        for (char x : str.toCharArray()) {
+            ascii = (int) x;
 
             //97보다 작으면 대문자
             if(ascii < 97) {
-                str = str.replace(str.charAt(i), Character.toLowerCase(str.charAt(i)));
+                result += Character.toLowerCase(x);
             } else {
-                str = str.replace(str.charAt(i), Character.toUpperCase(str.charAt(i)));
+                result += Character.toUpperCase(x);
             }
         }
 
-        return str;
+        return result;
     }
 
     public static void main(String[] args) {
