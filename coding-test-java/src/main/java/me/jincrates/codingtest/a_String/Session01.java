@@ -28,7 +28,6 @@ public class Session01 {
             }
         }
 
-
         return answer;
     }
     
