@@ -1,6 +1,5 @@
 package me.jincrates.codingtest.a_String;
 
-
 import java.util.Scanner;
 
 //2. 대소문자 변환
@@ -8,21 +7,18 @@ import java.util.Scanner;
 public class Session02 {
 
     public static String solution(String str) {
-        int ascii = 0;
-        String result = "";
+        String answer = "";
 
         for (char x : str.toCharArray()) {
-            ascii = (int) x;
 
-            //97보다 작으면 대문자
-            if(ascii < 97) {
-                result += Character.toLowerCase(x);
+            if (Character.isLowerCase(x)) {
+                answer += Character.toUpperCase(x);
             } else {
-                result += Character.toUpperCase(x);
+                answer += Character.toLowerCase(x);
             }
         }
 
-        return result;
+        return answer;
     }
 
     public static void main(String[] args) {
