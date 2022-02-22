@@ -1,6 +1,5 @@
 package me.jincrates.codingtest.a_String;
 
-
 import java.util.Scanner;
 
 public class Session00 {
