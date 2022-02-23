@@ -18,7 +18,7 @@ public class Session07 {
             //if (c[lt] != c[rt]) {
             //대소문자 구분안함
             if (Character.toUpperCase(c[lt]) != Character.toUpperCase(c[rt])) {
-                answer = "NO";
+                return "NO";
             }
 
             lt++;
