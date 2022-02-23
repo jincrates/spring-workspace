@@ -13,7 +13,7 @@ public class Session06 {
             //해당 문자가 포함되어 있는지 검증
             if (!answer.contains(String.valueOf(c))) {
                 //포함되지 않았을 때만 넣어준다.
-                answer += String.valueOf(c);
+                answer += c;
             }
         }
 
