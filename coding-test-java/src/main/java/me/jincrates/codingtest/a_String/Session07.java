@@ -7,7 +7,7 @@ public class Session07 {
 
     public static String solution(String str) {
         String answer = "YES";
-
+        /*
         //배열을 만든다.
         char[] c = str.toCharArray();
         //좌우 인덱스
@@ -23,6 +23,11 @@ public class Session07 {
 
             lt++;
             rt--;
+        }
+        */
+        String temp = new StringBuilder(str).reverse().toString();
+        if (!str.equalsIgnoreCase(temp)) {
+            return "NO";
         }
 
         return answer;
