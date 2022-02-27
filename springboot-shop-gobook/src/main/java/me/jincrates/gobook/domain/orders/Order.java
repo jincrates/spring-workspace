@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import me.jincrates.gobook.domain.BaseEntity;
 import me.jincrates.gobook.domain.members.Member;
 
 import javax.persistence.*;
@@ -15,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "orders")
 @Entity
-public class Order {
+public class Order extends BaseEntity {
     @Id
     @GeneratedValue
     @Column(name = "order_id")

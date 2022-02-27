@@ -3,6 +3,7 @@ package me.jincrates.gobook.domain.carts;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import me.jincrates.gobook.domain.BaseEntity;
 import me.jincrates.gobook.domain.items.Item;
 
 import javax.persistence.*;
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @Getter
 @Table(name = "cart_item")
 @Entity
-public class CartItem {
+public class CartItem extends BaseEntity {
 
     @Id
     @GeneratedValue
