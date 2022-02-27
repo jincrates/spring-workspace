@@ -30,10 +30,8 @@ public class MemberController {
         return "member/memberForm";
     }
 
-    @PostMapping(value = "new")
+    @PostMapping(value = "/new")
     public String memberForm(@Valid MemberFormDto memberFormDto, BindingResult bindingResult, Model model) {
-        System.out.println(memberFormDto);
-        System.out.println(bindingResult);
 
         if (bindingResult.hasErrors()) {
             return "member/memberForm";
