@@ -5,15 +5,16 @@ import java.util.Scanner;
 //2. 보이는 학생
 public class Session02 {
     public static int solution(int[] num) {
-        int answer = 0;
-        int temp = num[0];
+        int answer = 1;
+        int max = num[0];
 
         for (int i = 0; i < num.length; i++) {
-            if (temp < num[i]) {
+            if (max < num[i]) {
                 answer++;
+                max = num[i];
             }
-            temp = num[i];
         }
+
         return answer;
     }
 
