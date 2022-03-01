@@ -8,15 +8,36 @@ public class Backjun9935 {
 
     public static String solution(String str, String bomb) {
         String answer = "FRULA";
+        int strLen = str.length();
+        int bombLen = bomb.length();
+        StringBuilder sb = new StringBuilder();
 
-        //문자열에 폭탄(bomb)가 포함될 때
-        while(str.contains(bomb)) {
-            //폭탄 제거
-            str = str.replace(bomb, "");
-        }
+        for (int i = 0; i < strLen; i++) {
+            char c = str.charAt(i);
+            sb.append(c);
 
-        if(str.length() > 0) {
-            answer = str;
+            if(sb.length() >= bombLen) {
+                //폭발 문자열과 서브 문자열이 같은지 검사
+                boolean isBomb = true;
+
+                for (int idx = 0; idx < bombLen; idx++) {
+                    char c1 = sb.charAt(sb.length() - bombLen + idx);
+                    char c2 = bomb.charAt(idx);
+                    System.out.println("c1: " + c1);
+                    System.out.println("c2: " + c2);
+                    if (c1 != c2) {
+                        isBomb = false;
+                        break;
+                    }
+                }
+                //폭탄일경우
+                if (isBomb) {
+                    sb.delete(sb.length() - bomb.length(), sb.length());
+                }
+            }
+            if (sb.length() > 0) {
+                answer = sb.toString();
+            }
         }
 
         return answer;
