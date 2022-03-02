@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import me.jincrates.gobook.domain.BaseEntity;
+import me.jincrates.gobook.web.dto.ItemFormDto;
 
 import javax.persistence.*;
 
@@ -37,11 +38,20 @@ public class Item extends BaseEntity {
     private ItemSellStatus itemSellStatus;  //상품 판매 상태
 
     @Builder
-    public Item(String itemNm, int price, int stockNumber, String itemDetail, ItemSellStatus itemSellStatus) {
+    public Item(Long id, String itemNm, int price, int stockNumber, String itemDetail, ItemSellStatus itemSellStatus) {
+        this.id = id;
         this.itemNm = itemNm;
         this.price = price;
         this.stockNumber =stockNumber;
         this.itemDetail = itemDetail;
         this.itemSellStatus = itemSellStatus;
+    }
+
+    public void updateItem(ItemFormDto itemFormDto) {
+        this.itemNm = itemFormDto.getItemNm();
+        this.price = itemFormDto.getPrice();
+        this.stockNumber = itemFormDto.getStockNumber();
+        this.itemDetail = itemFormDto.getItemDetail();
+        this.itemSellStatus = itemFormDto.getItemSellStatus();
     }
 }
