@@ -7,6 +7,9 @@ import me.jincrates.gobook.domain.items.ItemImgRepository;
 import me.jincrates.gobook.domain.items.ItemRepository;
 import me.jincrates.gobook.web.dto.ItemFormDto;
 import me.jincrates.gobook.web.dto.ItemImgDto;
+import me.jincrates.gobook.web.dto.ItemSearchDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -75,5 +78,10 @@ public class ItemService {
         }
 
         return item.getId();
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
+        return itemRepository.getAdminItemPage(itemSearchDto, pageable);
     }
 }
