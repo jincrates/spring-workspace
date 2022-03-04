@@ -58,7 +58,7 @@ public class ItemController {
     }
 
     @GetMapping(value = "/admin/item/{itemId}")
-    public String itemDetail(@PathVariable("itemId") Long itemId, Model model) {
+    public String itemForm(@PathVariable("itemId") Long itemId, Model model) {
 
         try {
             ItemFormDto itemFormDto = itemService.getItemDetail(itemId);
@@ -72,6 +72,14 @@ public class ItemController {
         return "item/itemForm";
     }
 
+    @GetMapping(value = "/item/{itemId}")
+    public String itemDetail(@PathVariable("itemId") Long itemId, Model model) {
+
+        ItemFormDto itemFormDto = itemService.getItemDetail(itemId);
+        model.addAttribute("item", itemFormDto);
+
+        return "item/itemDetail";
+    }
     @PostMapping(value = "/admin/item/{itemId}")
     public String itemUpdate(@Valid ItemFormDto itemFormDto, BindingResult bindingResult
             , @RequestParam("itemImgFile") List<MultipartFile> itemImgFileList, Model model) {
@@ -99,8 +107,6 @@ public class ItemController {
     public String itemManage(ItemSearchDto itemSearchDto, @PathVariable("page") Optional<Integer> page, Model model) {
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 3);
         Page<Item> items = itemService.getAdminItemPage(itemSearchDto, pageable);
-        System.out.println("======================");
-        System.out.println(items.getContent());
 
         model.addAttribute("items", items);
         model.addAttribute("itemSearchDto", itemSearchDto);

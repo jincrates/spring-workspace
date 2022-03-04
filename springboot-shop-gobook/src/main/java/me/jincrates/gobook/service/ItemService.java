@@ -8,6 +8,7 @@ import me.jincrates.gobook.domain.items.ItemRepository;
 import me.jincrates.gobook.web.dto.ItemFormDto;
 import me.jincrates.gobook.web.dto.ItemImgDto;
 import me.jincrates.gobook.web.dto.ItemSearchDto;
+import me.jincrates.gobook.web.dto.MainItemDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -83,5 +84,10 @@ public class ItemService {
     @Transactional(readOnly = true)
     public Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
         return itemRepository.getAdminItemPage(itemSearchDto, pageable);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<MainItemDto> getMainItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
+        return itemRepository.getMainItemPage(itemSearchDto, pageable);
     }
 }
