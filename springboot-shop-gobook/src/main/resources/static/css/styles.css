@@ -4895,7 +4895,7 @@ textarea.form-control-lg {
   display: inline-block;
   padding: 0.35em 0.65em;
   font-size: 0.75em;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1;
   color: #fff;
   text-align: center;
@@ -4905,6 +4905,12 @@ textarea.form-control-lg {
 }
 .badge:empty {
   display: none;
+}
+
+.badge-primary {
+  color: #084298;
+  background-color: #cfe2ff;
+  border-color: #b6d4fe;
 }
 
 .btn .badge {

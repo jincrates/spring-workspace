@@ -66,8 +66,8 @@
         <div class="repImgDiv">
             <img th:src="${item.itemImgDtoList[0].imgUrl}" class = "rounded repImg" th:alt="${item.itemNm}">
         </div>
-        <div class="wd50">
-            <span th:if="${item.itemSellStatus.toString().equals('SELL')}" class="badge badge-primary mgb-15">
+        <div class="ms-3 w-50">
+            <span th:if="${item.itemSellStatus.toString().equals('SELL')}" class="badge btn-primary mgb-15">
                 판매중
             </span>
             <span th:unless="${item.itemSellStatus.toString().equals('SELL')}" class="badge btn-danger mgb-15" >
@@ -95,8 +95,8 @@
                 <h3 name="totalPrice" id="totalPrice" class="font-weight-bold"></h3>
             </div>
             <div th:if="${item.itemSellStatus.toString().equals('SELL')}" class="text-right">
-                <button type="button" class="btn btn-light border border-primary btn-lg" onclick="addCart()">장바구니 담기</button>
-                <button type="button" class="btn btn-primary btn-lg" onclick="order()">주문하기</button>
+                <button type="button" class="btn btn-light border btn-outline-dark btn-lg" onclick="addCart()">장바구니 담기</button>
+                <button type="button" class="btn btn-dark btn-lg" onclick="order()">주문하기</button>
             </div>
             <div th:unless="${item.itemSellStatus.toString().equals('SELL')}" class="text-right">
                 <button type="button" class="btn btn-danger btn-lg">품절</button>
@@ -104,9 +104,9 @@
         </div>
     </div>
 
-    <div class="jumbotron jumbotron-fluid mgt-30">
+    <div class="mgt-30">
         <div class="container">
-            <h4 class="display-5">상품 상세 설명</h4>
+            <h4 class="display-6">상품 상세 설명</h4>
             <hr class="my-4">
             <p class="lead" th:text="${item.itemDetail}"></p>
         </div>
@@ -115,7 +115,6 @@
     <div th:each="itemImg : ${item.itemImgDtoList}" class="text-center">
         <img th:if="${not #strings.isEmpty(itemImg.imgUrl)}" th:src="${itemImg.imgUrl}" class="rounded mgb-15" width="800">
     </div>
-
 </div>
 
 </html>
