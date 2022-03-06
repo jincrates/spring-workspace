@@ -6,14 +6,15 @@ import java.util.Scanner;
 public class Session05 {
     public static int solution(int n) {
         int answer = 0;
-        int[] ch = new int[n+1];
+        int[] numArr = new int[n + 1]; //n도 포함해서 처리해야하기 때문
 
         for (int i = 2; i <= n; i++) {
-            if (ch[i] == 0) {  //소수
+            System.out.println(i + ": " + numArr[i]);
+            if (numArr[i] == 0) {
                 answer++;
 
-                for (int j = i; j <= n; j=j+i) {  //i의 배수 제거
-                    ch[j] = 1;
+                for (int j = i; j <= n; j = j + i) {  //i의 배수 검증
+                    numArr[j] = 1;
                 }
             }
         }
