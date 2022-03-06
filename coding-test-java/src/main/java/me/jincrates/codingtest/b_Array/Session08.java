@@ -9,6 +9,8 @@ import java.util.Scanner;
 public class Session08 {
     public static int[] solution(int n, int[] arr) {
         int[] answer = new int[n];
+
+        /*
         ArrayList<Integer> list = new ArrayList<>();
         
         for (int i = 0; i < n; i++) {
@@ -25,6 +27,17 @@ public class Session08 {
                     break;
                 }
             }
+        }
+        */
+
+        for (int i = 0; i < n; i++) {
+            int rank = 1;
+            for (int j = 0; j < n; j++) {
+                if (arr[i] < arr[j]) {
+                    rank++;
+                }
+            }
+            answer[i] = rank;
         }
 
         return answer;
