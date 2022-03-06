@@ -3,7 +3,7 @@ package me.jincrates.codingtest.z_backjun;
 import java.util.Scanner;
 
 //8958. OX 퀴즈
-//https://www.acmicpc.net/problem/9935
+//https://www.acmicpc.net/problem/@@@@
 public class Backjun8958 {
 
     public static void solution(int num, String[] strArr) {
