@@ -1,9 +1,6 @@
 package me.jincrates.gobook.domain.orders;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import me.jincrates.gobook.domain.BaseEntity;
 import me.jincrates.gobook.domain.items.Item;
 
@@ -39,5 +36,20 @@ public class OrderItem extends BaseEntity {
         this.order = order;
         this.orderPrice = orderPrice;
         this.count = count;
+    }
+
+    public static OrderItem createOrderItem(Item item, int count) {
+        OrderItem orderItem = OrderItem.builder()
+                .item(item)
+                .count(count)
+                .orderPrice(item.getPrice())
+                .build();
+        item.removeStock(count);
+
+        return orderItem;
+    }
+
+    public int getTotalPrice() {
+        return orderPrice * count;
     }
 }

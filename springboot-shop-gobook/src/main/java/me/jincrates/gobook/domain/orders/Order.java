@@ -1,11 +1,9 @@
 package me.jincrates.gobook.domain.orders;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import me.jincrates.gobook.domain.BaseEntity;
 import me.jincrates.gobook.domain.members.Member;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -17,6 +15,7 @@ import java.util.List;
 @Table(name = "orders")
 @Entity
 public class Order extends BaseEntity {
+
     @Id
     @GeneratedValue
     @Column(name = "order_id")
@@ -41,4 +40,36 @@ public class Order extends BaseEntity {
         this.orderDate = orderDate;
         this.orderStatus = orderStatus;
     }
+
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem = OrderItem.builder()
+                .order(this)
+                .build();
+    }
+
+    public static Order createOrder(Member member, List<OrderItem> orderItemList) {
+
+        Order order = Order.builder()
+                .member(member)
+                .orderStatus(OrderStatus.ORDER)
+                .orderDate(LocalDateTime.now())
+                .build();
+        
+        for (OrderItem orderItem : orderItemList) {
+            order.addOrderItem(orderItem);
+        }
+
+        return order;
+    }
+
+    public int getTotalPrice() {
+        int totalPrice = 0;
+        for (OrderItem orderItem : orderItems) {
+            totalPrice += orderItem.getTotalPrice();
+        }
+
+        return totalPrice;
+    }
+
 }
