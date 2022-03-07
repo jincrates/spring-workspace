@@ -28,4 +28,11 @@ public class Cart extends BaseEntity {
     public Cart(Member member) {
         this.member = member;
     }
+
+    public static Cart createCart(Member member) {
+        Cart cart = Cart.builder()
+                .member(member)
+                .build();
+        return cart;
+    }
 }

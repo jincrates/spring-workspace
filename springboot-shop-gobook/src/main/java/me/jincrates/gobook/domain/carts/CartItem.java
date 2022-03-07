@@ -35,4 +35,18 @@ public class CartItem extends BaseEntity {
         this.item = item;
         this.count = count;
     }
+
+    public static CartItem createCartItem(Cart cart, Item item, int count) {
+        CartItem cartItem = CartItem.builder()
+                .cart(cart)
+                .item(item)
+                .count(count)
+                .build();
+
+        return cartItem;
+    }
+
+    public void addCount(int count) {
+        this.count += count;
+    }
 }
