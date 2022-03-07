@@ -16,12 +16,11 @@ import me.jincrates.gobook.web.dto.OrderItemDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.util.StringUtils;
 
 import javax.persistence.EntityNotFoundException;
-import java.sql.PseudoColumnUsage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,18 +38,12 @@ public class OrderService {
         Item item = itemRepository.findById(orderDto.getItemId()).orElseThrow(EntityNotFoundException::new);
         Member member = memberRepository.findByEmail(email);
 
-        
         List<OrderItem> orderItemList = new ArrayList<>();
         OrderItem orderItem = OrderItem.createOrderItem(item, orderDto.getCount());
         orderItemList.add(orderItem);
 
         Order order = Order.createOrder(member, orderItemList);
 
-        System.out.println("item : " + item);
-        System.out.println("member : " + member);
-        System.out.println("orderItem : " + orderItem);
-        System.out.println("orderItemList : " + orderItemList);
-        System.out.println("order : " + order);
         orderRepository.save(order);
 
         return order.getId();
@@ -64,18 +57,12 @@ public class OrderService {
 
         List<OrderHistoryDto> orderHistoryDtos = new ArrayList<>();
 
-        System.out.println("orders --------------------");
-        System.out.println(orders);
         for (Order order : orders) {
             OrderHistoryDto orderHistoryDto = new OrderHistoryDto(order);
             List<OrderItem> orderItems = order.getOrderItems();
-            System.out.println("=============");
-            System.out.println("orderItem : " + orderItems.toString());
 
             for (OrderItem orderItem : orderItems) {
-                System.out.println("getId : " + orderItem.getItem().getId());
                 ItemImg itemImg = itemImgRepository.findByItemIdAndRepimgYn(orderItem.getItem().getId(), "Y");
-                System.out.println("itemImg : " + itemImg.toString());
 
                 OrderItemDto orderItemDto = new OrderItemDto(orderItem, itemImg.getImgUrl());
                 orderHistoryDto.addOrderItemDto(orderItemDto);
@@ -87,4 +74,25 @@ public class OrderService {
         return new PageImpl<OrderHistoryDto>(orderHistoryDtos, pageable, totalCount);
     }
 
+    @Transactional(readOnly = true)
+    public boolean validateOrder(Long orderId, String email) {
+
+        Member curMember = memberRepository.findByEmail(email);
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(EntityNotFoundException::new);
+        Member savedMember = order.getMember();
+
+        if (!StringUtils.equals(curMember.getEmail(), savedMember.getEmail())) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public void cancelOrder(Long orderId) {
+
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(EntityNotFoundException::new);
+        order.cancelOrder();;
+    }
 }

@@ -5,7 +5,6 @@ import me.jincrates.gobook.domain.BaseEntity;
 import me.jincrates.gobook.domain.items.Item;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Getter @ToString
 @NoArgsConstructor
@@ -38,6 +37,10 @@ public class OrderItem extends BaseEntity {
         this.count = count;
     }
 
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
     public static OrderItem createOrderItem(Item item, int count) {
         OrderItem orderItem = OrderItem.builder()
                 .item(item)
@@ -51,5 +54,9 @@ public class OrderItem extends BaseEntity {
 
     public int getTotalPrice() {
         return orderPrice * count;
+    }
+
+    public void cancel() {
+        this.getItem().addStock(count);
     }
 }

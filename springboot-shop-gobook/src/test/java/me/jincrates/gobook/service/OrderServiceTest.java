@@ -8,6 +8,7 @@ import me.jincrates.gobook.domain.members.MemberRepository;
 import me.jincrates.gobook.domain.orders.Order;
 import me.jincrates.gobook.domain.orders.OrderItem;
 import me.jincrates.gobook.domain.orders.OrderRepository;
+import me.jincrates.gobook.domain.orders.OrderStatus;
 import me.jincrates.gobook.web.dto.OrderDto;
 import org.aspectj.weaver.ast.Or;
 import org.junit.jupiter.api.DisplayName;
@@ -74,15 +75,30 @@ public class OrderServiceTest {
         Order order = orderRepository.findById(orderId).orElseThrow(EntityNotFoundException::new);
 
         List<OrderItem> orderItems = order.getOrderItems();
-        System.out.println("====");
-        System.out.println("orderId : " + orderId);
-        System.out.println("order : " + order);
-        System.out.println("orderDto : " + orderDto);
-        System.out.println("orderItems : " + orderItems);
 
         int totalPrice = orderDto.getCount() * item.getPrice();
 
         assertEquals(totalPrice, order.getTotalPrice());
     }
 
+    @Test
+    @DisplayName("주문 취소 테스트")
+    public void cancelOrder() {
+        Item item = saveItem();
+        Member member = saveMember();
+
+        OrderDto orderDto = OrderDto.builder()
+                .itemId(item.getId())
+                .count(10)
+                .build();
+
+        Long orderId = orderService.order(orderDto, member.getEmail());
+
+        Order order = orderRepository.findById(orderId).orElseThrow(EntityNotFoundException::new);
+
+        orderService.cancelOrder(orderId);
+
+        assertEquals(OrderStatus.CANCEL, order.getOrderStatus());
+        assertEquals(100, item.getStockNumber());
+    }
 }

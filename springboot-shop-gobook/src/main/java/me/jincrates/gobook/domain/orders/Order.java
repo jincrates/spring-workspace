@@ -3,7 +3,6 @@ package me.jincrates.gobook.domain.orders;
 import lombok.*;
 import me.jincrates.gobook.domain.BaseEntity;
 import me.jincrates.gobook.domain.members.Member;
-import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -41,11 +40,10 @@ public class Order extends BaseEntity {
         this.orderStatus = orderStatus;
     }
 
+
     public void addOrderItem(OrderItem orderItem) {
         orderItems.add(orderItem);
-        orderItem = OrderItem.builder()
-                .order(this)
-                .build();
+        orderItem.setOrder(this);
     }
 
     public static Order createOrder(Member member, List<OrderItem> orderItemList) {
@@ -72,4 +70,11 @@ public class Order extends BaseEntity {
         return totalPrice;
     }
 
+    public void cancelOrder() {
+        this.orderStatus = OrderStatus.CANCEL;
+
+        for (OrderItem orderItem : orderItems) {
+            orderItem.cancel();
+        }
+    }
 }

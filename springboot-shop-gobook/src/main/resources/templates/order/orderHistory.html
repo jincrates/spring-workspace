@@ -95,9 +95,9 @@
 
         <div class="d-flex mb-3 align-self-center">
             <h4 th:text="${order.orderDate} + ' 주문'"></h4>
-            <div class="ml-3">
+            <div class="ms-3">
                 <th:block th:if="${order.orderStatus.toString().equals('ORDER')}">
-                    <button type="button" class="btn btn-outline-secondary" th:value="${order.orderId}" onclick="cancelOrder(this.value)">주문취소</button>
+                    <button type="button" class="btn btn-outline-secondary py-0 px-1" th:value="${order.orderId}" onclick="cancelOrder(this.value)">주문취소</button>
                 </th:block>
                 <th:block th:unless="${order.orderStatus.toString().equals('ORDER')}">
                     <h4>(취소 완료)</h4>
