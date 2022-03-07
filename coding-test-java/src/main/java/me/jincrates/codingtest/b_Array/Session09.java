@@ -5,57 +5,30 @@ import java.util.Scanner;
 //9. 격자판 최대합
 public class Session09 {
     public static int solution(int n, int[][] arr) {
-        int answer = 0;
-        int sum = 0;
-        int max = 0;
+        int answer = Integer.MIN_VALUE;
+        int sum1, sum2;
 
-        //가로줄 검증
+        //행열 검증
         for (int i = 0; i < n; i++) {
-            sum = 0;    
+            sum1 = sum2 = 0;
             
             for(int j = 0; j < n; j++) {
-                sum += arr[i][j];
+                sum1 += arr[i][j];
+                sum2 += arr[j][i];
             }
 
-            if (max < sum) {
-                max = sum;
-            }
+            answer = Math.max(answer, sum1);
+            answer = Math.max(answer, sum2);
         }
 
-        //세로줄 검증
+        //대각선 검증
+        sum1 = sum2 = 0;
         for (int i = 0; i < n; i++) {
-            sum = 0;
-
-            for(int j = 0; j < n; j++) {
-                sum += arr[j][i];
-            }
-
-            if (max < sum) {
-                max = sum;
-            }
+            sum1 += arr[i][i];
+            sum2 += arr[i][(n - 1) - i];
         }
-
-        //좌대각선 검증
-        sum = 0;
-
-        for (int i = 0; i < n; i++) {
-            sum += arr[i][i];
-            if (max < sum) {
-                max = sum;
-            }
-        }
-
-        //우대각선 검증  i0 5  i1 j4
-        sum = 0;
-        for (int i = 0; i < n; i++) {
-            //System.out.println("i = " + i + ", n - i = " + (n - i));
-            sum += arr[i][(n - 1) - i];
-            if (max < sum) {
-                max = sum;
-            }
-        }
-
-        answer = max;
+        answer = Math.max(answer, sum1);
+        answer = Math.max(answer, sum2);
 
         return answer;
     }
