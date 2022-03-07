@@ -25,7 +25,7 @@ public class Session09 {
         sum1 = sum2 = 0;
         for (int i = 0; i < n; i++) {
             sum1 += arr[i][i];
-            sum2 += arr[i][(n - 1) - i];
+            sum2 += arr[i][n - i - 1];
         }
         answer = Math.max(answer, sum1);
         answer = Math.max(answer, sum2);
