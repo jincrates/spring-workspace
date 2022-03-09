@@ -1,6 +1,10 @@
 package me.jincrates.gobook.web;
 
 import lombok.RequiredArgsConstructor;
+import me.jincrates.gobook.domain.items.Item;
+import me.jincrates.gobook.domain.members.Member;
+import me.jincrates.gobook.domain.orders.Order;
+import me.jincrates.gobook.domain.orders.OrderItem;
 import me.jincrates.gobook.service.OrderService;
 import me.jincrates.gobook.web.dto.OrderDto;
 import me.jincrates.gobook.web.dto.OrderHistoryDto;
@@ -15,8 +19,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
