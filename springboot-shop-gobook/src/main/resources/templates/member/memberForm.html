@@ -26,6 +26,10 @@
 </th:block>
 
 <div layout:fragment="content">
+    <h2 class="mb-4">
+        회원가입
+    </h2>
+
     <form role="form" method="post" action="/members/new" th:object="${memberFormDto}">
         <div class="form-group">
             <label th:for="name">이름</label>

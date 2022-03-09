@@ -3,6 +3,7 @@ package me.jincrates.gobook.domain.carts;
 import me.jincrates.gobook.web.dto.CartDetailDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -18,4 +19,8 @@ public interface CartItemRepository extends JpaRepository<CartItem, Long> {
             "and im.repimgYn = 'Y' " +
             "order by ci.regTime desc")
     List<CartDetailDto> findCartDetailDtoList(Long cartId);
+
+    @Query("select count(o) from CartItem o " +
+            "where o.cart.id = :cartId")
+    Long countCartItem(@Param("cartId") Long cartId);
 }

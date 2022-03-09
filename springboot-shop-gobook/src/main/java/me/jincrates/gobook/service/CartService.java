@@ -124,4 +124,12 @@ public class CartService {
 
         return  orderId;
     }
+
+    @Transactional(readOnly = true)
+    public Long countCartItem(String email) {
+        Member member = memberRepository.findByEmail(email);
+        Cart cart = cartRepository.findByMemberId(member.getId());
+
+        return cartItemRepository.countCartItem(cart.getId());
+    }
 }

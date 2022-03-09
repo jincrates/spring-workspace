@@ -38,8 +38,19 @@
 
 <div layout:fragment="content">
 
+    <h2 class="mb-4">
+        상품관리 목록
+    </h2>
+
     <form th:action="@{'/admin/items/' + ${items.number}}" role="form" method="get" th:object="${items}">
         <table class="table table-hover">
+            <colgroup>
+                <col width="10%"/>
+                <col width="40%"/>
+                <col width="10%"/>
+                <col width="20%"/>
+                <col width="20%"/>
+            </colgroup>
             <thead>
             <tr>
                 <td>상품아이디</td>
