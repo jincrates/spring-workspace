@@ -58,7 +58,7 @@ public class OrderController {
     }
 
     @GetMapping(value = {"/orders", "/orders/{page}"})
-    public String orderHistory(@PathVariable("page")Optional<Integer> page, Principal principal, Model model) {
+    public String orderHistory(@PathVariable("page") Optional<Integer> page, Principal principal, Model model) {
 
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 4);
 

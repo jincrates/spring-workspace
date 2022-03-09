@@ -93,7 +93,7 @@ public class OrderService {
 
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(EntityNotFoundException::new);
-        order.cancelOrder();;
+        order.cancelOrder();
     }
 
     public Long orders(List<OrderDto> orderDtoList, String email) {
