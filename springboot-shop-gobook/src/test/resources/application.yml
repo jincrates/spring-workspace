@@ -1,0 +1,33 @@
+# ?????? ?? ??
+server:
+    port: 80
+
+spring:
+    # MySQL ?? ??
+    datasource:
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/gobook
+        username: bootuser
+        password: bootuser
+
+    jpa:
+        hibernate:
+            ddl-auto: validate
+        properties:
+            hibernate:
+                show_sql: true # ???? ?? ?? ??
+                format_sql: true # ???? ???? ??? ???? ?? ???
+                default_batch_fetch_size: 1000
+        database-platform: org.hibernate.dialect.MySQL5Dialect
+
+    devtools:
+        livereload:
+            enabled: true
+
+    servlet:
+        multipart:
+            maxFileSize: 20MB
+            maxRequestSize: 100MB
+
+itemImgLocation: /Users/jincrates/projects/upload/shop/item # C:/shop/item
+uploadPath: file:///Users/jincrates/projects/upload/shop/  #file:///C:/shop/
