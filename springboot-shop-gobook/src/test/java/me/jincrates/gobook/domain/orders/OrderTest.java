@@ -5,6 +5,7 @@ import me.jincrates.gobook.domain.items.ItemRepository;
 import me.jincrates.gobook.domain.items.ItemSellStatus;
 import me.jincrates.gobook.domain.members.Member;
 import me.jincrates.gobook.domain.members.MemberRepository;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,6 +81,7 @@ public class OrderTest {
         return order;
     }
 
+    @Disabled
     @Test
     @DisplayName("영속성 전이 테스트")
     public void cascadeTest() {
@@ -125,10 +127,7 @@ public class OrderTest {
         
         OrderItem orderItem = orderItemRepository.findById(orderItemId)
                 .orElseThrow(EntityNotFoundException::new);
-        System.out.println("Order class : " + orderItem.getOrder().getClass());
-        System.out.println("========================================");
         orderItem.getOrder().getOrderDate();
-        System.out.println("========================================");
     }
     
 }
