@@ -7,7 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class GobookApplicationTests {
 
-	@Disabled
 	@Test
 	void contextLoads() {
 	}
