@@ -2,6 +2,7 @@ package me.jincrates.gobook.service;
 
 import me.jincrates.gobook.domain.items.*;
 import me.jincrates.gobook.web.dto.ItemFormDto;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,7 @@ public class ItemServiceTest {
         return multipartFileList;
     }
 
+    @Disabled
     @Test
     @DisplayName("상품 등록 테스트")
     @WithMockUser(username = "admin", roles = "ADMIN")
