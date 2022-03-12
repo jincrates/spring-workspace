@@ -2,11 +2,16 @@ server:
     port: 80
 
 spring:
+#    datasource:
+#        driverClassName: com.mysql.jdbc.Driver
+#        url: jdbc:mysql://localhost:3306/gobook
+#        username: bootuser
+#        password: bootuser
     datasource:
-        driverClassName: com.mysql.jdbc.Driver
-        url: jdbc:mysql://localhost:3306/gobook
-        username: bootuser
-        password: bootuser
+        driverClassName: org.mariadb.jdbc.Driver
+        url: jdbc:mariadb://springboot-blog.cbwrekiqrow4.ap-northeast-2.rds.amazonaws.com:3306/gobook
+        username: jincrates
+        password: jincrates
 
     jpa:
         hibernate:
@@ -28,5 +33,7 @@ spring:
             maxFileSize: 20MB
             maxRequestSize: 100MB
 
-itemImgLocation: /Users/jincrates/projects/upload/shop/item # C:/shop/item
-uploadPath: file:///Users/jincrates/projects/upload/shop/  #file:///C:/shop/
+#itemImgLocation: /Users/jincrates/projects/upload/shop/item # C:/shop/item
+#uploadPath: file:///Users/jincrates/projects/upload/shop/  #file:///C:/shop/
+itemImgLocation: /home/ec2-user/upload/gobook/item
+uploadPath: file:///home/ec2-user/upload/gobook/
