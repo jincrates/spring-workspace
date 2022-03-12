@@ -1,10 +1,3 @@
 spring:
-    profiles: real-db
-    jpa:
-        hibernate:
-            ddl-auto: none
-    datasource:
-        driver-class-name: org.mariadb.jdbc.Driver
-        url: jdbc:mariadb://springboot-blog.cbwrekiqrow4.ap-northeast-2.rds.amazonaws.com:3306/gobook
-        username: jincrates
-        password: jincrates
+    profiles:
+        include: real-db
