@@ -2,6 +2,9 @@ server:
     port: 8080
 
 spring:
+    profiles:
+        include: real-db
+
     h2:
         console:
             enabled: true
