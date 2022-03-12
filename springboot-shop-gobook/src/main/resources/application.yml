@@ -1,5 +1,5 @@
 server:
-    port: 8080
+    port: 80
 
 spring:
     h2:
@@ -35,10 +35,6 @@ spring:
         multipart:
             maxFileSize: 20MB
             maxRequestSize: 100MB
-
-    logging:
-        level:
-            me.jincrates: DEBUG
 
 #itemImgLocation: /Users/jincrates/projects/upload/shop/item # C:/shop/item
 #uploadPath: file:///Users/jincrates/projects/upload/shop/  #file:///C:/shop/
