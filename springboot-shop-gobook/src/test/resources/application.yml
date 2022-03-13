@@ -18,7 +18,7 @@ spring:
 
     jpa:
         hibernate:
-            ddl-auto: none
+            ddl-auto: C
         properties:
             hibernate:
                 show_sql: true
