@@ -18,14 +18,12 @@ spring:
 
     jpa:
         hibernate:
-            ddl-auto: none
+            ddl-auto: validate
         properties:
             hibernate:
                 show_sql: true
                 format_sql: true
                 default_batch_fetch_size: 1000
-        #database-platform: org.hibernate.dialect.MySQL5InnoDBDialect # org.hibernate.dialect.MySQL5Dialect
-
 
     devtools:
         livereload:
