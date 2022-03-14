@@ -33,15 +33,18 @@ public class ItemService {
         // 상품 등록
         Item item = itemFormDto.toEntity(itemFormDto);
         itemRepository.save(item);
-
+        
         //이미지 등록
         for (int i = 0, max = itemImgFileList.size(); i < max; i++) {
-            ItemImg itemImg = ItemImg.builder()
-                    .item(item)
-                    .repimgYn(i == 0 ? "Y" : "N")
-                    .build();
+            //파일이 있을 때만 저장
+            if (itemImgFileList.get(i).getSize() != 0) {
+                ItemImg itemImg = ItemImg.builder()
+                        .item(item)
+                        .repimgYn(i == 0 ? "Y" : "N")
+                        .build();
 
-            itemImgService.saveItemImg(itemImg, itemImgFileList.get(i));
+                itemImgService.saveItemImg(itemImg, itemImgFileList.get(i));
+            }
         }
 
         return item.getId();
