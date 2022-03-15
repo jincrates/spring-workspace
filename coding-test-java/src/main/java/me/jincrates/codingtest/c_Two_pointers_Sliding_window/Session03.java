@@ -14,6 +14,8 @@ public class Session03 {
         int idx, sum;
 
         //만들 수 있는 모든 경우의 수를 가져온다.
+        //방법1. 시간복잡도: (n-cnt) * cnt
+        /*
         for (int i = 0; i < n - cnt; i++) {
             idx = 0;
             sum = 0;
@@ -21,6 +23,22 @@ public class Session03 {
             while (idx < cnt) {
                 sum += arr[i + idx++];
             }
+
+            if (sum > answer) {
+                answer = sum;
+            }
+        }
+        */
+
+        //방법2. sliding windows : 반복문 1개로 해결
+        //초기값(answer) 셋팅
+        for (int i = 0; i < cnt; i++) {
+            answer += arr[i];
+        }
+
+        sum = answer;
+        for (int i = cnt; i < n; i++) {
+            sum = sum + arr[i] - arr[i - cnt];
 
             if (sum > answer) {
                 answer = sum;
