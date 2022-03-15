@@ -38,6 +38,7 @@ public class Session03 {
         }
 
         answer = sum;
+
         for (int i = cnt; i < n; i++) {
             sum += (arr[i] - arr[i - cnt]);
 
