@@ -9,7 +9,9 @@ public class Session05 {
     public static int solution(int n) {
         int answer = 0, sum = 0, lt = 1;
 
-        for (int rt = 0; rt < n; rt++) {
+        //굳이 n까지 반복을 해야할 필요가 있을까?
+        //n 나누기 2 + 1까지
+        for (int rt = 0; rt <= (n / 2) + 1; rt++) {
             sum += rt;
 
             if (sum == n) {
