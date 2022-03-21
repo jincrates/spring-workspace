@@ -44,7 +44,6 @@ public class Backjun10025 {
         int k = Integer.parseInt(line1[1]);
         int[] arr = new int[1000001];
         int g = 0, x = 0;
-        int max = 0;
 
         for (int i = 0; i < n; i++) {
             String[] line2 = br.readLine().split(" ");
