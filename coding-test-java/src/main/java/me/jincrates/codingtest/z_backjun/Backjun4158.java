@@ -28,7 +28,7 @@ public class Backjun4158 {
             int n = Integer.parseInt(line1[0]);
             int m = Integer.parseInt(line1[1]);
 
-            if (n ==0 && m == 0) {
+            if (n == 0 && m == 0) {
                 break;
             }
 
