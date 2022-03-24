@@ -127,9 +127,15 @@ public class CartService {
 
     @Transactional(readOnly = true)
     public Long countCartItem(String email) {
+        Long count = 0L;
+
         Member member = memberRepository.findByEmail(email);
         Cart cart = cartRepository.findByMemberId(member.getId());
 
-        return cartItemRepository.countCartItem(cart.getId());
+        if (cart != null) {
+            count = cartItemRepository.countCartItem(cart.getId());
+        }
+
+        return count;
     }
 }

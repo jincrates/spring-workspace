@@ -104,7 +104,7 @@ public class CartController {
     @GetMapping(value = "/cartItem/count")
     public @ResponseBody ResponseEntity countCartItem(Principal principal, Model model) {
 
-        Long cartItemCount = 0L; //cartService.countCartItem(principal.getName());
+        Long cartItemCount = cartService.countCartItem(principal.getName());
 
         return new ResponseEntity<Long>(cartItemCount, HttpStatus.OK);
     }
