@@ -20,7 +20,7 @@ public class MainController {
 
     private final ItemService itemService;
 
-    @GetMapping(value = {"/", "/{page}"})
+    @GetMapping(value = {"/", "/main/{page}"})
     public String main(ItemSearchDto itemSearchDto, @PathVariable("page") Optional<Integer> page, Model model) {
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 8);
         Page<MainItemDto> items = itemService.getMainItemPage(itemSearchDto, pageable);
