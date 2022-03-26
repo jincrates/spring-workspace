@@ -3488,11 +3488,40 @@ textarea.form-control-lg {
   color: #6c757d;
 }
 
+
 .btn-lg, .btn-group-lg > .btn {
-  padding: 0.5rem 1rem;
-  font-size: 1.25rem;
-  border-radius: 0.3rem;
+    padding: 0.5rem 0.5rem;
+    font-size: 1rem;
+    border-radius: 0.3rem;
+    width: 100%;
+    margin-bottom: 4px;
 }
+
+@media (min-width: 407px) {
+    .btn-lg, .btn-group-lg > .btn {
+        padding: 0.5rem 0.5rem;
+        font-size: 1rem;
+        border-radius: 0.3rem;
+        width: auto;
+        margin-bottom: auto;
+    }
+}
+
+@media (min-width: 576px) {
+   .btn-lg, .btn-group-lg > .btn {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border-radius: 0.3rem;
+  }
+}
+@media (min-width: 768px) {
+   .btn-lg, .btn-group-lg > .btn {
+      padding: 0.5rem 1rem;
+      font-size: 1.25rem;
+      border-radius: 0.3rem;
+  }
+}
+
 
 .btn-sm, .btn-group-sm > .btn {
   padding: 0.25rem 0.5rem;
