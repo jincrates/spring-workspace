@@ -39,11 +39,11 @@ public class Session01 {
 
         return answer;
     }
-/*
-15
-BACBACCACCBDEDE
+    /*
+    15
+    BACBACCACCBDEDE
 
-*/
+    */
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
