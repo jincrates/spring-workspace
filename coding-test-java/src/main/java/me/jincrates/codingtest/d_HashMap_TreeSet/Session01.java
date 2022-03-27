@@ -16,6 +16,16 @@ public class Session01 {
             map.put(x, map.getOrDefault(x, 0) + 1); //map.getOrDefault(x, 0) 키값 x를 가져오는데, 맨 처음 키값이 없으면 0을 넣는다.
         }
 
+        //map.containsKey(key);
+        //System.out.println(map.containsKey('A')); //키가 있는지 true/false 리턴
+        //System.out.println(map.containsKey('F'));
+
+        //map.size();
+        //System.out.println(map.size()); //키의 개수(종류)를 리턴
+
+        //map.remove(key);
+        //System.out.println(map.remove('A'));  //특정 키 삭제 - 삭제된 갯수 리턴
+
         int max = Integer.MIN_VALUE;
 
         //맵 탐색
