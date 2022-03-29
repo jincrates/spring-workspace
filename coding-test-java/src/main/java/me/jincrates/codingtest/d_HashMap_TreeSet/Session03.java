@@ -19,6 +19,7 @@ public class Session03 {
         int lt = 0;
         for (int rt = k - 1; rt < n; rt++) {
             hm.put(arr[rt], hm.getOrDefault(arr[rt], 0) + 1);
+            //System.out.println(hm);
             answer.add(hm.size());  //키의 종류
 
             hm.put(arr[lt], hm.get(arr[lt]) - 1);
