@@ -23,6 +23,7 @@ public class Session04 {
             sHm.put(s.charAt(i), sHm.getOrDefault(s.charAt(i), 0) + 1);
         }
 
+        //슬라이딩 윈도우
         int lt = 0;
         for (int rt = t.length() - 1, max = s.length(); rt < max; rt++) {
             sHm.put(s.charAt(rt), sHm.getOrDefault(s.charAt(rt), 0) + 1);
