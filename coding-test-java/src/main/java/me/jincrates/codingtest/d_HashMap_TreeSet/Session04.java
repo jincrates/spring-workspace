@@ -10,32 +10,31 @@ import java.util.HashMap;
 public class Session04 {
     public static int solution(String s, String t) {
         int answer = 0;
-
-        char[] sArr = s.toCharArray();
-        char[] tArr = t.toCharArray();
-
         HashMap<Character, Integer> sHm = new HashMap<>();
         HashMap<Character, Integer> tHm = new HashMap<>();
 
-        for (int i = 0; i < tArr.length; i++) {
-            tHm.put(tArr[i], tHm.getOrDefault(tArr[i], 0) + 1);
+        //비교군 셋팅
+        for (char x : t.toCharArray()) {
+            tHm.put(x, tHm.getOrDefault(x, 0) + 1);
         }
-        for (int i = 0; i < tArr.length - 1; i++) {
-            sHm.put(sArr[i], sHm.getOrDefault(sArr[i], 0) + 1);
+
+        //초기값 설정
+        for (int i = 0; i < t.length() - 1; i++) {
+            sHm.put(s.charAt(i), sHm.getOrDefault(s.charAt(i), 0) + 1);
         }
 
         int lt = 0;
-        for (int rt = tArr.length - 1, max = sArr.length; rt < max; rt++) {
-            sHm.put(sArr[rt], sHm.getOrDefault(sArr[rt], 0) + 1);
+        for (int rt = t.length() - 1, max = s.length(); rt < max; rt++) {
+            sHm.put(s.charAt(rt), sHm.getOrDefault(s.charAt(rt), 0) + 1);
 
             if (tHm.equals(sHm)) {
                 answer++;
             }
 
-            sHm.put(sArr[lt], sHm.get(sArr[lt]) - 1);
+            sHm.put(s.charAt(lt), sHm.get(s.charAt(lt)) - 1);
 
-            if (sHm.get(sArr[lt]) == 0) {
-                sHm.remove(sArr[lt]);
+            if (sHm.get(s.charAt(lt)) == 0) {
+                sHm.remove(s.charAt(lt));
             }
             lt++;
         }
