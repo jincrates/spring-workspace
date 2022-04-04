@@ -25,7 +25,7 @@ public class Session02 {
         }
 
         for (int i = 0, max = stack.size(); i < max; i++) {
-            answer += stack.elementAt(i);
+            answer += stack.get(i);
         }
 
         return answer;
