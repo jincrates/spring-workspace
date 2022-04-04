@@ -13,6 +13,7 @@ public class Session02 {
         Stack<Character> stack = new Stack<>();
 
         for(char x : str.toCharArray()) {
+            /*
             //1. stack에 푸쉬
             stack.push(x);
 
@@ -21,6 +22,14 @@ public class Session02 {
                 for (int i = stack.lastIndexOf('('), max = stack.size(); i < max; i++) {
                     stack.pop();
                 }
+            }
+            */
+
+            if (x == ')') {
+                // 여는 괄호를 만날때까지 꺼냄
+                while(stack.pop() != '(') {}
+            } else {
+                stack.push(x);
             }
         }
 
