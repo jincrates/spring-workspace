@@ -10,96 +10,29 @@ public class Session03 {
     public static int solution(int[][] board, int[] moves) {
         int answer = 0;
 
-        Stack<Integer> score = new Stack<>();
-        Stack<Integer> line1 = new Stack<>();
-        Stack<Integer> line2 = new Stack<>();
-        Stack<Integer> line3 = new Stack<>();
-        Stack<Integer> line4 = new Stack<>();
-        Stack<Integer> line5 = new Stack<>();
+        Stack<Integer> stack = new Stack<>();
 
-        for (int i = board.length - 1, min = 0; i >= min; i--) {
-            if (board[i][0] != 0) {
-                line1.push(board[i][0]);
-            }
-            if (board[i][1] != 0) {
-                line2.push(board[i][1]);
-            }
-            if (board[i][2] != 0) {
-                line3.push(board[i][2]);
-            }
-            if (board[i][3] != 0) {
-                line4.push(board[i][3]);
-            }
-            if (board[i][4] != 0) {
-                line5.push(board[i][4]);
-            }
-        }
-        /*
-        System.out.println(line1);
-        System.out.println(line2);
-        System.out.println(line3);
-        System.out.println(line4);
-        System.out.println(line5);
-        */
-        for (int i = 0, max = moves.length; i < max; i++) {
-            int popElement = 0;
+        //moves 탐색 - pos: 크레인 위치
+        for (int pos : moves) {
+            for (int i = 0, max = board.length; i < max; i++) {
+                if (board[i][pos - 1] != 0) {
+                    //선택된 인형 번호
+                    int temp = board[i][pos - 1];
+                    //선택하고 난 뒤에는 그 자리에 0을 채워넣음
+                    board[i][pos - 1] = 0;
 
-            switch (moves[i]) {
-                case 1:
-                    if (!line1.isEmpty()) {
-                        popElement = line1.pop();
-                        if (((score.size() == 0) ? 0 : score.lastElement()) == popElement) {
-                            answer += 2;
-                            score.pop();
-                        } else {
-                            score.push(popElement);
-                        }
+                    //선택된 인형 번호와 스택 제일 상단에 있는 인형 수가 같은지 비교
+                    //stack.peek() : 꺼내지 않고 값만 확인
+                    if (!stack.isEmpty() && temp == stack.peek()) {
+                        answer += 2;
+                        //스택에서 꺼내기
+                        stack.pop();
+                    } else {
+                        stack.push(temp);
                     }
+                    //인형 비교작업을 마치면 반복문을 빠져나온다.
                     break;
-                case 2:
-                    if (!line2.isEmpty()) {
-                        popElement = line2.pop();
-                        if (((score.size() == 0) ? 0 : score.lastElement()) == popElement) {
-                            answer += 2;
-                            score.pop();
-                        } else {
-                            score.push(popElement);
-                        }
-                    }
-                    break;
-                case 3:
-                    if (!line3.isEmpty()) {
-                        popElement = line3.pop();
-                        if (((score.size() == 0) ? 0 : score.lastElement()) == popElement) {
-                            answer += 2;
-                            score.pop();
-                        } else {
-                            score.push(popElement);
-                        }
-                    }
-                    break;
-                case 4:
-                    if (!line4.isEmpty()) {
-                        popElement = line4.pop();
-                        if (((score.size() == 0) ? 0 : score.lastElement()) == popElement) {
-                            answer += 2;
-                            score.pop();
-                        } else {
-                            score.push(popElement);
-                        }
-                    }
-                    break;
-                case 5:
-                    if (!line5.isEmpty()) {
-                        popElement = line5.pop();
-                        if (((score.size() == 0) ? 0 : score.lastElement()) == popElement) {
-                            answer += 2;
-                            score.pop();
-                        } else {
-                            score.push(popElement);
-                        }
-                    }
-                    break;
+                }
             }
         }
 
