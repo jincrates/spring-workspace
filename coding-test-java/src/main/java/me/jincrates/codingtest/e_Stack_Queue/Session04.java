@@ -9,7 +9,6 @@ import java.util.Stack;
 public class Session04 {
     public static int solution(String str) {
         int answer = 0;
-        int lt = 0, rt = 0; //연산을 위한 좌항, 우항 정의
         Stack<Integer> stack = new Stack<>();
 
         for (char x : str.toCharArray()) {
@@ -18,9 +17,9 @@ public class Session04 {
             if (Character.isDigit(x)) {
                 stack.push(Integer.parseInt(String.valueOf(x)));
             } else {
-                rt = stack.pop();
-                lt = stack.pop();
-
+                //여기 순서가 중요
+                int rt = stack.pop();
+                int lt = stack.pop();
                 int cal = 0;
 
                 switch (x) {
@@ -30,11 +29,10 @@ public class Session04 {
                     case '/': cal = lt / rt; break;
                     default: System.out.println("switch error");;
                 }
-
+                //연산 결과 push
                 stack.push(cal);
             }
         }
-
         answer = stack.get(0);
         
         return answer;
