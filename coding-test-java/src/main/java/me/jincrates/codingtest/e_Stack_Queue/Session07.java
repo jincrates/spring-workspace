@@ -17,7 +17,7 @@ public class Session07 {
         }
 
         for (char x : plan.toCharArray()) {
-            System.out.println(queue);
+            //System.out.println(queue);
 
             //필수 과목인지 확인
             if (queue.contains(x)) {
