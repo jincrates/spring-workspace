@@ -19,7 +19,7 @@ class Patient {
 
 public class Session08 {
     public static int solution(int n, int m, int[] arr) {
-        int answer = 1;
+        int answer = 0;
 
         //대기목록
         Queue<Patient> waitingList = new LinkedList<>();
@@ -39,10 +39,10 @@ public class Session08 {
                 }
             }
             if (temp != null) {
+                answer++;
+
                 if (temp.id == m) {
                     return answer;
-                } else {
-                    answer++;
                 }
             }
         }
