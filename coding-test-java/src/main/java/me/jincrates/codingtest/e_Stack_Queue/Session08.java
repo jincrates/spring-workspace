@@ -25,7 +25,7 @@ public class Session08 {
         Queue<Patient> waitingList = new LinkedList<>();
         
         for (int i = 0; i < n; i++) {
-            waitingList.add(new Patient(i, arr[i]));
+            waitingList.offer(new Patient(i, arr[i]));
         }
 
         while (!waitingList.isEmpty()) {
@@ -33,7 +33,7 @@ public class Session08 {
 
             for (Patient x : waitingList) {
                 if (x.danger > temp.danger) {
-                    waitingList.add(temp);
+                    waitingList.offer(temp);
                     temp = null;
                     break;
                 }
