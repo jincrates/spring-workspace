@@ -38,4 +38,8 @@ public class TodoService {
             throw new RuntimeException("Unknown user.");
         }
     }
+
+    public List<Todo> retrieve(final String userId) {
+        return repository.findByUserId(userId);
+    }
 }
