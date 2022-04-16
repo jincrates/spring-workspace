@@ -1,17 +1,15 @@
 package me.jincrates.work.service;
 
 import lombok.RequiredArgsConstructor;
-import me.jincrates.work.dto.AnnualDTO;
-import me.jincrates.work.entity.Annual;
+import me.jincrates.work.web.dto.AnnualDTO;
+import me.jincrates.work.domain.annual.Annual;
 import me.jincrates.work.entity.Member;
-import me.jincrates.work.repository.AnnualRepository;
+import me.jincrates.work.domain.annual.AnnualRepository;
 import me.jincrates.work.repository.MemberRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

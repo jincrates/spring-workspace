@@ -1,10 +1,9 @@
 package me.jincrates.work.service;
 
 import lombok.RequiredArgsConstructor;
-import me.jincrates.work.dto.AnnualUsedDTO;
-import me.jincrates.work.entity.Annual;
-import me.jincrates.work.entity.AnnualUsed;
-import me.jincrates.work.repository.AnnualUsedRepository;
+import me.jincrates.work.web.dto.AnnualUsedDTO;
+import me.jincrates.work.domain.annual.AnnualUsed;
+import me.jincrates.work.domain.annual.AnnualUsedRepository;
 import me.jincrates.work.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

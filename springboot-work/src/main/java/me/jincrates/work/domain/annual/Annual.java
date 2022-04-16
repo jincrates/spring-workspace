@@ -1,6 +1,8 @@
-package me.jincrates.work.entity;
+package me.jincrates.work.domain.annual;
 
 import lombok.*;
+import me.jincrates.work.entity.BaseTimeEntity;
+import me.jincrates.work.entity.Member;
 
 import javax.persistence.*;
 import java.text.SimpleDateFormat;

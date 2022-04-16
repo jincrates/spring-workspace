@@ -1,4 +1,4 @@
-package me.jincrates.work.dto;
+package me.jincrates.work.web.dto;
 
 import lombok.Data;
 import org.springframework.data.domain.Page;

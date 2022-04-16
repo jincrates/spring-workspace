@@ -1,6 +1,6 @@
-package me.jincrates.work.repository;
+package me.jincrates.work.domain.annual;
 
-import me.jincrates.work.entity.AnnualUsed;
+import me.jincrates.work.domain.annual.AnnualUsed;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

@@ -1,4 +1,4 @@
-package me.jincrates.work.dto;
+package me.jincrates.work.web.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.sun.istack.NotNull;

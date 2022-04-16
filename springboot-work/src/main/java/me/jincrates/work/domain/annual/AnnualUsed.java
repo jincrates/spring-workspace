@@ -1,7 +1,8 @@
-package me.jincrates.work.entity;
+package me.jincrates.work.domain.annual;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import me.jincrates.work.domain.BaseTimeEntity;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;

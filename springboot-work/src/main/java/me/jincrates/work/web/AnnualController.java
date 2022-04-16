@@ -1,19 +1,17 @@
-package me.jincrates.work.controller;
+package me.jincrates.work.web;
 
 import lombok.extern.slf4j.Slf4j;
-import me.jincrates.work.dto.AnnualDTO;
-import me.jincrates.work.dto.AnnualUsedDTO;
-import me.jincrates.work.dto.CalendarDTO;
-import me.jincrates.work.dto.MemberDTO;
-import me.jincrates.work.entity.Annual;
-import me.jincrates.work.entity.AnnualUsed;
+import me.jincrates.work.web.dto.AnnualUsedDTO;
+import me.jincrates.work.web.dto.CalendarDTO;
+import me.jincrates.work.web.dto.MemberDTO;
+import me.jincrates.work.domain.annual.Annual;
+import me.jincrates.work.domain.annual.AnnualUsed;
 import me.jincrates.work.service.AnnualService;
 import me.jincrates.work.service.AnnualUsedService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

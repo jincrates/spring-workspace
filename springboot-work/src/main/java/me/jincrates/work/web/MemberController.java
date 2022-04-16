@@ -1,23 +1,19 @@
-package me.jincrates.work.controller;
+package me.jincrates.work.web;
 
 import lombok.extern.slf4j.Slf4j;
-import me.jincrates.work.dto.MemberDTO;
-import me.jincrates.work.dto.PageRequestDTO;
-import me.jincrates.work.dto.ResponseDTO;
-import me.jincrates.work.entity.Member;
+import me.jincrates.work.domain.members.Member;
+import me.jincrates.work.web.dto.MemberDTO;
+import me.jincrates.work.web.dto.ResponseDTO;
 import me.jincrates.work.security.TokenProvider;
 import me.jincrates.work.service.MemberService;
-import org.apache.catalina.session.StandardSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @Slf4j
 @Controller

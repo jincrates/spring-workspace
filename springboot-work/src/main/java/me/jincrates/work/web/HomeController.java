@@ -1,4 +1,4 @@
-package me.jincrates.work.controller;
+package me.jincrates.work.web;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

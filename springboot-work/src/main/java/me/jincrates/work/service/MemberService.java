@@ -1,20 +1,15 @@
 package me.jincrates.work.service;
 
 import lombok.extern.slf4j.Slf4j;
-import me.jincrates.work.dto.MemberDTO;
-import me.jincrates.work.dto.PageRequestDTO;
-import me.jincrates.work.dto.PageResultDTO;
-import me.jincrates.work.entity.Member;
-import me.jincrates.work.repository.MemberRepository;
+import me.jincrates.work.domain.members.Member;
+import me.jincrates.work.domain.members.MemberRepository;
+import me.jincrates.work.web.dto.MemberDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.function.Function;
 
 @Slf4j
 @Service
