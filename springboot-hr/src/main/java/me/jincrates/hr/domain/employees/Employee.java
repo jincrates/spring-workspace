@@ -21,18 +21,24 @@ public class Employee {//extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    //사원 id(email)
     @Column(unique = true)
     private String empId;
 
+    //비밀번호
     private String empPwd;
 
+    //사원이름
     private String empNm;
 
+    //입사일
     private String joinDate;
 
+    //권한
     @Enumerated(EnumType.STRING)
     private EmployeeRole role;
 
+    //상태(ACTIVE, POSITIVE)
     @Enumerated(EnumType.STRING)
     private EmployeeStatus status;
 
