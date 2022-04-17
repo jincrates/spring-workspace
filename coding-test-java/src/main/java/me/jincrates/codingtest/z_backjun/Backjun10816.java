@@ -10,6 +10,7 @@ import java.util.HashMap;
 //https://www.acmicpc.net/problem/@@@@
 public class Backjun10816 {
 
+    //ArrayList 출력말고 StringBuilder
     public static String solution(int[] arr1, int[] arr2) {
         String answer = "";
         StringBuilder sb = new StringBuilder();
