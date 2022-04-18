@@ -1,4 +1,4 @@
-package me.jincrates.hr.domain.attendence;
+package me.jincrates.hr.domain.attendance;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
