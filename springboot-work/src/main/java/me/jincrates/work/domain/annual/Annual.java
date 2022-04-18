@@ -1,13 +1,11 @@
 package me.jincrates.work.domain.annual;
 
 import lombok.*;
-import me.jincrates.work.entity.BaseTimeEntity;
-import me.jincrates.work.entity.Member;
+import me.jincrates.work.domain.BaseTimeEntity;
 
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
@@ -26,8 +24,8 @@ public class Annual extends BaseTimeEntity {
     @Column(nullable = false)
     private Long baseYear;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Member member;
+    //@ManyToOne(fetch = FetchType.LAZY)
+    //private Member member;
 
     @Column(nullable = false)
     private String joinDate;
