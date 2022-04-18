@@ -56,7 +56,7 @@ public class Employee {//extends BaseEntity {
     /*
     public static Employee createEmployee(EmployeeFormDTO dto, PasswordEncoder passwordEncoder) {
         Employee employee = Employee.builder()
-                .empId(dto.getEmpId())
+                .empEmail(dto.getEmpEmail())
                 .empPwd(passwordEncoder.encode(dto.getEmpPwd()))  //암호화 처리
                 .empNm(dto.getEmpNm())
                 .role(dto.getRole())
