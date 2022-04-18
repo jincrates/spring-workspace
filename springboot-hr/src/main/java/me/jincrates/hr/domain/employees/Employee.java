@@ -3,13 +3,10 @@ package me.jincrates.hr.domain.employees;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import me.jincrates.hr.domain.BaseEntity;
-import me.jincrates.hr.web.dto.employees.EmployeeFormDTO;
+import me.jincrates.hr.web.dto.employees.EmployeeDTO;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.Date;
 
 @Getter
 @NoArgsConstructor
@@ -54,7 +51,7 @@ public class Employee {//extends BaseEntity {
     }
 
     /*
-    public static Employee createEmployee(EmployeeFormDTO dto, PasswordEncoder passwordEncoder) {
+    public static Employee createEmployee(EmployeeDTO dto, PasswordEncoder passwordEncoder) {
         Employee employee = Employee.builder()
                 .empEmail(dto.getEmpEmail())
                 .empPwd(passwordEncoder.encode(dto.getEmpPwd()))  //암호화 처리
@@ -65,7 +62,7 @@ public class Employee {//extends BaseEntity {
         return employee;
     }
      */
-    public static Employee createEmployee(EmployeeFormDTO dto) {
+    public static Employee createEmployee(EmployeeDTO dto) {
         Employee employee = Employee.builder()
                 .empEmail(dto.getEmpEmail())
                 .empPwd(dto.getEmpPwd())  //암호화 처리

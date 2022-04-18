@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import me.jincrates.hr.domain.employees.Employee;
 import me.jincrates.hr.service.employees.EmployeeService;
 import me.jincrates.hr.web.dto.ResponseDTO;
-import me.jincrates.hr.web.dto.employees.EmployeeFormDTO;
+import me.jincrates.hr.web.dto.employees.EmployeeDTO;
 import org.springframework.http.ResponseEntity;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
@@ -28,7 +28,7 @@ public class EmployeeController {
     //private final PasswordEncoder passwordEncoder;
 
     @PostMapping(value = "/new")
-    public ResponseEntity<?> createEmployee(@Valid @RequestBody EmployeeFormDTO dto, BindingResult bindingResult) {
+    public ResponseEntity<?> createEmployee(@Valid @RequestBody EmployeeDTO dto, BindingResult bindingResult) {
 
         //1. 유효성 검사
         if (bindingResult.hasErrors()) {
@@ -37,7 +37,7 @@ public class EmployeeController {
             for (FieldError fieldError : fieldErrorList) {
                 sb.append(fieldError.getDefaultMessage());
             }
-            ResponseDTO<EmployeeFormDTO> response = ResponseDTO.<EmployeeFormDTO>builder().error(sb.toString()).build();
+            ResponseDTO<EmployeeDTO> response = ResponseDTO.<EmployeeDTO>builder().error(sb.toString()).build();
             return ResponseEntity.badRequest().body(response);
         }
 
@@ -50,10 +50,10 @@ public class EmployeeController {
             List<Employee> entityList = employeeService.create(entity);
 
             //4. 자바 스트림을 이용해 리턴된 entityList를 dtoList로 변환한다.
-            List<EmployeeFormDTO> dtoList = entityList.stream().map(EmployeeFormDTO::new).collect(Collectors.toList());
+            List<EmployeeDTO> dtoList = entityList.stream().map(EmployeeDTO::new).collect(Collectors.toList());
 
             //5. 변환된 dtoList를 이용해 ResponseDTO를 초기화한다.
-            ResponseDTO<EmployeeFormDTO> response = ResponseDTO.<EmployeeFormDTO>builder().data(dtoList).build();
+            ResponseDTO<EmployeeDTO> response = ResponseDTO.<EmployeeDTO>builder().data(dtoList).build();
 
             //6. ResponseDTO를 리턴한다.
             return ResponseEntity.ok().body(response);
@@ -61,7 +61,7 @@ public class EmployeeController {
         } catch (Exception e) {
             //7. 혹시 예외가 있는 경우 dto 대신 error에 메시지를 넣어 리턴한다.
             String error = e.getMessage();
-            ResponseDTO<EmployeeFormDTO> response = ResponseDTO.<EmployeeFormDTO>builder().error(error).build();
+            ResponseDTO<EmployeeDTO> response = ResponseDTO.<EmployeeDTO>builder().error(error).build();
             return ResponseEntity.badRequest().body(response);
         }
     }

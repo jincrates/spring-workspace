@@ -12,14 +12,12 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
-import java.time.LocalDate;
-import java.util.Date;
 
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class EmployeeFormDTO {
+public class EmployeeDTO {
 
     @NotEmpty(message = "이메일은 필수 입력 값입니다.")
     @Email(message = "이메일 형식으로 입력해주세요.")
@@ -39,7 +37,7 @@ public class EmployeeFormDTO {
 
     private EmployeeStatus status;
 
-    public EmployeeFormDTO(Employee entity) {
+    public EmployeeDTO(Employee entity) {
         this.empEmail = entity.getEmpEmail();
         this.empPwd = entity.getEmpPwd();
         this.empNm = entity.getEmpNm();
