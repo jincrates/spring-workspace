@@ -14,16 +14,17 @@ import java.util.Date;
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name="Employee")
+@Table(name="employee")
 public class Employee {//extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "employee_id")
     private Long id;
 
-    //사원 id(email)
+    //사원 email(id)
     @Column(unique = true)
-    private String empId;
+    private String empEmail;
 
     //비밀번호
     private String empPwd;
@@ -43,8 +44,8 @@ public class Employee {//extends BaseEntity {
     private EmployeeStatus status;
 
     @Builder
-    public Employee(String empId, String empPwd, String empNm, String joinDate, EmployeeRole role, EmployeeStatus status) {
-        this.empId = empId;
+    public Employee(String empEmail, String empPwd, String empNm, String joinDate, EmployeeRole role, EmployeeStatus status) {
+        this.empEmail = empEmail;
         this.empPwd = empPwd;
         this.empNm = empNm;
         this.joinDate = joinDate;
@@ -66,7 +67,7 @@ public class Employee {//extends BaseEntity {
      */
     public static Employee createEmployee(EmployeeFormDTO dto) {
         Employee employee = Employee.builder()
-                .empId(dto.getEmpId())
+                .empEmail(dto.getEmpEmail())
                 .empPwd(dto.getEmpPwd())  //암호화 처리
                 .empNm(dto.getEmpNm())
                 .joinDate(dto.getJoinDate())

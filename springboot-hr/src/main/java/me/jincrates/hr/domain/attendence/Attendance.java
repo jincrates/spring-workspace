@@ -10,16 +10,20 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name="Attendance")
+@Table(name="attendance")
 public class Attendance {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "attendance_id")
     private Long id;
 
     //사원키
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_id")
     private Employee employee;
 
     //근무일자
+    @Column(nullable = false)
     private String workDate;
 
     //출근일자
@@ -41,5 +45,6 @@ public class Attendance {
     private boolean isHome;
 
     //근태상태
-   private AttendanceStatus statue;
+    @Enumerated(EnumType.STRING)
+    private AttendanceStatus statue;
 }

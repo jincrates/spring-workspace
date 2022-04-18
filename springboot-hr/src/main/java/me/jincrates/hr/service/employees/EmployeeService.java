@@ -20,13 +20,13 @@ public class EmployeeService {
         validateDuplicateEmployee(employee);
         employeeRepository.save(employee);
 
-        log.info("Entity empId : " + employee.getEmpId() + " is saved.");
+        log.info("Entity empEmail : " + employee.getEmpEmail() + " is saved.");
 
-        return employeeRepository.findByEmpId(employee.getEmpId());
+        return employeeRepository.findByEmpEmail(employee.getEmpEmail());
     }
 
     public void validateDuplicateEmployee(Employee employee) {
-        List<Employee> findEmployee = employeeRepository.findByEmpId(employee.getEmpId());
+        List<Employee> findEmployee = employeeRepository.findByEmpEmail(employee.getEmpEmail());
         if (findEmployee.size() > 0) {
             throw new IllegalStateException("이미 가입된 사용자입니다.");
         }
@@ -38,7 +38,7 @@ public class EmployeeService {
             throw new RuntimeException("Entity cannot be null.");
         }
 
-        if (entity.getEmpId() == null) {
+        if (entity.getEmpEmail() == null) {
             log.warning("Unknown user.");
             throw new RuntimeException("Unknown user.");
         }

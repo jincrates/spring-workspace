@@ -9,13 +9,16 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name="Annual")
+@Table(name="annual")
 public class Annual {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "annual_id")
     private Long id;
 
     //사원
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_id")
     private Employee employee;
 
     //사원 입사일
