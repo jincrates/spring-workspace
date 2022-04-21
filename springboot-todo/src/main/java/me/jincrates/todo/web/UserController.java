@@ -2,6 +2,7 @@ package me.jincrates.todo.web;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
+import me.jincrates.todo.config.security.TokenProvider;
 import me.jincrates.todo.domain.users.User;
 import me.jincrates.todo.service.UserService;
 import me.jincrates.todo.web.dto.ResponseDTO;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth")
 public class UserController {
     private final UserService userService;
+    private final TokenProvider tokenProvider;
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody UserDTO userDTO) {
@@ -55,9 +57,12 @@ public class UserController {
         );
 
         if (user != null) {
+            //토큰 생성
+            final String token = tokenProvider.create(user);
             final UserDTO responseUser = UserDTO.builder()
                     .email(user.getEmail())
                     .id(user.getId())
+                    .token(token)
                     .build();
             return ResponseEntity.ok().body(responseUser);
         } else {
