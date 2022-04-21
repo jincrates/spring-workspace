@@ -41,10 +41,29 @@ public class UserController {
 
             return ResponseEntity.ok().body(response);
         } catch(Exception e) {
-            ResponseDTO responseDTO = ResponseDTO.builder()
-                    .error(e.getMessage())
+            ResponseDTO response = ResponseDTO.builder().error(e.getMessage()).build();
+
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
+    @PostMapping("/signin")
+    public ResponseEntity<?> authenticate(@RequestBody UserDTO userDTO) {
+        User user = userService.getByCredentials(
+                userDTO.getEmail(),
+                userDTO.getPassword()
+        );
+
+        if (user != null) {
+            final UserDTO responseUser = UserDTO.builder()
+                    .email(user.getEmail())
+                    .id(user.getId())
                     .build();
-            return ResponseEntity.badRequest().body(responseDTO);
+            return ResponseEntity.ok().body(responseUser);
+        } else {
+            ResponseDTO response = ResponseDTO.builder().error("Login failed.").build();
+
+            return ResponseEntity.badRequest().body(response);
         }
     }
 }
