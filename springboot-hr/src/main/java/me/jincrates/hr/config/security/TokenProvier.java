@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 @Log
 @Service
-public class TokenProvier {
+public class TokenProvider {
     private static final String SECRET_KEY = "";
 
 }
