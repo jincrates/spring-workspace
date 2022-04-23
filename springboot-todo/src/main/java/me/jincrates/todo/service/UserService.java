@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import me.jincrates.todo.domain.users.User;
 import me.jincrates.todo.domain.users.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Log
@@ -28,7 +29,14 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User getByCredentials(final String email, final String password) {
-        return userRepository.findByEmailAndPassword(email, password);
+    public User getByCredentials(final String email, final String password, final PasswordEncoder encoder) {
+        final User originalUser = userRepository.findByEmail(email);
+
+        //matches 메서드를 이용해 패스워드가 같은지 확인
+        if (originalUser != null && encoder.matches(password, originalUser.getPassword())) {
+            return originalUser;
+        }
+
+        return null;
     }
 }

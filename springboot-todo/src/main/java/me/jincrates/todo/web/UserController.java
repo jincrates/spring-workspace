@@ -9,6 +9,8 @@ import me.jincrates.todo.web.dto.ResponseDTO;
 import me.jincrates.todo.web.dto.UserDTO;
 import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     private final UserService userService;
     private final TokenProvider tokenProvider;
+    private final PasswordEncoder passwordEncoder;
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody UserDTO userDTO) {
@@ -29,7 +32,7 @@ public class UserController {
             User user = User.builder()
                     .email(userDTO.getEmail())
                     .username(userDTO.getUsername())
-                    .password(userDTO.getPassword())
+                    .password(passwordEncoder.encode(userDTO.getPassword()))
                     .build();
             //서비스를 이용해 리포지터리에 사용자 저장
             User registeredUser = userService.create(user);
@@ -53,7 +56,8 @@ public class UserController {
     public ResponseEntity<?> authenticate(@RequestBody UserDTO userDTO) {
         User user = userService.getByCredentials(
                 userDTO.getEmail(),
-                userDTO.getPassword()
+                userDTO.getPassword(),
+                passwordEncoder
         );
 
         if (user != null) {

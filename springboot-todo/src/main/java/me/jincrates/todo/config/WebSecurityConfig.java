@@ -2,11 +2,14 @@ package me.jincrates.todo.config;
 
 import lombok.RequiredArgsConstructor;
 import me.jincrates.todo.config.security.JwtAuthenticationFilter;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.filter.CorsFilter;
 
 @Configuration
@@ -32,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
             .authorizeRequests() // /와 /auth/** 경로는 인증 안해도 됨.
-                .antMatchers("/", "/auth/**").permitAll()
+                .antMatchers("/", "/auth/**", "/h2-console/**").permitAll()
             .anyRequest() // /와 /auth/**이외의 모든 경로는 인증 해야됨.
                 .authenticated()
         ;
@@ -45,5 +48,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 jwtAuthenticationFilter,
                 CorsFilter.class
         );
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }
