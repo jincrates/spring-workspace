@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Data
 public class AttendanceDTO {
 
-    private Employee employee;
+    private String email;
 
     private String workDate;
 
@@ -35,7 +35,7 @@ public class AttendanceDTO {
     private AttendanceStatus status;
 
     public AttendanceDTO(Attendance entity) {
-        this.employee = entity.getEmployee();
+        this.email = entity.getEmployee().getEmpEmail();
         this.workDate = entity.getWorkDate();
         this.inDate = entity.getInDate();
         this.outDate = entity.getOutDate();
