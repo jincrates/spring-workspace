@@ -8,6 +8,7 @@ import me.jincrates.hr.domain.attendance.Attendance;
 import me.jincrates.hr.domain.attendance.AttendanceStatus;
 import me.jincrates.hr.domain.employees.Employee;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Builder
@@ -16,9 +17,7 @@ import java.time.LocalDateTime;
 @Data
 public class AttendanceDTO {
 
-    private String email;
-
-    private String workDate;
+    private LocalDate workDate;
 
     private LocalDateTime inDate;
 
@@ -35,7 +34,6 @@ public class AttendanceDTO {
     private AttendanceStatus status;
 
     public AttendanceDTO(Attendance entity) {
-        this.email = entity.getEmployee().getEmail();
         this.workDate = entity.getWorkDate();
         this.inDate = entity.getInDate();
         this.outDate = entity.getOutDate();
