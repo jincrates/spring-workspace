@@ -5,5 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
-    List<Employee> findByEmpEmail(String empEmail);
+    Employee findByEmail(String empEmail);
+
+    Boolean existsByEmail(String email);
 }

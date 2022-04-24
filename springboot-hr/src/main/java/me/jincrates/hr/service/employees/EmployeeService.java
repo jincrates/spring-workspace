@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import me.jincrates.hr.domain.employees.Employee;
 import me.jincrates.hr.domain.employees.EmployeeRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,34 +16,29 @@ public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
 
-    public List<Employee> create(Employee employee) {
-        //중복 체크유효성
-        validateDuplicateEmployee(employee);
-        employeeRepository.save(employee);
-
-        log.info("Entity empEmail : " + employee.getEmpEmail() + " is saved.");
-
-        return employeeRepository.findByEmpEmail(employee.getEmpEmail());
-    }
-
-    public void validateDuplicateEmployee(Employee employee) {
-        List<Employee> findEmployee = employeeRepository.findByEmpEmail(employee.getEmpEmail());
-        if (findEmployee.size() > 0) {
-            throw new IllegalStateException("이미 가입된 사용자입니다.");
-        }
-    }
-
-    public void validate(Employee entity) {
-        if (entity == null) {
-            log.warning("Entity cannot be null.");
-            throw new RuntimeException("Entity cannot be null.");
+    public Employee create(Employee employee) {
+        if (employee == null || employee.getEmail() == null) {
+            throw new RuntimeException("Invalid arguments.");
         }
 
-        if (entity.getEmpEmail() == null) {
-            log.warning("Unknown user.");
-            throw new RuntimeException("Unknown user.");
+        final String email = employee.getEmail();
+
+        if (employeeRepository.existsByEmail(email)) {
+            log.warning("이미 가입된 이메일입니다. email = " + email);
+            throw new RuntimeException("이미 가입된 이메일입니다.");
         }
 
+        return employeeRepository.save(employee);
     }
 
+    public Employee getByCredentials(final String email, final String password, final PasswordEncoder encoder) {
+        final Employee originalEmployee = employeeRepository.findByEmail(email);
+
+        //matches 메서드를 이용해 패스워드가 같은지 확인
+        if (originalEmployee != null && encoder.matches(password, originalEmployee.getPassword())) {
+            return originalEmployee;
+        }
+
+        return null;
+    }
 }

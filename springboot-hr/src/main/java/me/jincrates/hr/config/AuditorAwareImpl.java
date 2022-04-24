@@ -1,6 +1,8 @@
 package me.jincrates.hr.config;
 
 import org.springframework.data.domain.AuditorAware;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 //import org.springframework.security.core.Authentication;
 //import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -10,11 +12,11 @@ public class AuditorAwareImpl implements AuditorAware<String> {
 
     @Override
     public Optional<String> getCurrentAuditor() {
-        //Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userId = "";
-        //if (authentication != null) {
-        //    userId = authentication.getName();
-        //}
+        if (authentication != null) {
+            userId = authentication.getName();
+        }
 
         return  Optional.of(userId);
     }

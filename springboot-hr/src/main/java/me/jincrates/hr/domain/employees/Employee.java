@@ -3,7 +3,9 @@ package me.jincrates.hr.domain.employees;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import me.jincrates.hr.domain.BaseEntity;
 import me.jincrates.hr.web.dto.employees.EmployeeDTO;
+import org.springframework.security.crypto.password.PasswordEncoder;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
@@ -12,8 +14,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name="employee")
-public class Employee {//extends BaseEntity {
-
+public class Employee extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "employee_id")
@@ -21,13 +22,13 @@ public class Employee {//extends BaseEntity {
 
     //사원 email(id)
     @Column(unique = true)
-    private String empEmail;
+    private String email;
 
     //비밀번호
-    private String empPwd;
+    private String password;
 
     //사원이름
-    private String empNm;
+    private String username;
 
     //입사일
     private String joinDate;
@@ -41,32 +42,20 @@ public class Employee {//extends BaseEntity {
     private EmployeeStatus status;
 
     @Builder
-    public Employee(String empEmail, String empPwd, String empNm, String joinDate, EmployeeRole role, EmployeeStatus status) {
-        this.empEmail = empEmail;
-        this.empPwd = empPwd;
-        this.empNm = empNm;
+    public Employee(String email, String password, String username, String joinDate, EmployeeRole role, EmployeeStatus status) {
+        this.email = email;
+        this.password = password;
+        this.username = username;
         this.joinDate = joinDate;
         this.role = role;
         this.status = status;
     }
 
-    /*
     public static Employee createEmployee(EmployeeDTO dto, PasswordEncoder passwordEncoder) {
         Employee employee = Employee.builder()
-                .empEmail(dto.getEmpEmail())
-                .empPwd(passwordEncoder.encode(dto.getEmpPwd()))  //암호화 처리
-                .empNm(dto.getEmpNm())
-                .role(dto.getRole())
-                .status(dto.getStatus())
-                .build();
-        return employee;
-    }
-     */
-    public static Employee createEmployee(EmployeeDTO dto) {
-        Employee employee = Employee.builder()
-                .empEmail(dto.getEmpEmail())
-                .empPwd(dto.getEmpPwd())  //암호화 처리
-                .empNm(dto.getEmpNm())
+                .email(dto.getEmail())
+                .password(passwordEncoder.encode(dto.getPassword()))  //암호화 처리
+                .username(dto.getUsername())
                 .joinDate(dto.getJoinDate())
                 .role(dto.getRole())
                 .status(dto.getStatus())
