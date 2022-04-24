@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 @Log
@@ -52,13 +53,10 @@ public class AttendanceController {
             Employee employee = employeeRepository.findByEmail(userId);
 
             Attendance entity = Attendance.createAttendance(employee, dto);
-            log.info(entity.toString());
 
             List<Attendance> entityList = attendanceService.checkIn(entity);
-            log.info(entityList.toString());
 
             List<AttendanceDTO> dtoList = entityList.stream().map(AttendanceDTO::new).collect(Collectors.toList());
-            log.info(dtoList.toString());
 
             ResponseDTO<AttendanceDTO> response = ResponseDTO.<AttendanceDTO>builder().data(dtoList).build();
 
@@ -67,7 +65,7 @@ public class AttendanceController {
         } catch (Exception e) {
             //7. 혹시 예외가 있는 경우 dto 대신 error에 메시지를 넣어 리턴한다.
             String error = e.getMessage();
-            ResponseDTO<EmployeeDTO> response = ResponseDTO.<EmployeeDTO>builder().error(error).build();
+            ResponseDTO<AttendanceDTO> response = ResponseDTO.<AttendanceDTO>builder().error(error).build();
             return ResponseEntity.badRequest().body(response);
         }
     }

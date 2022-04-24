@@ -20,8 +20,9 @@ public class AttendanceService {
     public List<Attendance> checkIn(Attendance entity) {
         attendanceRepository.save(entity);
 
+        log.info("Entity Attendance employee :" + entity.getEmployee().getEmail());
         log.info("Entity Attendance workDate :" + entity.getWorkDate());
 
-        return null;
+        return attendanceRepository.findByEmployeeId(entity.getEmployee().getId());
     }
 }
