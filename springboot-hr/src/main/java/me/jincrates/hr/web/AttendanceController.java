@@ -3,12 +3,15 @@ package me.jincrates.hr.web;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import me.jincrates.hr.domain.attendance.Attendance;
+import me.jincrates.hr.domain.employees.Employee;
+import me.jincrates.hr.domain.employees.EmployeeRepository;
 import me.jincrates.hr.service.attendance.AttendanceService;
 import me.jincrates.hr.service.employees.EmployeeService;
 import me.jincrates.hr.web.dto.ResponseDTO;
 import me.jincrates.hr.web.dto.attendance.AttendanceDTO;
 import me.jincrates.hr.web.dto.employees.EmployeeDTO;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,11 +30,13 @@ import java.util.stream.Collectors;
 public class AttendanceController {
 
     private final EmployeeService employeeService;
+    private final EmployeeRepository employeeRepository;
     private final AttendanceService attendanceService;
 
     @PostMapping(value = "commute")
-    public ResponseEntity<?> createAttendance(@Valid @RequestBody AttendanceDTO dto, BindingResult bindingResult) {
-
+    public ResponseEntity<?> createAttendance(@AuthenticationPrincipal String userId, @Valid @RequestBody AttendanceDTO dto, BindingResult bindingResult) {
+        log.info(userId);
+        log.info(dto.toString());
         //1. 유효성 검사
         if (bindingResult.hasErrors()) {
             StringBuilder sb = new StringBuilder();
@@ -44,7 +49,9 @@ public class AttendanceController {
         }
 
         try {
-            Attendance entity = Attendance.createAttendance(dto);
+            Employee employee = employeeRepository.findByEmail(userId);
+
+            Attendance entity = Attendance.createAttendance(employee, dto);
             log.info(entity.toString());
 
             List<Attendance> entityList = attendanceService.checkIn(entity);

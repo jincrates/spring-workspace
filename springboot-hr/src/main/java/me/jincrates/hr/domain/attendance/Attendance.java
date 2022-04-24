@@ -5,8 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import me.jincrates.hr.domain.employees.Employee;
 import me.jincrates.hr.web.dto.attendance.AttendanceDTO;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -26,7 +29,7 @@ public class Attendance {
 
     //근무일자
     @Column(nullable = false)
-    private String workDate;
+    private LocalDate workDate;
 
     //출근일자
     private LocalDateTime inDate;
@@ -48,10 +51,10 @@ public class Attendance {
 
     //근태상태
     @Enumerated(EnumType.STRING)
-    private AttendanceStatus statue;
+    private AttendanceStatus status;
 
     @Builder
-    public Attendance(Employee employee, String workDate, LocalDateTime inDate, LocalDateTime outDate, int breakTime, int overTime, boolean isLate, boolean isHome) {
+    public Attendance(Employee employee, LocalDate workDate, LocalDateTime inDate, LocalDateTime outDate, int breakTime, int overTime, boolean isLate, boolean isHome, AttendanceStatus status) {
         this.employee = employee;
         this.workDate = workDate;
         this.inDate = inDate;
@@ -60,10 +63,12 @@ public class Attendance {
         this.overTime = overTime;
         this.isLate = isLate;
         this.isHome = isHome;
+        this.status = status;
     }
 
-    public static Attendance createAttendance(AttendanceDTO dto) {
-        Attendance attendance = Attendance.builder()
+    public static Attendance createAttendance(Employee employee, AttendanceDTO dto) {
+        return Attendance.builder()
+                .employee(employee)
                 .workDate(dto.getWorkDate())
                 .inDate(dto.getInDate())
                 .outDate(dto.getOutDate())
@@ -71,7 +76,7 @@ public class Attendance {
                 .overTime(dto.getOverTime())
                 .isLate(dto.isLate())
                 .isHome(dto.isHome())
+                .status(dto.getStatus())
                 .build();
-        return attendance;
     }
 }
