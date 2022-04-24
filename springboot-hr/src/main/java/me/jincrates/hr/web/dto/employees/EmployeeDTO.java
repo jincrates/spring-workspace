@@ -49,13 +49,4 @@ public class EmployeeDTO {
         this.role = entity.getRole();
         this.status = entity.getStatus();
     }
-
-    public static Employee toEntity(Employee dto) {
-        return Employee.builder()
-                .email(dto.getEmail())
-                .username(dto.getUsername())
-                .joinDate(dto.getJoinDate())
-                .role(dto.getRole())
-                .build();
-    }
 }
