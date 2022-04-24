@@ -12,6 +12,8 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 @Data
 @Builder
@@ -32,8 +34,8 @@ public class EmployeeDTO {
     @NotBlank(message = "이름은 필수 입력 값입니다.")
     private String username;
 
-    @NotBlank(message = "입사일은 필수 입력 값입니다.")
-    private String joinDate;
+    @NotNull(message = "입사일은 필수 입력 값입니다.")
+    private LocalDate joinDate;
 
     private EmployeeRole role;
 

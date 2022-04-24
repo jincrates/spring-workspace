@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Getter
 @NoArgsConstructor
@@ -31,7 +32,7 @@ public class Employee extends BaseEntity {
     private String username;
 
     //입사일
-    private String joinDate;
+    private LocalDate joinDate;
 
     //권한
     @Enumerated(EnumType.STRING)
@@ -42,7 +43,7 @@ public class Employee extends BaseEntity {
     private EmployeeStatus status;
 
     @Builder
-    public Employee(String email, String password, String username, String joinDate, EmployeeRole role, EmployeeStatus status) {
+    public Employee(String email, String password, String username, LocalDate joinDate, EmployeeRole role, EmployeeStatus status) {
         this.email = email;
         this.password = password;
         this.username = username;
