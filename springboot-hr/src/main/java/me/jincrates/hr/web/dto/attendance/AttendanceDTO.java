@@ -35,7 +35,7 @@ public class AttendanceDTO {
     private AttendanceStatus status;
 
     public AttendanceDTO(Attendance entity) {
-        this.email = entity.getEmployee().getEmpEmail();
+        this.email = entity.getEmployee().getEmail();
         this.workDate = entity.getWorkDate();
         this.inDate = entity.getInDate();
         this.outDate = entity.getOutDate();
