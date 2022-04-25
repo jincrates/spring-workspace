@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 @Log
@@ -32,7 +31,6 @@ import java.util.stream.Collectors;
 @RestController
 public class AttendanceController {
 
-    private final EmployeeService employeeService;
     private final EmployeeRepository employeeRepository;
     private final AttendanceService attendanceService;
     private final AttendanceRepository attendanceRepository;
@@ -73,7 +71,6 @@ public class AttendanceController {
 
     @PostMapping(value = "/checkout")
     public ResponseEntity<?> updateAttendance(@AuthenticationPrincipal String userId, @Valid @RequestBody AttendanceDTO dto, BindingResult bindingResult) {
-        log.info("checkout");
         //1. 유효성 검사
         if (bindingResult.hasErrors()) {
             StringBuilder sb = new StringBuilder();
@@ -87,13 +84,10 @@ public class AttendanceController {
 
         try {
             Employee employee = employeeRepository.findByEmail(userId);
-            log.info(employee.toString());
 
-            Optional<Attendance> entity = attendanceRepository.findByEmployeeIdAndWorkDate(employee.getId(), dto.getWorkDate());
-            log.info(entity.toString());
+            Attendance entity = Attendance.createAttendance(employee, dto);
 
-            List<Attendance> entityList = attendanceService.checkOut(entity.get());
-            log.info(entityList.toString());
+            List<Attendance> entityList = attendanceService.checkOut(entity);
 
             List<AttendanceDTO> dtoList = entityList.stream().map(AttendanceDTO::new).collect(Collectors.toList());
 

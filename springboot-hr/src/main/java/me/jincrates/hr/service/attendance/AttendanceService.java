@@ -25,6 +25,7 @@ public class AttendanceService {
 
     public List<Attendance> checkOut(Attendance entity) {
         Optional<Attendance> original = attendanceRepository.findByEmployeeIdAndWorkDate(entity.getEmployee().getId(), entity.getWorkDate());
+        log.info("entity : " + entity.toString());
 
         original.ifPresent(attendance -> {
             attendance.update(entity.getInDate(), entity.getOutDate());
