@@ -66,6 +66,11 @@ public class Attendance {
         this.status = status;
     }
 
+    public void update(LocalDateTime inDate, LocalDateTime outDate) {
+        this.inDate = inDate;
+        this.outDate = outDate;
+    }
+
     public static Attendance createAttendance(Employee employee, AttendanceDTO dto) {
         return Attendance.builder()
                 .employee(employee)

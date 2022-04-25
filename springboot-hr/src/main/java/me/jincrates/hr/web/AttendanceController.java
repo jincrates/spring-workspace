@@ -3,6 +3,7 @@ package me.jincrates.hr.web;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import me.jincrates.hr.domain.attendance.Attendance;
+import me.jincrates.hr.domain.attendance.AttendanceRepository;
 import me.jincrates.hr.domain.employees.Employee;
 import me.jincrates.hr.domain.employees.EmployeeRepository;
 import me.jincrates.hr.service.attendance.AttendanceService;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -33,11 +35,10 @@ public class AttendanceController {
     private final EmployeeService employeeService;
     private final EmployeeRepository employeeRepository;
     private final AttendanceService attendanceService;
+    private final AttendanceRepository attendanceRepository;
 
-    @PostMapping(value = "commute")
+    @PostMapping(value = "/checkin")
     public ResponseEntity<?> createAttendance(@AuthenticationPrincipal String userId, @Valid @RequestBody AttendanceDTO dto, BindingResult bindingResult) {
-        log.info(userId);
-        log.info(dto.toString());
         //1. 유효성 검사
         if (bindingResult.hasErrors()) {
             StringBuilder sb = new StringBuilder();
@@ -45,7 +46,7 @@ public class AttendanceController {
             for (FieldError fieldError : fieldErrorList) {
                 sb.append(fieldError.getDefaultMessage());
             }
-            ResponseDTO<EmployeeDTO> response = ResponseDTO.<EmployeeDTO>builder().error(sb.toString()).build();
+            ResponseDTO<AttendanceDTO> response = ResponseDTO.<AttendanceDTO>builder().error(sb.toString()).build();
             return ResponseEntity.badRequest().body(response);
         }
 
@@ -55,6 +56,44 @@ public class AttendanceController {
             Attendance entity = Attendance.createAttendance(employee, dto);
 
             List<Attendance> entityList = attendanceService.checkIn(entity);
+
+            List<AttendanceDTO> dtoList = entityList.stream().map(AttendanceDTO::new).collect(Collectors.toList());
+
+            ResponseDTO<AttendanceDTO> response = ResponseDTO.<AttendanceDTO>builder().data(dtoList).build();
+
+            return ResponseEntity.ok().body(response);
+
+        } catch (Exception e) {
+            //7. 혹시 예외가 있는 경우 dto 대신 error에 메시지를 넣어 리턴한다.
+            String error = e.getMessage();
+            ResponseDTO<AttendanceDTO> response = ResponseDTO.<AttendanceDTO>builder().error(error).build();
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
+    @PostMapping(value = "/checkout")
+    public ResponseEntity<?> updateAttendance(@AuthenticationPrincipal String userId, @Valid @RequestBody AttendanceDTO dto, BindingResult bindingResult) {
+        log.info("checkout");
+        //1. 유효성 검사
+        if (bindingResult.hasErrors()) {
+            StringBuilder sb = new StringBuilder();
+            List<FieldError> fieldErrorList = bindingResult.getFieldErrors();
+            for (FieldError fieldError : fieldErrorList) {
+                sb.append(fieldError.getDefaultMessage());
+            }
+            ResponseDTO<AttendanceDTO> response = ResponseDTO.<AttendanceDTO>builder().error(sb.toString()).build();
+            return ResponseEntity.badRequest().body(response);
+        }
+
+        try {
+            Employee employee = employeeRepository.findByEmail(userId);
+            log.info(employee.toString());
+
+            Optional<Attendance> entity = attendanceRepository.findByEmployeeIdAndWorkDate(employee.getId(), dto.getWorkDate());
+            log.info(entity.toString());
+
+            List<Attendance> entityList = attendanceService.checkOut(entity.get());
+            log.info(entityList.toString());
 
             List<AttendanceDTO> dtoList = entityList.stream().map(AttendanceDTO::new).collect(Collectors.toList());
 

@@ -8,20 +8,29 @@ import me.jincrates.hr.domain.employees.EmployeeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Log
 @RequiredArgsConstructor
 @Service
 public class AttendanceService {
 
-    private final EmployeeRepository employeeRepository;
     private final AttendanceRepository attendanceRepository;
 
     public List<Attendance> checkIn(Attendance entity) {
         attendanceRepository.save(entity);
 
-        log.info("Entity Attendance employee :" + entity.getEmployee().getEmail());
-        log.info("Entity Attendance workDate :" + entity.getWorkDate());
+        return attendanceRepository.findByEmployeeId(entity.getEmployee().getId());
+    }
+
+    public List<Attendance> checkOut(Attendance entity) {
+        Optional<Attendance> original = attendanceRepository.findByEmployeeIdAndWorkDate(entity.getEmployee().getId(), entity.getWorkDate());
+
+        original.ifPresent(attendance -> {
+            attendance.update(entity.getInDate(), entity.getOutDate());
+
+            attendanceRepository.save(attendance);
+        });
 
         return attendanceRepository.findByEmployeeId(entity.getEmployee().getId());
     }
