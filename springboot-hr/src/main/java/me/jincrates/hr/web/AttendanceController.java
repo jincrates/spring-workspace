@@ -33,7 +33,6 @@ public class AttendanceController {
 
     private final EmployeeRepository employeeRepository;
     private final AttendanceService attendanceService;
-    private final AttendanceRepository attendanceRepository;
 
     @PostMapping(value = "/checkin")
     public ResponseEntity<?> createAttendance(@AuthenticationPrincipal String userId, @Valid @RequestBody AttendanceDTO dto, BindingResult bindingResult) {

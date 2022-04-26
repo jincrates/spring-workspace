@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import me.jincrates.hr.domain.attendance.Attendance;
-import me.jincrates.hr.domain.attendance.AttendanceStatus;
-import me.jincrates.hr.domain.employees.Employee;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -27,19 +25,11 @@ public class AttendanceDTO {
 
     private int overTime;
 
-    private boolean isLate;
-
-    private boolean isHome;
-
-    private AttendanceStatus status;
-
     public AttendanceDTO(Attendance entity) {
         this.workDate = entity.getWorkDate();
         this.inDate = entity.getInDate();
         this.outDate = entity.getOutDate();
         this.breakTime = entity.getBreakTime();
         this.overTime = entity.getOverTime();
-        this.isLate = entity.isLate();
-        this.isHome = entity.isHome();
     }
 }

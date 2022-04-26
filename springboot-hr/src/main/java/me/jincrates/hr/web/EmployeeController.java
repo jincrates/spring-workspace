@@ -7,7 +7,6 @@ import me.jincrates.hr.service.employees.EmployeeService;
 import me.jincrates.hr.web.dto.ResponseDTO;
 import me.jincrates.hr.web.dto.employees.EmployeeDTO;
 import org.springframework.http.ResponseEntity;
-//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;

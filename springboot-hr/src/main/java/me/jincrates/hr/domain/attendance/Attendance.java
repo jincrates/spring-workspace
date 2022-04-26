@@ -43,27 +43,14 @@ public class Attendance {
     //연장근무시간
     private int overTime;
 
-    //지각여부
-    private boolean isLate;
-
-    //재택여부
-    private boolean isHome;
-
-    //근태상태
-    @Enumerated(EnumType.STRING)
-    private AttendanceStatus status;
-
     @Builder
-    public Attendance(Employee employee, LocalDate workDate, LocalDateTime inDate, LocalDateTime outDate, int breakTime, int overTime, boolean isLate, boolean isHome, AttendanceStatus status) {
+    public Attendance(Employee employee, LocalDate workDate, LocalDateTime inDate, LocalDateTime outDate, int breakTime, int overTime) {
         this.employee = employee;
         this.workDate = workDate;
         this.inDate = inDate;
         this.outDate = outDate;
         this.breakTime = breakTime;
         this.overTime = overTime;
-        this.isLate = isLate;
-        this.isHome = isHome;
-        this.status = status;
     }
 
     public void update(LocalDateTime inDate, LocalDateTime outDate) {
@@ -79,9 +66,6 @@ public class Attendance {
                 .outDate(dto.getOutDate())
                 .breakTime(dto.getBreakTime())
                 .overTime(dto.getOverTime())
-                .isLate(dto.isLate())
-                .isHome(dto.isHome())
-                .status(dto.getStatus())
                 .build();
     }
 }

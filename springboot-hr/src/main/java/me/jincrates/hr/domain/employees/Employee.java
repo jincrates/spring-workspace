@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import me.jincrates.hr.domain.BaseEntity;
 import me.jincrates.hr.web.dto.employees.EmployeeDTO;
 import org.springframework.security.crypto.password.PasswordEncoder;
-//import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -16,29 +15,22 @@ import java.time.LocalDate;
 @Entity
 @Table(name="employee")
 public class Employee extends BaseEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "employee_id")
     private Long id;
 
-    //사원 email(id)
     @Column(unique = true)
     private String email;
 
-    //비밀번호
     private String password;
 
-    //사원이름
     private String username;
 
-    //입사일
     private LocalDate joinDate;
 
-    //권한
     @Enumerated(EnumType.STRING)
     private EmployeeRole role;
 
-    //상태(ACTIVE, POSITIVE)
     @Enumerated(EnumType.STRING)
     private EmployeeStatus status;
 
