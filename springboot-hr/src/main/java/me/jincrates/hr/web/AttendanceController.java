@@ -15,10 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -68,7 +65,7 @@ public class AttendanceController {
         }
     }
 
-    @PostMapping(value = "/checkout")
+    @PutMapping(value = "/checkout")
     public ResponseEntity<?> updateAttendance(@AuthenticationPrincipal String userId, @Valid @RequestBody AttendanceDTO dto, BindingResult bindingResult) {
         //1. 유효성 검사
         if (bindingResult.hasErrors()) {

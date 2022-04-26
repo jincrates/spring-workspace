@@ -1,6 +1,7 @@
 package me.jincrates.hr.web;
 
 import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import me.jincrates.hr.config.security.TokenProvider;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.List;
 
+@Tag(name = "employee", description = "사원 API")
 @RequiredArgsConstructor
 @RestController
 public class EmployeeController {
@@ -27,7 +29,7 @@ public class EmployeeController {
     private final PasswordEncoder passwordEncoder;
     private final TokenProvider tokenProvider;
 
-    @ApiOperation(value="회원가입", notes="사원 계정을 생성.")
+    @Operation(summary="회원가입", description="사원 계정을 생성합니다.")
     @PostMapping(value = "/api/auth/signup")
     public ResponseEntity<?> registerEmployee(@Valid @RequestBody EmployeeDTO dto, BindingResult bindingResult) {
 
@@ -68,7 +70,8 @@ public class EmployeeController {
             return ResponseEntity.badRequest().body(response);
         }
     }
-    @ApiOperation(value="로그인", notes="이메일과 비밀번호를 입력받아 jwt token 발급.")
+
+    @Operation(summary="로그인", description="이메일과 비밀번호를 입력받아 jwt token 발급.")
     @PostMapping(value = "/api/auth/signin")
     public ResponseEntity<?> authenticate(@RequestBody EmployeeDTO employeeDTO) {
         Employee employee = employeeService.getByCredentials(
