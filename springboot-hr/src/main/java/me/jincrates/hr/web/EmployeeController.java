@@ -1,5 +1,7 @@
 package me.jincrates.hr.web;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import me.jincrates.hr.config.security.TokenProvider;
 import me.jincrates.hr.domain.employees.Employee;
@@ -19,7 +21,6 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RequiredArgsConstructor
-@RequestMapping("/employees")
 @RestController
 public class EmployeeController {
 
@@ -27,7 +28,8 @@ public class EmployeeController {
     private final PasswordEncoder passwordEncoder;
     private final TokenProvider tokenProvider;
 
-    @PostMapping(value = "/signup")
+    @ApiOperation(value="회원가입", notes="사원 계정을 생성.")
+    @PostMapping(value = "/api/auth/signup")
     public ResponseEntity<?> registerEmployee(@Valid @RequestBody EmployeeDTO dto, BindingResult bindingResult) {
 
         //1. 유효성 검사
@@ -68,7 +70,7 @@ public class EmployeeController {
         }
     }
 
-    @PostMapping("/signin")
+    @PostMapping(value = "/api/auth/signin")
     public ResponseEntity<?> authenticate(@RequestBody EmployeeDTO employeeDTO) {
         Employee employee = employeeService.getByCredentials(
                 employeeDTO.getEmail(),
