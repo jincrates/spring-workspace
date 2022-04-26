@@ -37,7 +37,7 @@ public class EmployeeDTO {
     @NotBlank(message = "이름은 필수 입력 값입니다.")
     private String username;
 
-    @ApiModelProperty(value = "입사일", required = true)
+    @ApiModelProperty(value = "입사일", dataType = "LocalDate", required = true)
     @NotNull(message = "입사일은 필수 입력 값입니다.")
     private LocalDate joinDate;
 

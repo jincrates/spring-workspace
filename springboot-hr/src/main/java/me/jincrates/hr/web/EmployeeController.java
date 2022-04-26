@@ -1,7 +1,7 @@
 package me.jincrates.hr.web;
 
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import me.jincrates.hr.config.security.TokenProvider;
 import me.jincrates.hr.domain.employees.Employee;
@@ -14,7 +14,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -69,7 +68,7 @@ public class EmployeeController {
             return ResponseEntity.badRequest().body(response);
         }
     }
-
+    @ApiOperation(value="로그인", notes="이메일과 비밀번호를 입력받아 jwt token 발급.")
     @PostMapping(value = "/api/auth/signin")
     public ResponseEntity<?> authenticate(@RequestBody EmployeeDTO employeeDTO) {
         Employee employee = employeeService.getByCredentials(
