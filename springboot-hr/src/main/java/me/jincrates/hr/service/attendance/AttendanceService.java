@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import me.jincrates.hr.domain.attendance.Attendance;
 import me.jincrates.hr.domain.attendance.AttendanceRepository;
-import me.jincrates.hr.domain.employees.EmployeeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,8 +16,8 @@ public class AttendanceService {
 
     private final AttendanceRepository attendanceRepository;
 
-    public List<Attendance> retrieve(Attendance entity) {
-        return attendanceRepository.findByEmployeeId(entity.getEmployee().getId());
+    public List<Attendance> retrieve(Long employeeId) {
+        return attendanceRepository.findByEmployeeId(employeeId);
     }
 
     public List<Attendance> create(Attendance entity) {
@@ -33,7 +32,7 @@ public class AttendanceService {
 
         attendanceRepository.save(entity);
 
-        return retrieve(entity);
+        return retrieve(entity.getEmployee().getId());
     }
 
     public List<Attendance> update(Attendance entity) {
@@ -44,11 +43,11 @@ public class AttendanceService {
             throw new RuntimeException("수정할 데이터가 존재하지 않습니다.");
         }
         original.ifPresent(attendance -> {
-            attendance.update(entity.getInDate(), entity.getOutDate());
+            attendance.update(entity.getInDate(), entity.getOutDate(), entity.getBreakTime(), entity.getOverTime());
             attendanceRepository.save(attendance);
         });
 
-        return retrieve(entity);
+        return retrieve(entity.getEmployee().getId());
     }
 
     public List<Attendance> delete(Attendance entity) {
@@ -68,6 +67,6 @@ public class AttendanceService {
             throw new RuntimeException("데이터를 삭제하지 못하였습니다.");
         }
 
-        return retrieve(entity);
+        return retrieve(entity.getEmployee().getId());
     }
 }

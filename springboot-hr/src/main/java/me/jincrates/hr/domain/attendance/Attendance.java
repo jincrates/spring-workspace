@@ -1,46 +1,46 @@
 package me.jincrates.hr.domain.attendance;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import me.jincrates.hr.domain.employees.Employee;
 import me.jincrates.hr.web.dto.attendance.AttendanceDTO;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Schema(description = "출퇴근")
 @Getter
 @NoArgsConstructor
 @Entity
 @Table(name="attendance")
 public class Attendance {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Schema(description = "출퇴근 PK")
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "attendance_id")
     private Long id;
 
-    //사원키
+    @Schema(description = "사원 FK")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
-    //근무일자
+    @Schema(description = "근무일자", example = "yyyy-MM-dd")
     @Column(nullable = false)
     private LocalDate workDate;
 
-    //출근일자
+    @Schema(description = "출근일자")
     private LocalDateTime inDate;
 
-    //퇴근일자
+    @Schema(description = "퇴근일자")
     private LocalDateTime outDate;
 
-    //휴게시간
+    @Schema(description = "휴게시간")
     private int breakTime;
 
-    //연장근무시간
+    @Schema(description = "연장근무시간")
     private int overTime;
 
     @Builder
@@ -53,12 +53,14 @@ public class Attendance {
         this.overTime = overTime;
     }
 
-    public void update(LocalDateTime inDate, LocalDateTime outDate) {
+    public void update(LocalDateTime inDate, LocalDateTime outDate, int breakTime, int overTime) {
         this.inDate = inDate;
         this.outDate = outDate;
+        this.breakTime = breakTime;
+        this.overTime = overTime;
     }
 
-    public static Attendance createAttendance(Employee employee, AttendanceDTO dto) {
+    public static Attendance toEntity(Employee employee, AttendanceDTO dto) {
         return Attendance.builder()
                 .employee(employee)
                 .workDate(dto.getWorkDate())

@@ -3,14 +3,11 @@ package me.jincrates.hr.web;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import me.jincrates.hr.domain.attendance.Attendance;
-import me.jincrates.hr.domain.attendance.AttendanceRepository;
 import me.jincrates.hr.domain.employees.Employee;
 import me.jincrates.hr.domain.employees.EmployeeRepository;
 import me.jincrates.hr.service.attendance.AttendanceService;
-import me.jincrates.hr.service.employees.EmployeeService;
 import me.jincrates.hr.web.dto.ResponseDTO;
 import me.jincrates.hr.web.dto.attendance.AttendanceDTO;
-import me.jincrates.hr.web.dto.employees.EmployeeDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
@@ -19,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Log
@@ -32,17 +28,10 @@ public class AttendanceController {
     private final AttendanceService attendanceService;
 
     @GetMapping(value = "/list")
-    public ResponseEntity<?> retrieveAttendanceList(@AuthenticationPrincipal String userId, @Valid @RequestBody AttendanceDTO dto, BindingResult bindingResult) {
-        //유효성 검사
-        if (bindingResult.hasErrors()) {
-            return validateParam(bindingResult);
-        }
-
+    public ResponseEntity<?> retrieveAttendanceList(@AuthenticationPrincipal String userId) {
         try {
             Employee employee = employeeRepository.findByEmail(userId);
-
-            Attendance entity = Attendance.createAttendance(employee, dto);
-            List<Attendance> entityList = attendanceService.retrieve(entity);
+            List<Attendance> entityList = attendanceService.retrieve(employee.getId());
             List<AttendanceDTO> dtoList = entityList.stream().map(AttendanceDTO::new).collect(Collectors.toList());
 
             ResponseDTO<AttendanceDTO> response = ResponseDTO.<AttendanceDTO>builder().data(dtoList).build();
@@ -69,7 +58,7 @@ public class AttendanceController {
         try {
             Employee employee = employeeRepository.findByEmail(userId);
 
-            Attendance entity = Attendance.createAttendance(employee, dto);
+            Attendance entity = Attendance.toEntity(employee, dto);
             List<Attendance> entityList = attendanceService.create(entity);
             List<AttendanceDTO> dtoList = entityList.stream().map(AttendanceDTO::new).collect(Collectors.toList());
 
@@ -97,7 +86,7 @@ public class AttendanceController {
         try {
             Employee employee = employeeRepository.findByEmail(userId);
 
-            Attendance entity = Attendance.createAttendance(employee, dto);
+            Attendance entity = Attendance.toEntity(employee, dto);
             List<Attendance> entityList = attendanceService.update(entity);
             List<AttendanceDTO> dtoList = entityList.stream().map(AttendanceDTO::new).collect(Collectors.toList());
 
@@ -122,7 +111,7 @@ public class AttendanceController {
         try {
             Employee employee = employeeRepository.findByEmail(userId);
 
-            Attendance entity = Attendance.createAttendance(employee, dto);
+            Attendance entity = Attendance.toEntity(employee, dto);
             List<Attendance> entityList = attendanceService.delete(entity);
             List<AttendanceDTO> dtoList = entityList.stream().map(AttendanceDTO::new).collect(Collectors.toList());
 
