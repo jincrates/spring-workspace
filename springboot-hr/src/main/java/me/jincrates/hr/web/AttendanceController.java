@@ -1,5 +1,9 @@
 package me.jincrates.hr.web;
 
+import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import me.jincrates.hr.domain.attendance.Attendance;
@@ -18,7 +22,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Log
+@Tag(name = "attendance", description = "출퇴근 API")
 @RequiredArgsConstructor
 @RequestMapping("/attendance")
 @RestController
@@ -27,8 +31,10 @@ public class AttendanceController {
     private final EmployeeRepository employeeRepository;
     private final AttendanceService attendanceService;
 
+    @Operation(summary="출퇴근 리스트", description="로그인한 사원의 출퇴근 리스트를 리턴합니다.")
     @GetMapping(value = "/list")
-    public ResponseEntity<?> retrieveAttendanceList(@AuthenticationPrincipal String userId) {
+    public ResponseEntity<?> retrieveAttendanceList(
+            @Parameter(name = "email", description = "로그인한 사원의 email") @AuthenticationPrincipal String userId) {
         try {
             Employee employee = employeeRepository.findByEmail(userId);
             List<Attendance> entityList = attendanceService.retrieve(employee.getId());
@@ -39,17 +45,18 @@ public class AttendanceController {
             return ResponseEntity.ok().body(response);
 
         } catch (Exception e) {
-            //7. 혹시 예외가 있는 경우 dto 대신 error에 메시지를 넣어 리턴한다.
             String error = e.getMessage();
-
             ResponseDTO<AttendanceDTO> response = ResponseDTO.<AttendanceDTO>builder().error(error).build();
-
             return ResponseEntity.badRequest().body(response);
         }
     }
 
+    @Operation(summary="출퇴근 등록", description="출퇴근 데이터를 생성합니다.")
     @PostMapping(value = "/create")
-    public ResponseEntity<?> createAttendance(@AuthenticationPrincipal String userId, @Valid @RequestBody AttendanceDTO dto, BindingResult bindingResult) {
+    public ResponseEntity<?> createAttendance(
+            @Parameter(name = "userId", description = "로그인한 사원의 email") @AuthenticationPrincipal String userId,
+            @Parameter(name = "attendanceDTO", description = "출퇴근 전송 객체") @Valid @RequestBody AttendanceDTO dto,
+            BindingResult bindingResult) {
         //유효성 검사
         if (bindingResult.hasErrors()) {
             return validateParam(bindingResult);
@@ -76,8 +83,12 @@ public class AttendanceController {
         }
     }
 
+    @Operation(summary="출퇴근 수정", description="출퇴근 데이터를 수정합니다.")
     @PutMapping(value = "/update")
-    public ResponseEntity<?> updateAttendance(@AuthenticationPrincipal String userId, @Valid @RequestBody AttendanceDTO dto, BindingResult bindingResult) {
+    public ResponseEntity<?> updateAttendance(
+            @Parameter(name = "userId", description = "로그인한 사원의 email") @AuthenticationPrincipal String userId,
+            @Parameter(name = "attendanceDTO", description = "출퇴근 전송 객체") @Valid @RequestBody AttendanceDTO dto,
+            BindingResult bindingResult) {
         //유효성 검사
         if (bindingResult.hasErrors()) {
             return validateParam(bindingResult);
@@ -101,8 +112,12 @@ public class AttendanceController {
         }
     }
 
+    @Operation(summary="출퇴근 삭제", description="출퇴근 데이터를 삭제합니다.")
     @DeleteMapping(value = "/remove")
-    public ResponseEntity<?> removeAttendance(@AuthenticationPrincipal String userId, @Valid @RequestBody AttendanceDTO dto, BindingResult bindingResult) {
+    public ResponseEntity<?> removeAttendance(
+            @Parameter(name = "userId", description = "로그인한 사원의 email") @AuthenticationPrincipal String userId,
+            @Parameter(name = "attendanceDTO", description = "출퇴근 전송 객체") @Valid @RequestBody AttendanceDTO dto,
+            BindingResult bindingResult) {
         //유효성 검사
         if (bindingResult.hasErrors()) {
             return validateParam(bindingResult);

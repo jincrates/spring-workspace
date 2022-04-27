@@ -1,7 +1,9 @@
 package me.jincrates.hr.web;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import me.jincrates.hr.config.security.TokenProvider;
@@ -31,7 +33,9 @@ public class EmployeeController {
 
     @Operation(summary="회원가입", description="사원 계정을 생성합니다.")
     @PostMapping(value = "/api/auth/signup")
-    public ResponseEntity<?> registerEmployee(@Valid @RequestBody EmployeeDTO dto, BindingResult bindingResult) {
+    public ResponseEntity<?> registerEmployee(
+            @Parameter(name = "employeeDTO", description = "사원 전송 객체") @Valid @RequestBody EmployeeDTO dto,
+            BindingResult bindingResult) {
 
         //1. 유효성 검사
         if (bindingResult.hasErrors()) {
@@ -73,7 +77,7 @@ public class EmployeeController {
 
     @Operation(summary="로그인", description="이메일과 비밀번호를 입력받아 jwt token 발급.")
     @PostMapping(value = "/api/auth/signin")
-    public ResponseEntity<?> authenticate(@RequestBody EmployeeDTO employeeDTO) {
+    public ResponseEntity<?> authenticate(@Parameter(name = "employeeDTO", description = "사원 전송 객체") @RequestBody EmployeeDTO employeeDTO) {
         Employee employee = employeeService.getByCredentials(
                 employeeDTO.getEmail(),
                 employeeDTO.getPassword(),
