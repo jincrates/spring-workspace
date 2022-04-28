@@ -10,6 +10,7 @@ import me.jincrates.hr.web.dto.attendance.AttendanceDTO;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 @Schema(description = "출퇴근")
 @Getter
@@ -58,6 +59,14 @@ public class Attendance {
         this.outDate = outDate;
         this.breakTime = breakTime;
         this.overTime = overTime;
+    }
+
+    public long getWorkDiff(LocalDateTime inDate, LocalDateTime outDate) {
+        if (inDate == null || outDate == null) {
+            return 0L;
+        }
+
+        return inDate.until(outDate, ChronoUnit.MINUTES);
     }
 
     public static Attendance toEntity(Employee employee, AttendanceDTO dto) {

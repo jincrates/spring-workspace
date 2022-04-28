@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import me.jincrates.hr.domain.attendance.Attendance;
 import me.jincrates.hr.domain.employees.Employee;
 import me.jincrates.hr.domain.employees.EmployeeRepository;
@@ -23,6 +24,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Tag(name = "attendance", description = "출퇴근 API")
+@Log
 @RequiredArgsConstructor
 @RequestMapping("/api/attendance")
 @RestController
@@ -113,6 +115,9 @@ public class AttendanceController {
             Employee employee = employeeRepository.findByEmail(userId);
 
             Attendance entity = Attendance.toEntity(employee, dto);
+            //long workDiff = entity.getWorkDiff(entity.getInDate(), entity.getOutDate());
+            //log.info("workDiff : " + workDiff);
+
             List<Attendance> entityList = attendanceService.update(entity);
             List<AttendanceDTO> dtoList = entityList.stream().map(AttendanceDTO::new).collect(Collectors.toList());
 

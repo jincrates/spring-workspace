@@ -10,6 +10,7 @@ import me.jincrates.hr.domain.attendance.Attendance;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 @Schema(description = "출퇴근 데이터 전송 객체")
 @Data
