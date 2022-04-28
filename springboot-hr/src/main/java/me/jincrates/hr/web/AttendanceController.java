@@ -1,11 +1,11 @@
 package me.jincrates.hr.web;
 
-import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
 import me.jincrates.hr.domain.attendance.Attendance;
 import me.jincrates.hr.domain.employees.Employee;
 import me.jincrates.hr.domain.employees.EmployeeRepository;
@@ -24,14 +24,19 @@ import java.util.stream.Collectors;
 
 @Tag(name = "attendance", description = "출퇴근 API")
 @RequiredArgsConstructor
-@RequestMapping("/attendance")
+@RequestMapping("/api/attendance")
 @RestController
 public class AttendanceController {
 
     private final EmployeeRepository employeeRepository;
     private final AttendanceService attendanceService;
 
-    @Operation(summary="출퇴근 리스트", description="로그인한 사원의 출퇴근 리스트를 리턴합니다.")
+    @Operation(summary="출퇴근 리스트 조회", description="로그인한 사원의 출퇴근 리스트를 리턴합니다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation"),
+            @ApiResponse(responseCode = "400", description = "Invalid ID supplied"),
+            @ApiResponse(responseCode = "404", description = "Contact not found"),
+            @ApiResponse(responseCode = "405", description = "Validation exception") })
     @GetMapping(value = "/list")
     public ResponseEntity<?> retrieveAttendanceList(
             @Parameter(name = "email", description = "로그인한 사원의 email") @AuthenticationPrincipal String userId) {
@@ -52,6 +57,11 @@ public class AttendanceController {
     }
 
     @Operation(summary="출퇴근 등록", description="출퇴근 데이터를 생성합니다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation"),
+            @ApiResponse(responseCode = "400", description = "Invalid ID supplied"),
+            @ApiResponse(responseCode = "404", description = "Contact not found"),
+            @ApiResponse(responseCode = "405", description = "Validation exception") })
     @PostMapping(value = "/create")
     public ResponseEntity<?> createAttendance(
             @Parameter(name = "userId", description = "로그인한 사원의 email") @AuthenticationPrincipal String userId,
@@ -84,6 +94,11 @@ public class AttendanceController {
     }
 
     @Operation(summary="출퇴근 수정", description="출퇴근 데이터를 수정합니다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation"),
+            @ApiResponse(responseCode = "400", description = "Invalid ID supplied"),
+            @ApiResponse(responseCode = "404", description = "Contact not found"),
+            @ApiResponse(responseCode = "405", description = "Validation exception") })
     @PutMapping(value = "/update")
     public ResponseEntity<?> updateAttendance(
             @Parameter(name = "userId", description = "로그인한 사원의 email") @AuthenticationPrincipal String userId,
@@ -113,6 +128,11 @@ public class AttendanceController {
     }
 
     @Operation(summary="출퇴근 삭제", description="출퇴근 데이터를 삭제합니다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation"),
+            @ApiResponse(responseCode = "400", description = "Invalid ID supplied"),
+            @ApiResponse(responseCode = "404", description = "Contact not found"),
+            @ApiResponse(responseCode = "405", description = "Validation exception") })
     @DeleteMapping(value = "/remove")
     public ResponseEntity<?> removeAttendance(
             @Parameter(name = "userId", description = "로그인한 사원의 email") @AuthenticationPrincipal String userId,

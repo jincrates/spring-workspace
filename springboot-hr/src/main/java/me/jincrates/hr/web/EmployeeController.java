@@ -1,9 +1,9 @@
 package me.jincrates.hr.web;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import me.jincrates.hr.config.security.TokenProvider;
@@ -32,6 +32,11 @@ public class EmployeeController {
     private final TokenProvider tokenProvider;
 
     @Operation(summary="회원가입", description="사원 계정을 생성합니다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation"),
+            @ApiResponse(responseCode = "400", description = "Invalid ID supplied"),
+            @ApiResponse(responseCode = "404", description = "Contact not found"),
+            @ApiResponse(responseCode = "405", description = "Validation exception") })
     @PostMapping(value = "/api/auth/signup")
     public ResponseEntity<?> registerEmployee(
             @Parameter(name = "employeeDTO", description = "사원 전송 객체") @Valid @RequestBody EmployeeDTO dto,
@@ -76,6 +81,11 @@ public class EmployeeController {
     }
 
     @Operation(summary="로그인", description="이메일과 비밀번호를 입력받아 jwt token 발급.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "successful operation"),
+            @ApiResponse(responseCode = "400", description = "Invalid ID supplied"),
+            @ApiResponse(responseCode = "404", description = "Contact not found"),
+            @ApiResponse(responseCode = "405", description = "Validation exception") })
     @PostMapping(value = "/api/auth/signin")
     public ResponseEntity<?> authenticate(@Parameter(name = "employeeDTO", description = "사원 전송 객체") @RequestBody EmployeeDTO employeeDTO) {
         Employee employee = employeeService.getByCredentials(
