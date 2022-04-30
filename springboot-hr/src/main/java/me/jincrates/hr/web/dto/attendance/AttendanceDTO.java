@@ -29,8 +29,6 @@ public class AttendanceDTO {
     @Schema(description = "퇴근시간", type = "LocalDateTime")
     private LocalDateTime outDate;
 
-    //private long workTime;
-
     @Schema(description = "휴게시간", type = "int")
     private int breakTime;
 
@@ -41,7 +39,6 @@ public class AttendanceDTO {
         this.workDate = entity.getWorkDate();
         this.inDate = entity.getInDate();
         this.outDate = entity.getOutDate();
-        //this.workTime = entity.getInDate().until(entity.getOutDate(), ChronoUnit.MINUTES);
         this.breakTime = entity.getBreakTime();
         this.overTime = entity.getOverTime();
     }

@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import me.jincrates.hr.domain.BaseEntity;
 import me.jincrates.hr.domain.employees.Employee;
 import me.jincrates.hr.web.dto.attendance.AttendanceDTO;
 
@@ -17,7 +18,7 @@ import java.time.temporal.ChronoUnit;
 @NoArgsConstructor
 @Entity
 @Table(name="attendance")
-public class Attendance {
+public class Attendance extends BaseEntity {
     @Schema(description = "출퇴근 PK")
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "attendance_id")

@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import me.jincrates.hr.domain.attendance.Attendance;
 import me.jincrates.hr.domain.attendance.AttendanceRepository;
+import me.jincrates.hr.web.dto.attendance.AttendanceSearchDTO;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +20,11 @@ public class AttendanceService {
 
     public List<Attendance> retrieve(Long employeeId) {
         return attendanceRepository.findByEmployeeId(employeeId);
+    }
+
+    public List<Attendance> retrieveSort(AttendanceSearchDTO dto, Pageable pageable) {
+        //정렬기준을 근무일자로, 기간 값을 받아서 해당 기간을 조회할 수 있도록
+        return attendanceRepository.getAttendanceList(dto, pageable);
     }
 
     public List<Attendance> create(Attendance entity) {

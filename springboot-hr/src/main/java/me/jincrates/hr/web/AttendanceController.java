@@ -13,6 +13,9 @@ import me.jincrates.hr.domain.employees.EmployeeRepository;
 import me.jincrates.hr.service.attendance.AttendanceService;
 import me.jincrates.hr.web.dto.ResponseDTO;
 import me.jincrates.hr.web.dto.attendance.AttendanceDTO;
+import me.jincrates.hr.web.dto.attendance.AttendanceSearchDTO;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Tag(name = "attendance", description = "출퇴근 API")
@@ -39,12 +43,18 @@ public class AttendanceController {
             @ApiResponse(responseCode = "400", description = "Invalid ID supplied"),
             @ApiResponse(responseCode = "404", description = "Contact not found"),
             @ApiResponse(responseCode = "405", description = "Validation exception") })
-    @GetMapping(value = "/list")
+    @GetMapping(value = "/list/{page}")
     public ResponseEntity<?> retrieveAttendanceList(
-            @Parameter(name = "email", description = "로그인한 사원의 email") @AuthenticationPrincipal String userId) {
+            @Parameter(name = "email", description = "로그인한 사원의 email") @AuthenticationPrincipal String userId,
+            @Parameter(name = "searchDTO", description = "출퇴근 데이터 전송 객체") AttendanceSearchDTO searchDTO,
+            @Parameter(name = "page", description = "페이지 번호") @PathVariable("page") Optional<Integer> page) {
         try {
+            Pageable pageable = PageRequest.of(page.orElse(0), 7);
+
             Employee employee = employeeRepository.findByEmail(userId);
-            List<Attendance> entityList = attendanceService.retrieve(employee.getId());
+            searchDTO.setEmployee(employee);
+
+            List<Attendance> entityList = attendanceService.retrieveSort(searchDTO, pageable);
             List<AttendanceDTO> dtoList = entityList.stream().map(AttendanceDTO::new).collect(Collectors.toList());
 
             ResponseDTO<AttendanceDTO> response = ResponseDTO.<AttendanceDTO>builder().data(dtoList).build();
