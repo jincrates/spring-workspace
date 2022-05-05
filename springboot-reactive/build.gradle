@@ -18,21 +18,9 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
 
-	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-mongodb-reactive
-	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb-reactive', version: '2.5.2'
-
-	// https://mvnrepository.com/artifact/de.flapdoodle.embed/de.flapdoodle.embed.mongo
-	testImplementation group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo', version: '3.4.5'
-
-	// https://mvnrepository.com/artifact/org.mongodb/mongodb-driver-sync
-	implementation group: 'org.mongodb', name: 'mongodb-driver-sync', version: '4.4.0'
-
-	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-webflux
-	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version: '2.6.6'
-
-	// https://mvnrepository.com/artifact/io.projectreactor/reactor-test
-	testImplementation group: 'io.projectreactor', name: 'reactor-test', version: '3.4.14'
-
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
+	implementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
+	implementation 'org.mongodb:mongodb-driver-sync'
 }
 
 tasks.named('test') {
