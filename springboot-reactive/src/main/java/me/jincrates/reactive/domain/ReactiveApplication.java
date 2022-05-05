@@ -1,4 +1,4 @@
-package me.jincrates.reactive;
+package me.jincrates.reactive.domain;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
