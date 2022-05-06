@@ -60,8 +60,8 @@ public class AnnualTest {
         double result = 0;
 
         //근속연월일
-        double monthsBetween = between("MONTHS", joinDate, baseDate);
-        double daysBetween = between("DAYS", joinDate, baseDate);
+        double monthsBetween = betweenMonths(joinDate, baseDate);
+        double daysBetween = betweenDays(joinDate, baseDate);
 
         //1년 미만 입사자: 발생월차(개정연차) 계산
         if (daysBetween < 365.0) {
@@ -76,9 +76,9 @@ public class AnnualTest {
         double result = 0;
 
         //근속연월일
-        double yearsBetween = between("YEARS", joinDate, baseDate);
-        double monthsBetween = between("MONTHS", joinDate, baseDate);
-        double daysBetween = between("DAYS", joinDate, baseDate);
+        double yearsBetween = betweenYears(joinDate, baseDate);
+        double monthsBetween = betweenMonths(joinDate, baseDate);
+        double daysBetween = betweenDays(joinDate, baseDate);
 
         //1년 미만 연차계산
         if (daysBetween < 365.0) {
@@ -96,6 +96,7 @@ public class AnnualTest {
         return (result < 0) ? 0 : result;
     }
 
+    //제어 결합도..
     private double between(String type, String fromDate, String toDate) {
         if (type.equals("YEARS")) {
             return Math.abs(LocalDate.parse(fromDate).getYear() - LocalDate.parse(toDate).getYear());
@@ -104,5 +105,18 @@ public class AnnualTest {
         } else {
             return ChronoUnit.DAYS.between(LocalDate.parse(fromDate), LocalDate.parse(toDate));
         }
+    }
+
+    //결합도를 낮춤
+    private double betweenYears(String fromDate, String toDate) {
+        return Math.abs(LocalDate.parse(fromDate).getYear() - LocalDate.parse(toDate).getYear());
+    }
+
+    private double betweenMonths(String fromDate, String toDate) {
+        return ChronoUnit.MONTHS.between(LocalDate.parse(fromDate), LocalDate.parse(toDate));
+    }
+
+    private double betweenDays(String fromDate, String toDate) {
+        return ChronoUnit.DAYS.between(LocalDate.parse(fromDate), LocalDate.parse(toDate));
     }
 }
