@@ -5,8 +5,6 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.java.Log;
 import me.jincrates.hr.web.dto.attendance.AttendanceSearchDTO;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import javax.persistence.EntityManager;
