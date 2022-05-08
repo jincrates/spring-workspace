@@ -1,14 +1,13 @@
-package me.jincrates.codingtest.z_backjun;
+package me.jincrates.codingtest.z_baekjoon;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 //10816. 숫자 카드2
 //https://www.acmicpc.net/problem/@@@@
-public class Backjun10816 {
+public class Baekjoon10816 {
 
     //ArrayList 출력말고 StringBuilder
     public static String solution(int[] arr1, int[] arr2) {

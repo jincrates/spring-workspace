@@ -1,4 +1,4 @@
-package me.jincrates.codingtest.z_backjun;
+package me.jincrates.codingtest.z_baekjoon;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 
 //21921. 블로그
 //https://www.acmicpc.net/problem/@@@@
-public class Backjun21921 {
+public class Baekjoon21921 {
 
     public static void solution(int n, int x, int[] arr) {
         long answer = 0, sum = 0, cnt = 1;

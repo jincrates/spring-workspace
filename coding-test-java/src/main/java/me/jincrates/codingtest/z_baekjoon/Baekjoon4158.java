@@ -1,13 +1,12 @@
-package me.jincrates.codingtest.z_backjun;
+package me.jincrates.codingtest.z_baekjoon;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Scanner;
 
 //4158. CD(투포인터)
 //https://www.acmicpc.net/problem/@@@@
-public class Backjun4158 {
+public class Baekjoon4158 {
 
 /*
 4 3

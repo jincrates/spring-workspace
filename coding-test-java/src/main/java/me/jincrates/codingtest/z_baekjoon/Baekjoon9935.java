@@ -1,10 +1,10 @@
-package me.jincrates.codingtest.z_backjun;
+package me.jincrates.codingtest.z_baekjoon;
 
 import java.util.Scanner;
 
 //9935. 문자열 폭발
 //https://www.acmicpc.net/problem/9935
-public class Backjun9935 {
+public class Baekjoon9935 {
 
     public static String solution(String str, String bomb) {
         String answer = "FRULA";

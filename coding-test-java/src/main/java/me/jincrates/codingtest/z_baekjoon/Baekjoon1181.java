@@ -1,11 +1,11 @@
-package me.jincrates.codingtest.z_backjun;
+package me.jincrates.codingtest.z_baekjoon;
 
 import java.io.*;
 import java.util.*;
 
 //1181. 단어 정렬
 //https://www.acmicpc.net/problem/@@@@
-public class Backjun1181 {
+public class Baekjoon1181 {
     int [] arr;
     public static ArrayList<String> solution(int n, String[] arr) {
         Set<String> set = new HashSet<>();

@@ -1,14 +1,13 @@
-package me.jincrates.codingtest.z_backjun;
+package me.jincrates.codingtest.z_baekjoon;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 
 //12847. 꿀 아르바이트
 //리턴 타입을 int에서 long으로 변경
 //https://www.acmicpc.net/problem/@@@@
-public class Backjun12847 {
+public class Baekjoon12847 {
 
     public static long solution(int n, int m, int[] arr) {
         long answer = 0, sum = 0;

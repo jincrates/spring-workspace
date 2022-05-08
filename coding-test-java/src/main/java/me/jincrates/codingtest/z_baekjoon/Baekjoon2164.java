@@ -1,4 +1,4 @@
-package me.jincrates.codingtest.z_backjun;
+package me.jincrates.codingtest.z_baekjoon;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,7 +8,7 @@ import java.util.Queue;
 
 //2164. 카드2
 //https://www.acmicpc.net/problem/@@@@
-public class Backjun2164 {
+public class Baekjoon2164 {
 
     public static int solution(int n) {
         int answer = 0;

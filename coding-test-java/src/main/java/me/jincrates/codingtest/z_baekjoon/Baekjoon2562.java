@@ -1,10 +1,10 @@
-package me.jincrates.codingtest.z_backjun;
+package me.jincrates.codingtest.z_baekjoon;
 
 import java.util.Scanner;
 
 //2562. 최댓값
 //https://www.acmicpc.net/problem/@@@@
-public class Backjun2562 {
+public class Baekjoon2562 {
 
     public static void solution(int[] arr) {
         int answer = 0;

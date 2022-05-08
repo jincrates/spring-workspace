@@ -1,14 +1,13 @@
-package me.jincrates.codingtest.z_backjun;
+package me.jincrates.codingtest.z_baekjoon;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.Collections;
 
 //1940. 주몽
 //https://www.acmicpc.net/problem/@@@@
-public class Backjun1940 {
+public class Baekjoon1940 {
 
     public static int solution(int n, int m, Integer[] arr) {
         int answer = 0;

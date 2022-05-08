@@ -1,11 +1,11 @@
-package me.jincrates.codingtest.z_backjun;
+package me.jincrates.codingtest.z_baekjoon;
 
 import java.io.*;
 import java.util.*;
 
 //11728. 배열합치기
 //https://www.acmicpc.net/problem/@@@@
-public class Backjun11728 {
+public class Baekjoon11728 {
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

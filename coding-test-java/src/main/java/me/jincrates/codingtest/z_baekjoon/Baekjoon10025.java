@@ -1,14 +1,12 @@
-package me.jincrates.codingtest.z_backjun;
+package me.jincrates.codingtest.z_baekjoon;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.Scanner;
 
 //10025. 게으른 백곰
 //https://www.acmicpc.net/problem/@@@@
-public class Backjun10025 {
+public class Baekjoon10025 {
 
     public static int solution(int k, int[] arr) {
         int answer = 0, lt = 0, sum = 0;

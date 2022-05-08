@@ -1,11 +1,11 @@
-package me.jincrates.codingtest.z_backjun;
+package me.jincrates.codingtest.z_baekjoon;
 
 import java.io.*;
 import java.util.StringTokenizer;
 
 //1517. 버블 소트
 //https://www.acmicpc.net/problem/@@@@
-public class Backjun1517 {
+public class Baekjoon1517 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));

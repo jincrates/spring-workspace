@@ -1,10 +1,10 @@
-package me.jincrates.codingtest.z_backjun;
+package me.jincrates.codingtest.z_baekjoon;
 
 import java.util.Scanner;
 
 //8958. OX 퀴즈
 //https://www.acmicpc.net/problem/@@@@
-public class Backjun8958 {
+public class Baekjoon8958 {
 
     public static void solution(int num, String[] strArr) {
         int[] answer = new int[num];

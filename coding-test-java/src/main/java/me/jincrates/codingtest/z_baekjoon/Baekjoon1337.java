@@ -1,11 +1,11 @@
-package me.jincrates.codingtest.z_backjun;
+package me.jincrates.codingtest.z_baekjoon;
 
 import java.io.*;
 import java.util.Arrays;
 
 //1337. 올바른 배열(못풀고 구글링)
 //https://www.acmicpc.net/problem/@@@@
-public class Backjun1337 {
+public class Baekjoon1337 {
 
     public static int solution(int n, int[] arr) {
         int answer = 0;

@@ -1,4 +1,4 @@
-package me.jincrates.codingtest.z_backjun;
+package me.jincrates.codingtest.z_baekjoon;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,7 +7,7 @@ import java.util.*;
 
 //20291. 파일정리
 //https://www.acmicpc.net/problem/@@@@
-public class Backjun20291 {
+public class Baekjoon20291 {
 
 /*
 8
