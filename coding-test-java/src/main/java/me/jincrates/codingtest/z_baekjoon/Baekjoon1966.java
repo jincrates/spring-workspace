@@ -28,7 +28,7 @@ class Print {
     }
 }
 
-public class Backjun1966 {
+public class Baekjoon1966 {
     public static int solution(int total, int pageNum, int[] arr) {
         int answer = 0;
         //프린트 대기목록

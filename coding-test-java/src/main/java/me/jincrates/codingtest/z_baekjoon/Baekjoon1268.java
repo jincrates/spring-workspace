@@ -4,7 +4,7 @@ import java.util.*;
 
 //1268. 임시 반장 정하기
 //https://www.acmicpc.net/problem/@@@@
-public class Backjun1268 {
+public class Baekjoon1268 {
 
     public static int solution(int n, int[][] students) {
         int answer = 0;
