@@ -1,20 +1,20 @@
 server:
-    port: 8080
+    port: 80
 
 spring:
     h2:
         console:
             enabled: true
-    #    datasource:
-    #        driverClassName: com.mysql.jdbc.Driver
-    #        url: jdbc:mysql://localhost:3306/gobook
-    #        username: bootuser
-    #        password: bootuser
     datasource:
-        driverClassName: org.mariadb.jdbc.Driver
-        url: jdbc:mariadb://springboot-blog.cbwrekiqrow4.ap-northeast-2.rds.amazonaws.com:3306/gobook
-        username: jincrates
-        password: jincrates
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/gobook
+        username: bootuser
+        password: bootuser
+#    datasource:
+#        driverClassName: org.mariadb.jdbc.Driver
+#        url: jdbc:mariadb://springboot-blog.cbwrekiqrow4.ap-northeast-2.rds.amazonaws.com:3306/gobook
+#        username: jincrates
+#        password: jincrates
 
     jpa:
         hibernate:
@@ -38,7 +38,7 @@ spring:
         level:
             me.jincrates: DEBUG
 
-#itemImgLocation: /Users/jincrates/projects/upload/shop/item # C:/shop/item
-#uploadPath: file:///Users/jincrates/projects/upload/shop/  #file:///C:/shop/
-itemImgLocation: /home/ec2-user/upload/gobook/item
-uploadPath: file:///home/ec2-user/upload/gobook/
+itemImgLocation: /Users/jincrates/projects/upload/shop/item # C:/shop/item
+uploadPath: file:///Users/jincrates/projects/upload/shop/  #file:///C:/shop/
+#itemImgLocation: /home/ec2-user/upload/gobook/item
+#uploadPath: file:///home/ec2-user/upload/gobook/
