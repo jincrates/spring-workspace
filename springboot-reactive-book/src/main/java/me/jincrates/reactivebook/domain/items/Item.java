@@ -1,4 +1,4 @@
-package me.jincrates.reactivebook.domain;
+package me.jincrates.reactivebook.domain.items;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

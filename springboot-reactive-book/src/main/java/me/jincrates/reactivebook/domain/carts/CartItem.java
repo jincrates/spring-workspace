@@ -1,8 +1,8 @@
-package me.jincrates.reactivebook.domain;
+package me.jincrates.reactivebook.domain.carts;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import me.jincrates.reactivebook.domain.items.Item;
 
 @Data
 @NoArgsConstructor
