@@ -16,27 +16,27 @@ public class Backjun1181 {
         ArrayList<String> list = new ArrayList<>(set);
         Collections.sort(list);
 
-        for (int i = 0; i < n-1; i++) {
-            for (int j = 0; j < n-1-i; j++) {
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - 1 - i; j++) {
                 //길이가 짧은 것부터
-                if (arr[j].length() > arr[j+1].length()) {
+                if (arr[j].length() > arr[j + 1].length()) {
                     String temp = arr[j];
-                    arr[j] = arr[j+1];
-                    arr[j+1] = temp;
-                //길이가 같으면 사전순
-                } else if (arr[j].length() == arr[j+1].length()) {
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                    //길이가 같으면 사전순
+                } else if (arr[j].length() == arr[j + 1].length()) {
 
                     //첫글자 비교
-                    if (arr[j].charAt(0) > arr[j+1].charAt(0)) {
+                    if (arr[j].charAt(0) > arr[j + 1].charAt(0)) {
                         String temp = arr[j];
-                        arr[j] = arr[j+1];
-                        arr[j+1] = temp;
-                    } else if(arr[j].charAt(0) == arr[j+1].charAt(0)) {
-                        if (arr[j].charAt(1) > arr[j+1].charAt(1)) {
+                        arr[j] = arr[j + 1];
+                        arr[j + 1] = temp;
+                    } else if (arr[j].charAt(0) == arr[j + 1].charAt(0)) {
+                        if (arr[j].charAt(1) > arr[j + 1].charAt(1)) {
                             String temp = arr[j];
-                            arr[j] = arr[j+1];
-                            arr[j+1] = temp;
-                        } else if(arr[j].charAt(1) == arr[j+1].charAt(1)) {
+                            arr[j] = arr[j + 1];
+                            arr[j + 1] = temp;
+                        } else if (arr[j].charAt(1) == arr[j + 1].charAt(1)) {
                             String temp = arr[j];
                             arr[j] = arr[j + 1];
                             arr[j + 1] = temp;
@@ -47,13 +47,13 @@ public class Backjun1181 {
             }
         }
 
-        answer = arr;
-
-        return arr;
-        */
-
-
+//        answer = arr;
+//
+//        return arr;
+        return null;
     }
+
+
 
 
 /*
