@@ -75,7 +75,7 @@ public class TodoService {
         } catch (Exception e) {
             //3. exception 발생시 id와 exception을 로깅한다.
             log.warning("error deleting entity " + entity.getId());
-            log.warning("error : " + e);
+            log.warning("error : " + e.getMessage());
 
             //4. 컨트롤러로 exception을 보낸다. 데이터베이스 내부 로직을 캡슐화하려면 e를 리턴하지 않고 새 exception 오브젝트를 리턴한다.
             throw new RuntimeException("error deleting entity " + entity.getId());
