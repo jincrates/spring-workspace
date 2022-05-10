@@ -11,13 +11,27 @@ public class Session08 {
     public static int solution(int n, int m, int[] arr) {
         int answer = 0;
 
-        //오른차순 정렬
+        //이분검색은 정렬이 되어야 한다.
+        //검색 범위를 줄여준다.
         Arrays.sort(arr);
 
-        for (int i = 0; i < n; i++) {
-            if (m == arr[i]) {
-                answer = i+1;
+        int lt = 0, rt = n-1;
+
+        //while문 사용
+        while (lt <= rt) {
+            int mid = (lt + rt) / 2;
+
+            //m을 찾았을때 반복문 빠져나옴
+            if (arr[mid] == m) {
+                answer = mid + 1;
                 break;
+            }
+
+            //여기가 이분검색의 핵심
+            if (arr[mid] > m) {
+                rt = mid - 1;
+            } else {
+                lt = mid + 1;
             }
         }
 
