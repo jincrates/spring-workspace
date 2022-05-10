@@ -41,7 +41,7 @@ public class HomeController {
         잘못될 위험성도 함께 높아진다.
         자바가 강력한 타입 시스템을 가지고 있다고 하지만, 의도하지 않은 변경에 의해 발생하는 문제를 막을 수 있을 정도로 강력하지는 않다.
 
-        스트림 API를 사용하며 이런 단점을 극복할 수 있다.
+        스트림 API를 사용하며 이런 단점을 극복할 수 있다. p.89
          */
         return this.cartRepository.findById("My Cart").defaultIfEmpty(new Cart("My Cart"))
                 .flatMap(cart -> cart.getCartItems().stream()
