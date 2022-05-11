@@ -1,66 +1,27 @@
 package me.jincrates.reactivebook.domain.items;
 
+import com.mongodb.client.model.geojson.Point;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
-import java.util.Objects;
+import java.util.Date;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Item {
 
     private @Id String id;
     private String name;
+    private String description;
     private double price;
+    private String distributorRegion;
+    private Date releaseDate;
+    private Point location;
+    private boolean active;
 
-    private Item() {}
-
-    public Item(String name, double price) {
-        this.name = name;
-        this.price = price;
-    }
-    // end::code[]
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-        Item item = (Item) o;
-        return Double.compare(item.price, price) == 0 && Objects.equals(id, item.id) && Objects.equals(name, item.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, price);
-    }
-
-    @Override
-    public String toString() {
-        return "Item{" + "id=" + id + ", name='" + name + '\'' + ", price=" + price + '}';
+    public Item(String name, String description, double v) {
     }
 }
