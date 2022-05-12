@@ -10,7 +10,6 @@ import java.util.Date;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class Item {
 
     private @Id String id;
@@ -22,6 +21,9 @@ public class Item {
     private Point location;
     private boolean active;
 
-    public Item(String name, String description, double v) {
+    public Item(String name, String description, double price) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
     }
 }

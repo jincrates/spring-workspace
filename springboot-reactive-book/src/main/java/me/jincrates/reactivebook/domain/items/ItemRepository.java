@@ -14,13 +14,13 @@ public interface ItemRepository extends ReactiveCrudRepository<Item, String>,
     //스프링 데이터에서 정한 메소드 이름 규칙을 사용하면 직접 코드나 SQL문을 작성하지 않아도 자동으로 메소드를 만들 수 있다.
     Flux<Item> findByNameContaining(String partialName);
 
-    //커스텀 쿼리1
-    @Query("{'name' : ?0, 'age' : ?1 }")
-    Flux<Item> findItemsForCustomerMonthlyReport(String name, int age);
-
-    //커스텀 쿼리2
-    @Query(sort = "{'age' : -1 }")
-    Flux<Item> findSortedStuffForWeeklyReport();
+//    //커스텀 쿼리1
+//    @Query("{'name' : ?0, 'age' : ?1 }")
+//    Flux<Item> findItemsForCustomerMonthlyReport(String name, int age);
+//
+//    //커스텀 쿼리2
+//    @Query(sort = "{'age' : -1 }")
+//    Flux<Item> findSortedStuffForWeeklyReport();
 
     // search by name
     Flux<Item> findByNameContainingIgnoreCase(String partialName);
