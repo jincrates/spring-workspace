@@ -22,52 +22,15 @@ public interface ItemRepository extends ReactiveCrudRepository<Item, String>,
     @Query(sort = "{'age' : -1 }")
     Flux<Item> findSortedStuffForWeeklyReport();
 
-    //이직 생각을 심각하게 불러오는 쿼리
-    default Flux<Item> search(String partialName, String partialDescription, boolean useAnd) {
-        if (partialName != null) {
-            if (partialDescription != null) {
-                if (useAnd) {
-                    return this.findByNameContainingAndDescriptionContainingAllIgnoreCase(partialName, partialDescription);
-                } else {
-                    return this.findByNameContainingOrDescriptionContainingAllIgnoreCase(partialName, partialDescription);
-                }
-            } else {
-                return this.findByNameContaining(partialName);
-            }
-        } else {
-            if (partialDescription != null) {
-                return this.findByDescriptionContainingIgnore(partialDescription);
-            } else {
-                return this.findAll();
-            }
-        }
-    }
-
-    //name 검색
+    // search by name
     Flux<Item> findByNameContainingIgnoreCase(String partialName);
 
-    //description 검색
-    Flux<Item> findByDescriptionContainingIgnore(String partialDescription);
+    // search by description
+    Flux<Item> findByDescriptionContainingIgnoreCase(String partialDescription);
 
-    //name AND description 검색
+    // search by name AND description
     Flux<Item> findByNameContainingAndDescriptionContainingAllIgnoreCase(String partialName, String partialDescription);
 
-    //name OR description 검색
+    // search by name OR description
     Flux<Item> findByNameContainingOrDescriptionContainingAllIgnoreCase(String partialName, String partialDescription);
-
-    //우리를 구원해줄 Example 쿼리
-    default Flux<Item> searchByExample(String name, String description, boolean useAnd) {
-        Item item = new Item(name, description, 0.0);
-
-        ExampleMatcher matcher = (useAnd
-                ? ExampleMatcher.matchingAll()
-                : ExampleMatcher.matchingAny())
-                    .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING)
-                    .withIgnoreCase()
-                    .withIgnorePaths("price");
-
-        Example<Item> probe = Example.of(item, matcher);
-
-        return this.findAll(probe);
-    }
 }
