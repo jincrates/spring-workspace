@@ -61,7 +61,20 @@
 			<artifactId>reactor-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
+		<!--optional을 지정해주면 실제 상용 운영 코드에는 추가되지 않는다.
+		해당 라이브러리에 모듈에 대한 의존 관계가
+		 의도하지 않게 외부로 전파되는 것을 막아주므로 추천할 만한 방식이다. -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>io.projectreactor.tools</groupId>
+			<artifactId>blockhound</artifactId>
+			<version>1.0.3.RELEASE</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
