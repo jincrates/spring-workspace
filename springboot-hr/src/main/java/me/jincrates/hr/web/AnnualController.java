@@ -31,7 +31,7 @@ public class AnnualController {
 
     @GetMapping(value = "/annual/adjusted/id")
     public String annualAdjustedList() {
-        return "annual/annualForm";
+        return "annual/annualAdjustedList";
     }
 
 }
