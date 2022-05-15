@@ -19,17 +19,33 @@
 
     <form role="form" method="post" action="/members/login">
         <div class="form-group mb-2">
-            <label th:for="email">이메일 주소</label>
-            <input type="email" name="email" class="form-control" placeholder="이메일을 입력해주세요">
+            <label th:for="type">연차생성 기준</label>
+            <br />
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="F">
+                <label class="form-check-label" for="inlineRadio1">회계연도</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="J">
+                <label class="form-check-label" for="inlineRadio2">입사일자</label>
+            </div>
         </div>
         <div class="form-group mb-2">
-            <label th:for="password">비밀번호</label>
-            <input type="password" name="password" class="form-control" placeholder="비밀번호 입력">
+            <label th:for="step">증가연도</label>
+            <input class="form-control" type="number" name="step" min="1" max="10" placeholder="증가연도를 입력해주세요">
         </div>
-        <p th:if="${loginErrorMsg}" class="error" th:text="${loginErrorMsg}"></p>
-        <div style="text-align:center;" class="py-3">
-            <button type="submit" class="btn btn-outline-dark">로그인</button>
-            <button type="button" class="btn btn-outline-dark" onclick="location.href='/employee/save'">회원가입</button>
+        <div class="form-group mb-2">
+            <label th:for="minCnt">최초 개수</label>
+            <input class="form-control" type="number" name="minCnt" min="15" max="100" placeholder="최초 개수를 입력해주세요">
+        </div>
+        <div class="form-group mb-2">
+            <label th:for="maxCnt">최대 개수</label>
+            <input class="form-control" type="number" name="maxCnt" min="15" max="100" placeholder="최대 개수를 입력해주세요">
+        </div>
+
+        <div style="text-align:center" class="py-3">
+            <button type="submit" class="btn btn-outline-dark">저장</button>
+            <button type="button" class="btn btn-outline-dark" onclick="history.back();">취소</button>
         </div>
     </form>
 </div>
