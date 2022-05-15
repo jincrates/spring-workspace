@@ -12,7 +12,60 @@
 
 <div layout:fragment="content">
     <div class="mt-5">
-
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        사원 관리
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <code>사원을 관리합니다.</code>
+                    </div>
+                    <div class="list-group list-group-flush">
+                        <a href="#" class="list-group-item list-group-item-action">- 사원등록</a>
+                        <a href="#" class="list-group-item list-group-item-action">- 사원정보 수정</a>
+                    </div>
+                </div>
+            </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    출퇴근 관리
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <code>사원의 출퇴근을 관리합니다.</code>
+                </div>
+                <div class="list-group list-group-flush">
+                    <a href="#" class="list-group-item list-group-item-action">- 출퇴근 등록</a>
+                    <a href="#" class="list-group-item list-group-item-action">- 출퇴근 수정</a>
+                    <a href="#" class="list-group-item list-group-item-action">- 출퇴근 삭제</a>
+                    <a href="#" class="list-group-item list-group-item-action">- 근무시간 조회(일/주/월)</a>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    연차 관리
+                </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <code>사원의 연차를 관리합니다.</code>
+                </div>
+                <div class="list-group list-group-flush">
+                    <a href="#" class="list-group-item list-group-item-action">- 연차 설정</a>
+                    <a href="#" class="list-group-item list-group-item-action">- 연차 생성</a>
+                    <a href="#" class="list-group-item list-group-item-action">- 연차 조정</a>
+                    <a href="#" class="list-group-item list-group-item-action">- 연차 현황</a>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 </div>
 
