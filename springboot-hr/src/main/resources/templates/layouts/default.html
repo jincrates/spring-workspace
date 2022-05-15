@@ -22,6 +22,9 @@
         body {
             font-family: 'Noto Serif KR', serif;
         }
+        .container {
+            max-width: 750px;
+        }
 
     </style>
 
@@ -34,7 +37,7 @@
 
 <div th:replace="fragments/header::header"></div>
 
-<div layout:fragment="content" class="container w-50"></div>
+<div layout:fragment="content" class="container"></div>
 
 <div th:replace="fragments/footer::footer"></div>
 
