@@ -9,8 +9,12 @@ public class Session01 {
         if (n == 0) {
             return;
         } else {
-            System.out.print(n + " ");
+            //여기다 두면 3 2 1
+            //System.out.print(n + " ");
             DFS(n - 1);
+            //스택프레임, 백트래킹
+            //여기다 두면 1 2 3
+            System.out.print(n + " ");
         }
     }
 
