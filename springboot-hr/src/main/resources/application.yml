@@ -1,5 +1,11 @@
+server:
+    port: 80
 
 spring:
+    logging:
+        level:
+            me.jincrates: DEBUG
+
     h2:
         console:
             enabled: true
@@ -16,5 +22,10 @@ spring:
             hibernate:
                 format_sql: true
                 show_sql: true
+                default_batch_fetch_size: 1000
         defer-datasource-initialization: true
         database-platform: org.hibernate.dialect.H2Dialect
+
+    devtools:
+        livereload:
+            enabled: true

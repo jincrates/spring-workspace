@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @RequestMapping("/api/attendance")
 @RestController
-public class AttendanceController {
+public class ApiAttendanceController {
 
     private final EmployeeRepository employeeRepository;
     private final AttendanceService attendanceService;

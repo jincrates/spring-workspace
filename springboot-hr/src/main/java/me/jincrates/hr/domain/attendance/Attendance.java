@@ -33,10 +33,10 @@ public class Attendance extends BaseEntity {
     @Column(nullable = false)
     private LocalDate workDate;
 
-    @Schema(description = "출근일자")
+    @Schema(description = "출근일시")
     private LocalDateTime inDate;
 
-    @Schema(description = "퇴근일자")
+    @Schema(description = "퇴근일시")
     private LocalDateTime outDate;
 
     @Schema(description = "휴게시간")

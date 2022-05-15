@@ -18,9 +18,6 @@ public class AnnualDTO {
 
     private Employee employee;
 
-    //사원 입사일
-    private String empJoinDate;
-
     //근속연수
     private double lengthOfService;
 
@@ -38,7 +35,6 @@ public class AnnualDTO {
 
     public AnnualDTO(Annual entity) {
         this.employee = entity.getEmployee();
-        this.empJoinDate = entity.getEmpJoinDate();
         this.lengthOfService = entity.getLengthOfService();
         this.hadMonthly = entity.getHadMonthly();
         this.hadAnnual = entity.getHadAnnual();

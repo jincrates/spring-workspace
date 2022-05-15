@@ -25,7 +25,7 @@ import java.util.List;
 @Tag(name = "employee", description = "사원 API")
 @RequiredArgsConstructor
 @RestController
-public class EmployeeController {
+public class ApiEmployeeController {
 
     private final EmployeeService employeeService;
     private final PasswordEncoder passwordEncoder;
