@@ -1,6 +1,7 @@
 package me.jincrates.hr.web;
 
 import lombok.RequiredArgsConstructor;
+import me.jincrates.hr.web.dto.employees.EmployeeDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +21,14 @@ public class EmployeeController {
         return "employee/employeeLoginForm";
     }
 
+    @GetMapping(value = "/employee")
+    public String employeeList() {
+        return "employee/employeeList";
+    }
+
     @GetMapping(value = "/employee/save")
-    public String employeeForm() {
+    public String employeeForm(Model model) {
+        model.addAttribute("employeeFormDTO", new EmployeeDTO());
         return "employee/employeeForm";
     }
 }

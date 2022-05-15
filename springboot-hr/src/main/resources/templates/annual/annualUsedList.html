@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+
+<!-- 사용자 CSS 추가 -->
+<th:block layout:fragment="css">
+    <style>
+        .error {
+            color: #bd2130;
+        }
+    </style>
+</th:block>
+
+<div layout:fragment="content">
+    <h2 class="mb-4">
+        연차 사용 현황
+    </h2>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">이메일</th>
+            <th scope="col">이름</th>
+            <th scope="col">입사일자</th>
+            <th scope="col">권한</th>
+            <th scope="col">상태</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td>admin@email.com</td>
+            <td>관리자</td>
+            <td>2022-01-01</td>
+            <td>ADMIN</td>
+            <td>ACTIVE</td>
+        </tr>
+        <tr>
+            <th scope="row">2</th>
+            <td>user1@email.com</td>
+            <td>사용자1</td>
+            <td>2022-01-02</td>
+            <td>USER</td>
+            <td>ACTIVE</td>
+        </tr>
+        <tr>
+            <th scope="row">3</th>
+            <td>user2@email.com</td>
+            <td>사용자2</td>
+            <td>2022-01-03</td>
+            <td>USER</td>
+            <td>ACTIVE</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+</html>

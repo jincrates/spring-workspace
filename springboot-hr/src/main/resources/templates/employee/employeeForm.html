@@ -27,35 +27,51 @@
 
 <div layout:fragment="content">
     <h2 class="mb-4">
-        회원가입
+        사원 등록
     </h2>
 
-    <form role="form" method="post" action="/members/new" th:object="${memberFormDto}">
-        <div class="form-group">
-            <label th:for="name">이름</label>
-            <input type="text" th:field="*{name}" class="form-control" placeholder="이름을 입력해주세요">
-            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldError">Incorrect data</p>
+    <form role="form" method="post" action="/employee/save" th:object="${employeeFormDTO}">
+        <div class="form-group mb-2">
+            <label th:for="username">이름</label>
+            <input type="text" th:field="*{username}" class="form-control" placeholder="이름을 입력해주세요">
+            <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="fieldError">Incorrect data</p>
         </div>
-        <div class="form-group">
+        <div class="form-group mb-2">
             <label th:for="email">이메일 주소</label>
             <input type="email" th:field="*{email}" class="form-control" placeholder="이메일을 입력해주세요">
             <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">Incorrect data</p>
         </div>
-        <div class="form-group">
+        <div class="form-group mb-2">
             <label th:for="password">비밀번호</label>
             <input type="password" th:field="*{password}" class="form-control" placeholder="비밀번호 입력">
             <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect data</p>
         </div>
-        <div class="form-group">
-            <label th:for="address">주소</label>
-            <input type="text" th:field="*{address}" class="form-control" placeholder="주소를 입력해주세요">
-            <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="fieldError">Incorrect data</p>
+        <div class="form-group mb-2">
+            <label th:for="joinDate">입사일자</label>
+            <input type="date" th:field="*{joinDate}" class="form-control" placeholder="입사일자 입력">
+            <p th:if="${#fields.hasErrors('joinDate')}" th:errors="*{joinDate}" class="fieldError">Incorrect data</p>
         </div>
+        <div class="form-group mb-2">
+            <label th:for="role">권한</label>
+            <select class="form-control" th:field="*{role}">
+                <option value="USER">사용자</option>
+                <option value="ADMIN">관리자</option>
+            </select>
+            <p th:if="${#fields.hasErrors('role')}" th:errors="*{role}" class="fieldError">Incorrect data</p>
+        </div>
+        <div class="form-group mb-2">
+            <label th:for="status">상태</label>
+            <select class="form-control" th:field="*{status}">
+                <option value="ACTIVE">사용</option>
+                <option value="INACTIVE">사용안함</option>
+            </select>
+            <p th:if="${#fields.hasErrors('status')}" th:errors="*{status}" class="fieldError">Incorrect data</p>
+        </div>
+
         <div style="text-align:center" class="py-3">
             <button type="submit" class="btn btn-outline-dark">가입</button>
             <button type="button" class="btn btn-outline-dark" onclick="history.back();">취소</button>
         </div>
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
     </form>
 </div>
 

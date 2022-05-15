@@ -9,4 +9,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class AttendanceController {
 
+    @GetMapping(value = "/attendance")
+    public String attendanceList() {
+        return "attendance/attendanceList";
+    }
+
+    @GetMapping(value = "/attendance/save")
+    public String attendanceForm() {
+        return "attendance/attendanceForm";
+    }
 }
