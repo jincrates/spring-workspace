@@ -14,35 +14,42 @@
 
 <div layout:fragment="content">
     <h2 class="mb-4">
-        연차 생성
+        연차 계산/생성
     </h2>
 
-    <form role="form" method="post" action="/members/login">
+    <form role="form" method="post" action="/annual/save">
         <div class="form-group mb-2">
-            <label th:for="type">연차생성 기준</label>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="F">
-                <label class="form-check-label" for="inlineRadio1">회계연도</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="J">
-                <label class="form-check-label" for="inlineRadio2">입사일자</label>
-            </div>
+            <label th:for="username">이름</label>
+            <input type="text" name="username" class="form-control" placeholder="사용자 이름" readonly>
         </div>
         <div class="form-group mb-2">
-            <label th:for="step">증가연도</label>
-            <input class="form-control" type="number" name="step" min="1" max="10" placeholder="증가연도를 입력해주세요">
+            <label th:for="email">이메일 주소</label>
+            <input type="email" name="email" class="form-control" placeholder="사용자 이메일" readonly>
         </div>
         <div class="form-group mb-2">
-            <label th:for="minCnt">최초 개수</label>
-            <input class="form-control" type="number" name="minCnt" min="15" max="100" placeholder="최초 개수를 입력해주세요">
+            <label th:for="joinDate">입사일자</label>
+            <input type="date" name="joinDate" class="form-control" placeholder="입사일자" readonly>
         </div>
         <div class="form-group mb-2">
-            <label th:for="maxCnt">최대 개수</label>
-            <input class="form-control" type="number" name="maxCnt" min="15" max="100" placeholder="최대 개수를 입력해주세요">
+            <label th:for="baseDate">계산일자</label>
+            <input type="date" name="baseDate" class="form-control" placeholder="계산일자">
+        </div>
+        <div class="form-group mb-2">
+            <label th:for="lengthOfService">근속연수</label>
+            <input type="number" name="lengthOfService" class="form-control" placeholder="근속연수">
+        </div>
+        <div class="form-group mb-2">
+            <label th:for="hadMonthly">발생월차</label>
+            <input type="number" name="hadMonthly" class="form-control" placeholder="발생월차">
+        </div>
+        <div class="form-group mb-2">
+            <label th:for="hadAnnual">발생연차</label>
+            <input type="number" name="hadAnnual" class="form-control" placeholder="발생연차">
         </div>
 
+
         <div style="text-align:center" class="py-3">
+            <button type="submit" class="btn btn-outline-dark">계산</button>
             <button type="submit" class="btn btn-outline-dark">저장</button>
             <button type="button" class="btn btn-outline-dark" onclick="history.back();">취소</button>
         </div>
