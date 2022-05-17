@@ -49,7 +49,7 @@
         <div class="form-group mb-2">
             <label th:for="joinDate">입사일자</label>
             <input type="date" th:field="*{joinDate}" class="form-control" placeholder="입사일자 입력">
-            <p th:if="${#fields.hasErrors('joinDate')}" th:errors="*{joinDate}" class="fieldError">Incorrect data</p>
+            <!--<p th:if="${#fields.hasErrors('joinDate')}" th:errors="*{joinDate}" class="fieldError">Incorrect data</p>-->
         </div>
         <div class="form-group mb-2">
             <label th:for="role">권한</label>
@@ -57,7 +57,6 @@
                 <option value="USER">사용자</option>
                 <option value="ADMIN">관리자</option>
             </select>
-            <p th:if="${#fields.hasErrors('role')}" th:errors="*{role}" class="fieldError">Incorrect data</p>
         </div>
         <div class="form-group mb-2">
             <label th:for="status">상태</label>
@@ -65,7 +64,6 @@
                 <option value="ACTIVE">사용</option>
                 <option value="INACTIVE">사용안함</option>
             </select>
-            <p th:if="${#fields.hasErrors('status')}" th:errors="*{status}" class="fieldError">Incorrect data</p>
         </div>
 
         <div style="text-align:center" class="py-3">

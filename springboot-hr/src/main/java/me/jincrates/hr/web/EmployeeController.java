@@ -1,6 +1,7 @@
 package me.jincrates.hr.web;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import me.jincrates.hr.domain.employees.Employee;
 import me.jincrates.hr.service.employees.EmployeeService;
 import me.jincrates.hr.web.dto.employees.EmployeeDTO;
@@ -8,11 +9,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.util.List;
 
+@Log
 @RequiredArgsConstructor
 @Controller
 public class EmployeeController {
@@ -44,9 +48,16 @@ public class EmployeeController {
 
     @PostMapping(value = "/employee/save")
     public String employeeForm(@Valid EmployeeDTO employeeDTO, BindingResult bindingResult, Model model) {
-        System.out.println(employeeDTO.toString());
+        log.info(employeeDTO.toString());
         
         if (bindingResult.hasErrors()) {
+            StringBuilder sb = new StringBuilder();
+            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+            for (FieldError fieldError : fieldErrors) {
+                sb.append(fieldError.getDefaultMessage());
+            }
+            log.info(sb.toString());
+
             return "employee/employeeForm";
         }
 

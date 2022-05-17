@@ -9,6 +9,7 @@ import me.jincrates.hr.domain.employees.Employee;
 import me.jincrates.hr.domain.employees.EmployeeRole;
 import me.jincrates.hr.domain.employees.EmployeeStatus;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -40,7 +41,8 @@ public class EmployeeDTO {
     private String username;
 
     @Schema(description = "입사일", type = "LocalDate", required = true)
-    @NotNull(message = "입사일은 필수 입력 값입니다.")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    //@NotNull(message = "입사일은 필수 입력 값입니다.")  //LocalDate 타입은 @NotNull 어노테이션을 사용할 수 없다.
     private LocalDate joinDate;
 
     @Schema(description = "권한", type = "EmployeeRole", required = true)
