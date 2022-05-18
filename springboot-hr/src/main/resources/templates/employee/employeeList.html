@@ -29,6 +29,16 @@
         </tr>
         </thead>
         <tbody>
+        <tr th:each="employee : ${employeeList}">
+            <td th:text="${employee.id}"></td>
+            <td>
+                <a th:href="'/employee/'+${employee.id}" th:text="${employee.email}"></a>
+            </td>
+            <td th:text="${employee.username}"></td>
+            <td th:text="${employee.joinDate}"></td>
+            <td th:text="${employee.role}"></td>
+            <td th:text="${employee.status}"></td>
+        </tr>
         <tr>
             <th scope="row">1</th>
             <td>admin@email.com</td>

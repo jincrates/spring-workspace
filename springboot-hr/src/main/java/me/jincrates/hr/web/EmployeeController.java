@@ -36,7 +36,10 @@ public class EmployeeController {
     }
 
     @GetMapping(value = "/employee")
-    public String employeeList() {
+    public String employeeList(Model model) {
+        List<Employee> employeeList = employeeService.findAllEmployee();
+        model.addAttribute("employeeList", employeeList);
+
         return "employee/employeeList";
     }
 
