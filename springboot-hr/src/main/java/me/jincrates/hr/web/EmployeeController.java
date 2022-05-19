@@ -2,6 +2,7 @@ package me.jincrates.hr.web;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
+import me.jincrates.hr.config.security.TokenProvider;
 import me.jincrates.hr.domain.employees.Employee;
 import me.jincrates.hr.service.employees.EmployeeService;
 import me.jincrates.hr.web.dto.employees.EmployeeDTO;
@@ -12,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -23,6 +25,7 @@ public class EmployeeController {
 
     private final EmployeeService employeeService;
     private final PasswordEncoder passwordEncoder;
+    private final TokenProvider tokenProvider;
 
     @GetMapping(value = "/login")
     public String loginEmployee() {
@@ -33,6 +36,35 @@ public class EmployeeController {
     public String loginError(Model model) {
         model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호를 확인해주세요.");
         return "employee/employeeLoginForm";
+    }
+
+    @PostMapping(value = "/auth/login")
+    public String authenticate(@RequestBody EmployeeDTO employeeDTO, Model model) {
+        Employee employee = employeeService.getByCredentials(
+                employeeDTO.getEmail(),
+                employeeDTO.getPassword(),
+                passwordEncoder
+        );
+
+        if (employee != null) {
+            //토큰 생성
+            final String token = tokenProvider.create(employee);
+            final EmployeeDTO responseEmployee = EmployeeDTO.builder()
+                    .email(employee.getEmail())
+                    .username(employee.getUsername())
+                    .joinDate(employee.getJoinDate())
+                    .token(token)
+                    .build();
+
+            log.info(responseEmployee.toString());
+
+            model.addAttribute("responseEmployee", responseEmployee);
+        } else {
+            log.warning("loginErrorMsg");
+            model.addAttribute("loginErrorMsg", "아이디와 비밀번호를 확인해주세요.");
+        }
+
+        return "redirect:/";
     }
 
     @GetMapping(value = "/employee")

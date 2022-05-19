@@ -17,7 +17,7 @@
         로그인
     </h2>
 
-    <form role="form" method="post" action="/members/login">
+    <form role="form" method="post" action="/auth/login" enctype="application/x-www-form-urlencoded" accept-charset="UTF-8">
         <div class="form-group mb-2">
             <label th:for="email">이메일 주소</label>
             <input type="email" name="email" class="form-control" placeholder="이메일을 입력해주세요">
