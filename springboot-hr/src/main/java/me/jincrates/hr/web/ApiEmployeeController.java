@@ -12,15 +12,18 @@ import me.jincrates.hr.service.employees.EmployeeService;
 import me.jincrates.hr.web.dto.ResponseDTO;
 import me.jincrates.hr.web.dto.employees.EmployeeDTO;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Tag(name = "employee", description = "사원 API")
 @RequiredArgsConstructor
@@ -112,6 +115,24 @@ public class ApiEmployeeController {
 
             return ResponseEntity.badRequest().body(response);
         }
+    }
+
+    @Operation(summary="전체 사원조회", description="전체 사원정보 조회합니다.")
+    @GetMapping(value = "/api/employee/all")
+    public ResponseEntity<?> retrieveEmployeeList() {
+        //String temporaryUserId = "temporary-user";
+
+        //1. 서비스 메서드의 retrieveEmployeeAll() 메서드를 사용
+        List<Employee> entities = employeeService.retrieveEmployeeAll();
+
+        //2. 자바 스트림을 이용해 리턴된 엔티티 리스트를 Employee 리스트로 변환한다.
+        List<EmployeeDTO> dtos = entities.stream().map(EmployeeDTO::new).collect(Collectors.toList());
+
+        //3. 변환된 Employee 리스트를 이용해 ResponseDTO를 초기화한다.
+        ResponseDTO<EmployeeDTO> response = ResponseDTO.<EmployeeDTO>builder().data(dtos).build();
+
+        //4. ResponseDTO를 리턴한다.
+        return ResponseEntity.ok().body(response);
     }
 
     @Operation(summary="사원정보 수정", description="사원정보를 수정합니다.")
