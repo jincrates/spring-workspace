@@ -12,65 +12,68 @@
     </style>
 </th:block>
 
-<!-- 사용자 스크립트 추가 -->
-<th:block layout:fragment="script">
-    <script th:inline="javascript">
-        //회원가입 실패시 에러 메시지 출력
-        $(document).ready(function(){
-            var errorMessage = [[${errorMessage}]];
-            if(errorMessage != null){
-                alert(errorMessage);
-            }
-        });
-    </script>
-</th:block>
-
 <div layout:fragment="content">
     <h2 class="mb-4">
         사원 등록
     </h2>
 
-    <form role="form" method="post" action="/employee/save" th:object="${employeeFormDTO}">
-        <div class="form-group mb-2">
-            <label th:for="username">이름</label>
-            <input type="text" th:field="*{username}" class="form-control" placeholder="이름을 입력해주세요">
-            <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="fieldError">Incorrect data</p>
-        </div>
-        <div class="form-group mb-2">
-            <label th:for="email">이메일 주소</label>
-            <input type="email" th:field="*{email}" class="form-control" placeholder="이메일을 입력해주세요">
-            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">Incorrect data</p>
-        </div>
-        <div class="form-group mb-2">
-            <label th:for="password">비밀번호</label>
-            <input type="password" th:field="*{password}" class="form-control" placeholder="비밀번호 입력">
-            <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect data</p>
-        </div>
-        <div class="form-group mb-2">
-            <label th:for="joinDate">입사일자</label>
-            <input type="date" th:field="*{joinDate}" class="form-control" placeholder="입사일자 입력">
-            <!--<p th:if="${#fields.hasErrors('joinDate')}" th:errors="*{joinDate}" class="fieldError">Incorrect data</p>-->
-        </div>
-        <div class="form-group mb-2">
-            <label th:for="role">권한</label>
-            <select class="form-control" th:field="*{role}">
-                <option value="USER">사용자</option>
-                <option value="ADMIN">관리자</option>
-            </select>
-        </div>
-        <div class="form-group mb-2">
-            <label th:for="status">상태</label>
-            <select class="form-control" th:field="*{status}">
-                <option value="ACTIVE">사용</option>
-                <option value="INACTIVE">사용안함</option>
-            </select>
-        </div>
+    <div class="form-group mb-2">
+        <label for="username">이름</label>
+        <input type="text" id="username" class="form-control" placeholder="이름을 입력해주세요">
+    </div>
+    <div class="form-group mb-2">
+        <label for="email">이메일 주소</label>
+        <input type="email" id="email" class="form-control" placeholder="이메일을 입력해주세요">
+    </div>
+    <div class="form-group mb-2">
+        <label for="password">비밀번호</label>
+        <input type="password" id="password" class="form-control" placeholder="비밀번호 입력">
+    </div>
+    <div class="form-group mb-2">
+        <label for="joinDate">입사일자</label>
+        <input type="date" id="joinDate" class="form-control" placeholder="입사일자 입력">
+    </div>
+    <div class="form-group mb-2">
+        <label for="role">권한</label>
+        <select id="role" class="form-control">
+            <option value="USER">사용자</option>
+            <option value="ADMIN">관리자</option>
+        </select>
+    </div>
+    <div class="form-group mb-2">
+        <label for="status">상태</label>
+        <select id="status" class="form-control">
+            <option value="ACTIVE">사용</option>
+            <option value="INACTIVE">사용안함</option>
+        </select>
+    </div>
 
-        <div style="text-align:center" class="py-3">
-            <button type="submit" class="btn btn-outline-dark">가입</button>
-            <button type="button" class="btn btn-outline-dark" onclick="history.back();">취소</button>
-        </div>
-    </form>
+    <div style="text-align:center" class="py-3">
+        <button type="button" onclick="btnSignUp();" class="btn btn-outline-dark">가입</button>
+        <button type="button" class="btn btn-outline-dark" onclick="history.back();">취소</button>
+    </div>
 </div>
+
+<!-- 사용자 스크립트 추가 -->
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+        function btnSignUp() {
+            const data = {
+                username : document.getElementById('username').value,
+                email    : document.getElementById('email').value,
+                password : document.getElementById('password').value,
+                joinDate : document.getElementById('joinDate').value,
+                role     : document.getElementById('role').value,
+                status   : document.getElementById('status').value
+            }
+
+            signup(data);
+
+            alert("회원가입 성공");
+
+            window.location.href = "/login";
+        }
+    </script>
+</th:block>
 
 </html>

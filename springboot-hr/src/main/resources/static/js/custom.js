@@ -58,3 +58,7 @@ function logout() {
     window.location.href = "/login";
 }
 
+function signup(employeeDTO) {
+    return call("/api/auth/signup", "POST", employeeDTO);
+}
+

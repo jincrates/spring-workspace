@@ -27,7 +27,7 @@
     </div>
     <p th:if="${loginErrorMsg}" class="error" th:text="${loginErrorMsg}"></p>
     <div style="text-align:center;" class="py-3">
-        <button type="button" id="btnLogin" class="btn btn-outline-dark">로그인</button>
+        <button type="button" onclick="btnLogin();" class="btn btn-outline-dark">로그인</button>
         <button type="button" class="btn btn-outline-dark" onclick="location.href='/employee/save'">회원가입</button>
     </div>
 </div>
@@ -35,10 +35,6 @@
 <!-- 사용자 스크립트 추가 -->
 <th:block layout:fragment="script">
     <script th:inline="javascript">
-        window.onload = function() {
-            document.getElementById("btnLogin").addEventListener('click', btnLogin);
-        }
-
         function btnLogin() {
             const data = {
                 email : document.getElementById('email').value,
