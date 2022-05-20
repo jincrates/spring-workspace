@@ -3,13 +3,6 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/default}">
 
-<!-- 사용자 스크립트 추가 -->
-<th:block layout:fragment="script">
-    <script th:inline="javascript">
-
-    </script>
-</th:block>
-
 <div layout:fragment="content">
     <div class="mt-5">
         <div class="accordion" id="accordionExample">
@@ -27,50 +20,59 @@
                         <a href="/login" class="list-group-item list-group-item-action">- 로그인</a>
                         <a href="/employee/" class="list-group-item list-group-item-action">- 사원 현황</a>
                         <a href="/employee/save" class="list-group-item list-group-item-action">- 사원 등록</a>
-                        <a href="/employee/update/id" class="list-group-item list-group-item-action">- 사원 수정</a>
-                        <a href="/employee/remove/id" class="list-group-item list-group-item-action">- 사원 삭제</a>
+                        <a onclick="moveUpdateEmployee()" class="list-group-item list-group-item-action">- 사원 수정</a>
+                        <a href="/employee/remove" class="list-group-item list-group-item-action">- 사원 삭제</a>
                     </div>
                 </div>
             </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="headingTwo">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    출퇴근 관리
-                </button>
-            </h2>
-            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                    <code>사원의 출퇴근을 관리합니다.</code>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        출퇴근 관리
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <code>사원의 출퇴근을 관리합니다.</code>
+                    </div>
+                    <div class="list-group list-group-flush">
+                        <a href="/attendance/save" class="list-group-item list-group-item-action">- 출퇴근 등록</a>
+                        <a href="/attendance/update/id" class="list-group-item list-group-item-action">- 출퇴근 수정</a>
+                        <a href="/attendance/remove/id" class="list-group-item list-group-item-action">- 출퇴근 삭제</a>
+                        <a href="/attendance/" class="list-group-item list-group-item-action">- 근무시간 조회(일/주/월)</a>
+                    </div>
                 </div>
-                <div class="list-group list-group-flush">
-                    <a href="/attendance/save" class="list-group-item list-group-item-action">- 출퇴근 등록</a>
-                    <a href="/attendance/update/id" class="list-group-item list-group-item-action">- 출퇴근 수정</a>
-                    <a href="/attendance/remove/id" class="list-group-item list-group-item-action">- 출퇴근 삭제</a>
-                    <a href="/attendance/" class="list-group-item list-group-item-action">- 근무시간 조회(일/주/월)</a>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        연차 관리
+                    </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <code>사원의 연차를 관리합니다.</code>
+                    </div>
+                    <div class="list-group list-group-flush">
+                        <a href="/annual/" class="list-group-item list-group-item-action">- 연차 현황</a>
+                        <a href="/annual/setting" class="list-group-item list-group-item-action">- 연차 설정</a>
+                        <a href="/annual/save" class="list-group-item list-group-item-action">- 연차 생성</a>
+                        <a href="/annual/used/id" class="list-group-item list-group-item-action">- 연차 사용</a>
+                        <a href="/annual/adjusted/id" class="list-group-item list-group-item-action">- 연차 조정</a>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="headingThree">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                    연차 관리
-                </button>
-            </h2>
-            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                    <code>사원의 연차를 관리합니다.</code>
-                </div>
-                <div class="list-group list-group-flush">
-                    <a href="/annual/" class="list-group-item list-group-item-action">- 연차 현황</a>
-                    <a href="/annual/setting" class="list-group-item list-group-item-action">- 연차 설정</a>
-                    <a href="/annual/save" class="list-group-item list-group-item-action">- 연차 생성</a>
-                    <a href="/annual/used/id" class="list-group-item list-group-item-action">- 연차 사용</a>
-                    <a href="/annual/adjusted/id" class="list-group-item list-group-item-action">- 연차 조정</a>
-                </div>
-            </div>
-        </div>
-    </div>
     </div>
 </div>
+
+<!-- 사용자 스크립트 추가 -->
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+        function moveUpdateEmployee() {
+            callNotReturn("/employee/update", "GET", null);
+        }
+    </script>
+</th:block>
 
 </html>

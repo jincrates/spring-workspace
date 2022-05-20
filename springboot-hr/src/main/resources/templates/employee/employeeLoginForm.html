@@ -17,21 +17,36 @@
         로그인
     </h2>
 
-    <form role="form" method="post" action="/auth/login" enctype="application/x-www-form-urlencoded" accept-charset="UTF-8">
-        <div class="form-group mb-2">
-            <label th:for="email">이메일 주소</label>
-            <input type="email" name="email" class="form-control" placeholder="이메일을 입력해주세요">
-        </div>
-        <div class="form-group mb-2">
-            <label th:for="password">비밀번호</label>
-            <input type="password" name="password" class="form-control" placeholder="비밀번호 입력">
-        </div>
-        <p th:if="${loginErrorMsg}" class="error" th:text="${loginErrorMsg}"></p>
-        <div style="text-align:center;" class="py-3">
-            <button type="submit" class="btn btn-outline-dark">로그인</button>
-            <button type="button" class="btn btn-outline-dark" onclick="location.href='/employee/save'">회원가입</button>
-        </div>
-    </form>
+    <div class="form-group mb-2">
+        <label th:for="email">이메일 주소</label>
+        <input type="email" id="email" name="email" class="form-control" placeholder="이메일을 입력해주세요">
+    </div>
+    <div class="form-group mb-2">
+        <label th:for="password">비밀번호</label>
+        <input type="password" id="password" name="password" class="form-control" placeholder="비밀번호 입력">
+    </div>
+    <p th:if="${loginErrorMsg}" class="error" th:text="${loginErrorMsg}"></p>
+    <div style="text-align:center;" class="py-3">
+        <button type="button" id="btnLogin" class="btn btn-outline-dark">로그인</button>
+        <button type="button" class="btn btn-outline-dark" onclick="location.href='/employee/save'">회원가입</button>
+    </div>
 </div>
+
+<!-- 사용자 스크립트 추가 -->
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+        window.onload = function() {
+            document.getElementById("btnLogin").addEventListener('click', btnLogin);
+        }
+
+        function btnLogin() {
+            const data = {
+                email : document.getElementById('email').value,
+                password : document.getElementById('password').value
+            }
+            login(data);
+        }
+    </script>
+</th:block>
 
 </html>

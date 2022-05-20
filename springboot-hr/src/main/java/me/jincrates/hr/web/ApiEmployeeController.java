@@ -86,7 +86,7 @@ public class ApiEmployeeController {
             @ApiResponse(responseCode = "400", description = "Invalid ID supplied"),
             @ApiResponse(responseCode = "404", description = "Contact not found"),
             @ApiResponse(responseCode = "405", description = "Validation exception") })
-    @PostMapping(value = "/api/auth/signin")
+    @PostMapping(value = "/api/auth/login")
     public ResponseEntity<?> authenticate(@Parameter(name = "employeeDTO", description = "사원 전송 객체") @RequestBody EmployeeDTO employeeDTO) {
         Employee employee = employeeService.getByCredentials(
                 employeeDTO.getEmail(),

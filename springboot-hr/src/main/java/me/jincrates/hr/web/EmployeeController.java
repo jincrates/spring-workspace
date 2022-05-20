@@ -4,8 +4,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import me.jincrates.hr.config.security.TokenProvider;
 import me.jincrates.hr.domain.employees.Employee;
+import me.jincrates.hr.domain.employees.EmployeeRepository;
 import me.jincrates.hr.service.employees.EmployeeService;
 import me.jincrates.hr.web.dto.employees.EmployeeDTO;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @Log
 @RequiredArgsConstructor
@@ -24,6 +27,7 @@ import java.util.List;
 public class EmployeeController {
 
     private final EmployeeService employeeService;
+    private final EmployeeRepository employeeRepository;
     private final PasswordEncoder passwordEncoder;
     private final TokenProvider tokenProvider;
 
@@ -39,7 +43,7 @@ public class EmployeeController {
     }
 
     @PostMapping(value = "/auth/login")
-    public String authenticate(@RequestBody EmployeeDTO employeeDTO, Model model) {
+    public String authenticate(EmployeeDTO employeeDTO, Model model) {
         Employee employee = employeeService.getByCredentials(
                 employeeDTO.getEmail(),
                 employeeDTO.getPassword(),
@@ -56,8 +60,6 @@ public class EmployeeController {
                     .token(token)
                     .build();
 
-            log.info(responseEmployee.toString());
-
             model.addAttribute("responseEmployee", responseEmployee);
         } else {
             log.warning("loginErrorMsg");
@@ -69,7 +71,7 @@ public class EmployeeController {
 
     @GetMapping(value = "/employee")
     public String employeeList(Model model) {
-        List<Employee> employeeList = employeeService.findAllEmployee();
+        List<Employee> employeeList = employeeRepository.findAll();
         model.addAttribute("employeeList", employeeList);
 
         return "employee/employeeList";
@@ -106,5 +108,17 @@ public class EmployeeController {
         }
 
         return "redirect:/";
+    }
+
+    @GetMapping(value = "/employee/update")
+    public String employeeForm(@AuthenticationPrincipal String userId, Model model) {
+        log.info("userId : " + userId);
+        Employee employee = employeeRepository.findByEmail(userId);
+
+        EmployeeDTO employeeDTO = new EmployeeDTO(employee);
+        log.info(employeeDTO.toString());
+
+        model.addAttribute("employeeFormDTO", employeeDTO);
+        return "employee/employeeForm";
     }
 }
