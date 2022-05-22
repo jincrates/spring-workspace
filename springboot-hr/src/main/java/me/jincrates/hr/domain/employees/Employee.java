@@ -65,4 +65,11 @@ public class Employee extends BaseEntity {
                 .build();
         return employee;
     }
+
+    public void update(String username, String password, EmployeeRole role, EmployeeStatus status) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.status = status;
+    }
 }

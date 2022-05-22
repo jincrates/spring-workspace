@@ -41,8 +41,8 @@ function call(api, method, request) {
         })
 }
 
-function login(employeeDTO) {
-    return call("/api/auth/login", "POST", employeeDTO).then((response) => {
+function signin(employeeDTO) {
+    return call("/api/auth/signin", "POST", employeeDTO).then((response) => {
         if (response.token) {
             //로컬 스토리지에 토큰 저장
             localStorage.setItem(ACCESS_TOKEN, response.token);

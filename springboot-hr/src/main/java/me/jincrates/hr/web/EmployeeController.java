@@ -112,11 +112,9 @@ public class EmployeeController {
 
     @GetMapping(value = "/employee/update")
     public String employeeForm(@AuthenticationPrincipal String userId, Model model) {
-        log.info("userId : " + userId);
         Employee employee = employeeRepository.findByEmail(userId);
 
         EmployeeDTO employeeDTO = new EmployeeDTO(employee);
-        log.info(employeeDTO.toString());
 
         model.addAttribute("employeeFormDTO", employeeDTO);
         return "employee/employeeForm";

@@ -59,6 +59,16 @@ public class EmployeeDTO {
         this.role = entity.getRole();
         this.status = entity.getStatus();
     }
+
+    public static EmployeeDTO of(Employee entity) {
+        return EmployeeDTO.builder()
+                .username(entity.getUsername())
+                .email(entity.getEmail())
+                .joinDate(entity.getJoinDate())
+                .role(entity.getRole())
+                .status(entity.getStatus())
+                .build();
+    }
 }
 
 
