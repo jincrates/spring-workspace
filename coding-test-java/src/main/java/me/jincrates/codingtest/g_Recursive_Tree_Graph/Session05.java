@@ -9,14 +9,6 @@ import java.util.Scanner;
 중위순회: 왼 - 부 - 오  : 4 2 5 1 6 3 7
 후위순회: 왼 - 오 - 부  : 4 5 2 6 7 3 1
 */
-class Node {
-    int data;
-    Node lt, rt;
-    public Node(int val) {
-        data = val;
-        lt = rt = null;
-    }
-}
 public class Session05 {
     Node root;
     public static void DFS(Node root) {
