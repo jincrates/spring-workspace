@@ -56,7 +56,7 @@ public class JedisThreadTest {
                     }
                 }
 
-                pool.returnResource(jedis);
+                pool.close();
             }
         });
 
