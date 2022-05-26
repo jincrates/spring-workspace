@@ -16,6 +16,7 @@ public class RedisInsertTest {
         long loopTime = now();
 
         for (int i = 1; i <= TOTAL_OP; i++) {
+            //레디스에 저장할 키와 값을 12자리로 고정하기 위해 아래와 같이 설정
             key = value = String.valueOf("key" + (100000000 + i));
             jedis.set(key, value);
         }
