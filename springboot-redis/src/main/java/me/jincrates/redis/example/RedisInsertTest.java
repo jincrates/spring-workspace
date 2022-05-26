@@ -24,6 +24,7 @@ public class RedisInsertTest {
         long elapsed = now() - start;
         System.out.println("초당 처리 건수 " + (TOTAL_OP / elapsed * 1000f));
         System.out.println("소요 시간 " + (elapsed / 1000f) + "초");
+        jedis.disconnect();
     }
 
     private static long now() {
