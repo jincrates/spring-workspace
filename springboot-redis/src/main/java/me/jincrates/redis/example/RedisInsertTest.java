@@ -26,8 +26,6 @@ public class RedisInsertTest {
         System.out.println("소요 시간 " + (elapsed / 1000f) + "초");
     }
 
-
-
     private static long now() {
         return System.currentTimeMillis();
     }
