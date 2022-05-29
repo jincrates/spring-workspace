@@ -10,7 +10,7 @@ import java.util.Map;
 public class JedisThreadTest {
     //전체 데이터 건수
     private static final float TOTAL_OP = 10000000f;
-    private static final float THREAD = 5;  //프로그램 실행시 시작할 스레드 개수를 지정
+    private static final float THREAD = 50;  //프로그램 실행시 시작할 스레드 개수를 지정
 
     public static void main(String[] args) {
         GenericObjectPoolConfig jedisPoolConfig = new GenericObjectPoolConfig();
