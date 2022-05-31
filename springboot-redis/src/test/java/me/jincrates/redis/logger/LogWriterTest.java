@@ -1,10 +1,9 @@
-package me.jincrates.redis.example;
+package me.jincrates.redis.logger;
 
+import me.jincrates.redis.example.JedisHelper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.test.context.event.annotation.AfterTestClass;
-import org.springframework.test.context.event.annotation.BeforeTestClass;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,10 +26,9 @@ public class LogWriterTest {
     @Test
     public void testLogger() {
         Random random = new Random(System.currentTimeMillis());
-        System.out.println(logger);
 
         for (int i = 0; i < 100; i++) {
-            assertTrue(logger.log("This is test log message 1") > 0);
+            assertTrue(logger.log(i + ", This is test log message") > 0);
 
             try {
                 Thread.sleep(random.nextInt(50));

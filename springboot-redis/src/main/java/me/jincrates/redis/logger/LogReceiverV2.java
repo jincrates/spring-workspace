@@ -1,5 +1,6 @@
-package me.jincrates.redis.example;
+package me.jincrates.redis.logger;
 
+import me.jincrates.redis.example.JedisHelper;
 import redis.clients.jedis.Jedis;
 
 import java.io.FileWriter;
@@ -7,9 +8,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 
-public class LogReceiver {
+public class LogReceiverV2 {
     private static final JedisHelper helper = JedisHelper.getInstance();
-    private static final String KEY_WAS_LOG = "was:log";
+    private static final String KEY_WAS_LOG = "was:log:list";
     private static final String LOG_FILE_NAME_PREFIX = "./waslog";
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd-HH'.log'");
     private static final int WAITING_TEAM = 5000;
@@ -22,13 +23,11 @@ public class LogReceiver {
         Random random = new Random();
         Jedis jedis = helper.getConnection();
         while (true) {
-            writeFile(jedis.getSet(KEY_WAS_LOG, ""));
-
-            try {
-                Thread.sleep(random.nextInt(WAITING_TEAM));
-            } catch (InterruptedException e) {
-                //do nothing
+            String log = jedis.rpop(KEY_WAS_LOG);
+            if (log == null) {
+                break;
             }
+            writeFile(log);
         }
     }
 
@@ -42,11 +41,14 @@ public class LogReceiver {
 
     private void writeFile(String log) {
         try {
+            if (log == null) {
+                return;
+            }
             FileWriter writer = new FileWriter(getCurrentFileName(), true);
-
             writer.write(log);
-            writer.flush();
-        } catch (Exception e) {
+            writer.close();
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
     }

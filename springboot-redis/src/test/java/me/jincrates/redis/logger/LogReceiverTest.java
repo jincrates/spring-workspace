@@ -1,10 +1,9 @@
-package me.jincrates.redis.example;
+package me.jincrates.redis.logger;
 
+import me.jincrates.redis.example.JedisHelper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class LogReceiverTest {
     static JedisHelper helper;
