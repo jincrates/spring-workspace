@@ -12,7 +12,7 @@ public class JedisPoolTest {
         GenericObjectPoolConfig jedisPoolConfig = new GenericObjectPoolConfig();
         jedisPoolConfig.setMaxTotal(20); //poll에서 할당 할 수 있는 최대 연결 수
 
-        JedisPool pool = new JedisPool("127.0.0.1", 6379);
+        JedisPool pool = new JedisPool(jedisPoolConfig, "127.0.0.1", 6379, 5000);
         Jedis firstClient = pool.getResource();
         firstClient.hset("info:진크", "이름", "진크");
         firstClient.hset("info:진크", "생일", "1994-04-20");
