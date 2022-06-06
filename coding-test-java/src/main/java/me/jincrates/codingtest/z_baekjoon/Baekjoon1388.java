@@ -9,7 +9,6 @@ import java.util.Scanner;
 public class Baekjoon1388 {
 
     public static void main(String[] args) throws IOException {
-        Baekjoon1388 main = new Baekjoon1388();
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         int m = sc.nextInt();
