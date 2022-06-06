@@ -45,7 +45,6 @@ public class Session05 {
 
         m = sc.nextInt();
 
-
         main.DFS(0, 0, arr);
         System.out.println(answer);
     }
