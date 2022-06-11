@@ -1,0 +1,1 @@
+package me.jincrates.refactoring._22_data_class;

@@ -1,0 +1,1 @@
+package me.jincrates.refactoring._15_speculative_generality;

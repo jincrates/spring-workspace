@@ -1,0 +1,1 @@
+package me.jincrates.refactoring._05_global_data;
