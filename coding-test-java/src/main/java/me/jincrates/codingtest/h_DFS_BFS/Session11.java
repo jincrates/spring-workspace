@@ -1,32 +1,20 @@
 package me.jincrates.codingtest.h_DFS_BFS;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 
-//11. 미로의 최단거리 통로(BFS)
-class Point {
-    public int x, y;
-    Point(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-}
-
+//12. 토마토(BFS 활용)
 public class Session11 {
     static int[] dx = {-1, 0, 1, 0};
     static int[] dy = {0, 1, 0, -1};
-    static int[][] board, dis;
+    static int[][] board, tomato;  //토마토가 익는 날 수
+    static int n, m;
+    static Queue<Point> queue = new LinkedList<>();
 
-    public void BFS(int x, int y) {
-        Queue<Point> queue = new LinkedList<>();
-        queue.offer(new Point(x, y));
-        //출발점 체크
-        board[x][y] = 1;
-
-        while(!queue.isEmpty()) {
+    public void BFS() {
+        while (!queue.isEmpty()) {
             Point current = queue.poll();
             //방향 탐색
             for (int i = 0; i < 4; i++) {
@@ -34,51 +22,69 @@ public class Session11 {
                 int ny = current.y + dy[i];
 
                 //유효한 방향이면서
-                if (nx >= 1 && nx <= 7 && ny >= 1 && ny <= 7) {
+                if (nx >= 0 && nx < n && ny >= 0 && ny < m) {
                     //아직 방문하지 않은 좌표일 때
                     if (board[nx][ny] == 0) {
                         //방문 표시
                         board[nx][ny] = 1;
                         queue.offer(new Point(nx, ny));
                         //현재 좌표에 +1하여 다음 좌표에 할당
-                        dis[nx][ny] = dis[current.x][current.y] + 1;
+                        tomato[nx][ny] = tomato[current.x][current.y] + 1;
                     }
                 }
             }
         }
-
     }
 
     public static void main(String[] args) throws IOException {
         Session11 T = new Session11();
         Scanner sc = new Scanner(System.in);
+        m = sc.nextInt();
+        n = sc.nextInt();
+        board = new int[n][m];
+        tomato = new int[n][m];
 
-        board = new int[8][8];  //1번 인덱스부터 사용하기 위해 size 8로 잡음
-        dis = new int[8][8];
-
-        for (int i = 1; i <= 7; i++) {
-            for (int j = 1; j <= 7; j++) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
                 board[i][j] = sc.nextInt();
+
+                //BFS가 돌기 전에 시작 지점을 미리 넣어두는 것이 포인트
+                if (board[i][j] == 1) {
+                    queue.offer(new Point(i, j));
+                }
             }
         }
 
-        T.BFS(1, 1);
-
-        if (dis[7][7] == 0) {
-            System.out.println(-1);
-        } else {
-            System.out.println(dis[7][7]);
+        T.BFS();
+        boolean flag = true;
+        int answer = Integer.MIN_VALUE;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (board[i][j] == 0) {
+                    flag = false;
+                }
+            }
         }
+
+        if (flag) {
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < m; j++) {
+                    answer = Math.max(answer, tomato[i][j]);
+                }
+            }
+        } else {
+            answer = -1;
+        }
+        System.out.println(answer);
     }
 }
 
 /*
-0 0 0 0 0 0 0
-0 1 1 1 1 1 0
-0 0 0 1 0 0 0
-1 1 0 1 0 1 1
-1 1 0 1 0 0 0
-1 0 0 0 1 0 0
-1 0 1 0 0 0 0
+6 4
+0 0 -1 0 0 0
+0 0 1 0 -1 0
+0 0 -1 0 0 0
+0 0 0 0 -1 1
+
 
 */
