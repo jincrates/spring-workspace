@@ -10,32 +10,36 @@ import java.util.Set;
 
 public class StudyDashboard {
 
+    /*
+    함수 추출하기를 통해 "의도"를 표현 (기존 주석은 더 이상 불필요)
+    */
     private void printParticipants(int eventId) throws IOException {
-        // Get github issue to check homework
-        GitHub gitHub = GitHub.connect();
-        GHRepository repository = gitHub.getRepository("whiteship/live-study");
-        GHIssue issue = repository.getIssue(eventId);
+        GHIssue issue = getGhIssue(eventId);
+        Set<String> participants = getUsernames(issue);
+        pring(participants);
+    }
 
-        // Get participants
-        Set<String> participants = new HashSet<>();
-        issue.getComments().forEach(c -> participants.add(c.getUserName()));
-
-        // Print participants
+    private void pring(Set<String> participants) {
         participants.forEach(System.out::println);
     }
 
-    private void printReviewers() throws IOException {
-        // Get github issue to check reviews
+    private Set<String> getUsernames(GHIssue issue) throws IOException {
+        Set<String> usernames = new HashSet<>();
+        issue.getComments().forEach(c -> usernames.add(c.getUserName()));
+        return usernames;
+    }
+
+    private GHIssue getGhIssue(int eventId) throws IOException {
         GitHub gitHub = GitHub.connect();
         GHRepository repository = gitHub.getRepository("whiteship/live-study");
-        GHIssue issue = repository.getIssue(30);
+        GHIssue issue = repository.getIssue(eventId);
+        return issue;
+    }
 
-        // Get reviewers
-        Set<String> reviewers = new HashSet<>();
-        issue.getComments().forEach(c -> reviewers.add(c.getUserName()));
-
-        // Print reviewers
-        reviewers.forEach(System.out::println);
+    private void printReviewers() throws IOException {
+        GHIssue issue = getGhIssue(30);
+        Set<String> reviewers = getUsernames(issue);
+        pring(reviewers);
     }
 
     public static void main(String[] args) throws IOException {
