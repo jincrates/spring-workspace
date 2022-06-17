@@ -14,4 +14,6 @@
 
 ## 강의 노트
 
-[냄새 01. 이해하기 힘든 이름(Mysterius Name)](https://github.com/jincrates/spring-workspace/blob/master/refactoring-java/note/_%EB%83%84%EC%83%88%2001.%20%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0%20%ED%9E%98%EB%93%A0%20%EC%9D%B4%EB%A6%84(Mysterius%20Name).md)
+- [냄새 01. 이해하기 힘든 이름(Mysterius Name)](https://github.com/jincrates/spring-workspace/blob/master/refactoring-java/note/_%EB%83%84%EC%83%88%2001.%20%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0%20%ED%9E%98%EB%93%A0%20%EC%9D%B4%EB%A6%84(Mysterius%20Name).md)
+- [냄새 02. 중복 코드(Duplicated Code)](https://github.com/jincrates/spring-workspace/blob/master/refactoring-java/note/_%EB%83%84%EC%83%88%2002.%20%EC%A4%91%EB%B3%B5%20%EC%BD%94%EB%93%9C(Duplicated%20Code).md))
+
