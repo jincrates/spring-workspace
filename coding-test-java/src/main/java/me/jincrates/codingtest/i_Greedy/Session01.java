@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
-//1. 씨름 선수
+//정
 class Wrestler implements Comparable<Wrestler> {
     int height;
     int weight;
