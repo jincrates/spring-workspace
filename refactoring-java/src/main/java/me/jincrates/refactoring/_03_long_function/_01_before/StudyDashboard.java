@@ -31,6 +31,7 @@ public class StudyDashboard {
         ExecutorService service = Executors.newFixedThreadPool(8);
         CountDownLatch latch = new CountDownLatch(totalNumberOfEvents);
 
+        //어떻게 메소드로 빼내면 파라미터를 줄일 수 있을까?
         for (int index = 1 ; index <= totalNumberOfEvents ; index++) {
             int eventId = index;
             service.execute(new Runnable() {
@@ -72,15 +73,23 @@ public class StudyDashboard {
             writer.print(header(totalNumberOfEvents, participants.size()));
 
             participants.forEach(p -> {
-                long count = p.homework().values().stream()
-                        .filter(v -> v == true)
-                        .count();
-                double rate = count * 100 / totalNumberOfEvents;
-
-                String markdownForHomework = String.format("| %s %s | %.2f%% |\n", p.username(), checkMark(p, totalNumberOfEvents), rate);
+                String markdownForHomework = getMarkdownFormParticipant(totalNumberOfEvents, p);
                 writer.print(markdownForHomework);
             });
         }
+    }
+
+    private double getRate(int totalNumberOfEvents, Participant p) {
+        long count = p.homework().values().stream()
+                .filter(v -> v == true)
+                .count();
+        double rate = count * 100 / totalNumberOfEvents;
+        return rate;
+    }
+
+    //임시 변수를 질의 함수로 바꿈으로써 파라미터를 하나 줄였다.
+    private String getMarkdownFormParticipant(int totalNumberOfEvents, Participant p) {
+        return String.format("| %s %s | %.2f%% |\n", p.username(), checkMark(p, totalNumberOfEvents), getRate(totalNumberOfEvents, p));
     }
 
     /**
