@@ -13,7 +13,6 @@ public class RedisInsertTest {
         Jedis jedis = pool.getResource();
         String key, value;
         long start = now();
-        long loopTime = now();
 
         for (int i = 1; i <= TOTAL_OP; i++) {
             //레디스에 저장할 키와 값을 12자리로 고정하기 위해 아래와 같이 설정
@@ -22,7 +21,7 @@ public class RedisInsertTest {
         }
 
         long elapsed = now() - start;
-        System.out.println("초당 처리 건수 " + (TOTAL_OP / elapsed * 1000f));
+        System.out.println("초당 처리 건수 " + (TOTAL_OP / elapsed * 1000f) + "개");
         System.out.println("소요 시간 " + (elapsed / 1000f) + "초");
         jedis.disconnect();
     }

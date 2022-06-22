@@ -19,11 +19,13 @@ public class PipelineDataJedis {
         long start = System.currentTimeMillis();
         
         String key, value;
+        //제디스가 제공하는 파이프라인 객체를 생성
         Pipeline p = jedis.pipelined();
         for (int i = 0; i <= TOTAL_OPERATIONS; i++) {
             key = value = String.valueOf("key" + (100000000 + i));
             p.set(key, value);
         }
+        //파이프라인의 응답을 서버로부터 모두 수신하여 제디스의 응답 객체로 변환
         p.sync();
         
         jedis.disconnect();
