@@ -32,8 +32,12 @@ public class StudyDashboard {
     }
 
     private void print() throws IOException, InterruptedException {
-        GHRepository ghRepository = getGhRepository();
+        checkGithubIssues(getGhRepository());
+        new StudyPrinter(this.totalNumberOfEvents, this.participants).execute();
+        printFirstParticipants();
+    }
 
+    private void checkGithubIssues(GHRepository ghRepository) throws InterruptedException {
         ExecutorService service = Executors.newFixedThreadPool(8);
         CountDownLatch latch = new CountDownLatch(totalNumberOfEvents);
 
@@ -45,20 +49,11 @@ public class StudyDashboard {
                     try {
                         GHIssue issue = ghRepository.getIssue(eventId);
                         List<GHIssueComment> comments = issue.getComments();
-                        Date firstCreatedAt = null;
-                        Participant first = null;
 
-                        for (GHIssueComment comment : comments) {
-                            Participant participant = findParticipant(comment.getUserName(), participants);
-                            participant.setHomeworkDone(eventId);
+                        //반복문을 함수로 쪼갬
+                        checkHomework(comments, eventId);
+                        firstParticipantsForEachEvent[eventId - 1] = findFirst(comments, eventId);
 
-                            if (firstCreatedAt == null || comment.getCreatedAt().before(firstCreatedAt)) {
-                                firstCreatedAt = comment.getCreatedAt();
-                                first = participant;
-                            }
-                        }
-
-                        firstParticipantsForEachEvent[eventId - 1] = first;
                         latch.countDown();
                     } catch (IOException e) {
                         throw new IllegalArgumentException(e);
@@ -69,9 +64,29 @@ public class StudyDashboard {
 
         latch.await();
         service.shutdown();
+    }
 
-        new StudyPrinter(this.totalNumberOfEvents, this.participants).execute();
-        printFirstParticipants();
+    private Participant findFirst(List<GHIssueComment> comments, int eventId) throws IOException {
+        Date firstCreatedAt = null;
+        Participant first = null;
+
+        for (GHIssueComment comment : comments) {
+            Participant participant = findParticipant(comment.getUserName(), participants);
+            participant.setHomeworkDone(eventId);
+
+            if (firstCreatedAt == null || comment.getCreatedAt().before(firstCreatedAt)) {
+                firstCreatedAt = comment.getCreatedAt();
+                first = participant;
+            }
+        }
+        return first;
+    }
+
+    private void checkHomework(List<GHIssueComment> comments, int eventId) {
+        for (GHIssueComment comment : comments) {
+            Participant participant = findParticipant(comment.getUserName(), participants);
+            participant.setHomeworkDone(eventId);
+        }
     }
 
     private void printFirstParticipants() {
