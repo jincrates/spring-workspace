@@ -13,11 +13,16 @@ public class Order {
 
     public double finalPrice() {
         double basePrice = this.quantity * this.itemPrice;
-        int discountLevel = this.quantity > 100 ? 2 : 1;
-        return this.discountedPrice(basePrice, discountLevel);
+        return this.discountedPrice(basePrice);
     }
 
-    private double discountedPrice(double basePrice, int discountLevel) {
-        return discountLevel == 2 ? basePrice * 0.90 : basePrice * 0.95;
+    // 1. 함수 추출하기
+    private int discountLevel() {
+        return this.quantity > 100 ? 2 : 1;
+    }
+
+    //2. 매개변수 줄이기
+    private double discountedPrice(double basePrice) {
+        return discountLevel() == 2 ? basePrice * 0.90 : basePrice * 0.95;
     }
 }
