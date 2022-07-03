@@ -5,7 +5,6 @@ import java.util.HashMap;
 
 //2022-07-03 데브매칭 코딩테스트 2회
 public class DevMatching02_01 {
-
     public static int solution(int[] grade) {
         int answer = 0;
 
