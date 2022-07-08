@@ -20,3 +20,4 @@
 - [냄새 03. 긴 함수(Long Function)](https://github.com/jincrates/spring-workspace/blob/master/refactoring-java/docs/_%EB%83%84%EC%83%88%2003.%20%EA%B8%B4%20%ED%95%A8%EC%88%98(Long%20Function).md)
 - [냄새 04. 긴 매개변수 목록(Long Parameter List)](https://github.com/jincrates/spring-workspace/blob/master/refactoring-java/docs/_%EB%83%84%EC%83%88%2004.%20%EA%B8%B4%20%EB%A7%A4%EA%B0%9C%EB%B3%80%EC%88%98%20%EB%AA%A9%EB%A1%9D(Long%20Parameter%20List).md)
 - [냄새 05. 전역 데이터(Global Data)](https://github.com/jincrates/spring-workspace/blob/master/refactoring-java/docs/_%EB%83%84%EC%83%88%2005.%20%EC%A0%84%EC%97%AD%20%EB%8D%B0%EC%9D%B4%ED%84%B0(Global%20Data).md)
+- [냄새 06. 가변 데이터(Mutable Data)](https://github.com/jincrates/spring-workspace/blob/master/refactoring-java/docs/_%EB%83%84%EC%83%88%2006.%20%EA%B0%80%EB%B3%80%20%EB%8D%B0%EC%9D%B4%ED%84%B0(Mutable%20Data).md)
