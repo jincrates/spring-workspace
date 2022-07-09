@@ -7,7 +7,6 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import redis.clients.jedis.Jedis;
 
-import java.awt.print.Pageable;
 import java.util.Set;
 
 public class Cart {
@@ -24,10 +23,11 @@ public class Cart {
      * @param helper 레디스 헬퍼 객체
      * @param userNo 유저번호
      */
+    // 1. 지정된 사용자에 대한 장바구니 객체를 생성한다.
     public Cart(JedisHelper helper, String userNo) {
         this.jedis = helper.getConnection();
         this.userNo = userNo;
-        this.cartInfo = getCartInfo();
+        this.cartInfo = getCartInfo();  // 2. 사용자의 Cart 객체가 생성될 때 레디스에 저장된 상품번호 목록을 조회한다.
     }
 
     /**
@@ -37,6 +37,7 @@ public class Cart {
     private JSONObject getCartInfo() {
         String productInfo = this.jedis.get(this.userNo + KEY_CART_LIST);
 
+        // 3. 저장된 상품번호 목록이 없으면 빈 장바구니 객체를 생성한다.
         if (productInfo == null || productInfo.equals("")) {
             return makeEmptyCart();
         }
@@ -46,6 +47,7 @@ public class Cart {
             return (JSONObject)  parser.parse(productInfo);
         }
         catch (ParseException e) {
+            // 4. 상품번호 목록에 오류가 있을 때 빈 장바구니 객체를 생성한다.
             return makeEmptyCart();
         }
     }
@@ -67,6 +69,7 @@ public class Cart {
     public int flushCart() {
         JSONArray products = (JSONArray) this.cartInfo.get(JSON_PRODUCT_LIST);
         for (int i = 0; i < products.size(); i++) {
+            // 5. 장바구니에 저장된 상품 목록을 모두 삭제한다.
             this.jedis.del(this.userNo + KEY_CART_PRODUCT + products.get(i));
         }
 
@@ -85,6 +88,7 @@ public class Cart {
         JSONArray products = (JSONArray) this.cartInfo.get(JSON_PRODUCT_LIST);
         products.add(productNo);
 
+        // 6. 추가되는 상품의 아이디를 상품 목록에 추가하고 레디스에 저장한다.
         this.jedis.set(this.userNo + KEY_CART_LIST, this.cartInfo.toJSONString());
 
         JSONObject product = new JSONObject();
@@ -94,6 +98,8 @@ public class Cart {
 
         String productKey = this.userNo + KEY_CART_PRODUCT + productNo;
 
+        // 7. 개별 상품의 정보를 레디스에 저장하고 3일의 만료기간을 설정한다.
+        // 3일이 지나면 레디스에서 해당 키가 자동으로 사라진다.
         return this.jedis.setex(productKey, EXPIRE, product.toJSONString());
     }
 
@@ -108,6 +114,7 @@ public class Cart {
 
         for (String item : productNo) {
             products.remove(item);
+            // 8. 저장된 상품번호 목록 개수만큼 레디스에 삭제 명령을 전송한다.
             result += this.jedis.del(this.userNo + KEY_CART_PRODUCT + item);
         }
 
@@ -129,6 +136,7 @@ public class Cart {
         String value = null;
 
         for (int i = 0, max = products.size(); i < max; i++) {
+            // 9. 저장된 상품번호 목록 개수만큼 레디스에 조회 명령을 전송한다.
             value = this.jedis.get(this.userNo + KEY_CART_PRODUCT + products.get(i));
 
             if (value == null) {
@@ -138,8 +146,10 @@ public class Cart {
             }
         }
 
+        // 10. 상품이 저장된 키가 만료되면 레디스에서 자동으로 사라지므로 조회된 값이 존재하지 않는다.
+        // 그러므로 상품 번호 목록을 갱신한다.
         if (isChanged) {
-            this.jedis.set(this.userNo + KEY_CART_LIST, this.cartInfo.toJSONString());
+            this.jedis.set(this.userNo + KEY_CART_LIST, this.cartInfo.toJSONString());  //10
         }
 
         return result;
@@ -150,6 +160,7 @@ public class Cart {
      * @return 삭제된 상품개수
      * @deprecated  keys 명령을 사용한 잘못된 구현이다.
      */
+    // 11. 레디스와 서비스 코드에서 사용하지 말아야하는 keys 명령을 사용하여 장바구니 삭제를 구현한 예다.
     public int flushCartDeprecated() {
         Set<String> keys = this.jedis.keys(this.userNo + KEY_CART_PRODUCT + "*");
         for (String key : keys) {

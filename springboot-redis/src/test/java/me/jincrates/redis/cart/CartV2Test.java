@@ -18,10 +18,10 @@ public class CartV2Test {
         helper = JedisHelper.getInstance();
     }
 
-    @AfterEach
-    public void testDownAfterClass() throws  Exception {
-        helper.destroyPool();
-    }
+//    @AfterEach
+//    public void testDownAfterClass() throws  Exception {
+//        helper.destroyPool();
+//    }
 
     @BeforeEach
     public void setUp() throws Exception {

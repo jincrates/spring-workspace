@@ -133,11 +133,12 @@ public class CartV2 {
         boolean isChanged = false;
         JSONArray products = (JSONArray) this.cartInfo.get(JSON_PRODUCT_LIST);
 
+        // 파이프라인 생성
         Pipeline p = jedis.pipelined();
         for (int i = 0, max = products.size(); i < max; i++) {
             p.get(this.userNo + KEY_CART_PRODUCT + products.get(i));
         }
-        List<Object> redisResult = p.syncAndReturnAll();
+        List<Object> redisResult = p.syncAndReturnAll();  // 파이프라인에 명령을 전송하고 면령어의 실행 결과를 확인한다.
 
         JSONArray result = new JSONArray();
         for (Object item : redisResult) {
