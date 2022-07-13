@@ -7,10 +7,12 @@ import lombok.NoArgsConstructor;
 import me.jincrates.hr.domain.BaseEntity;
 import me.jincrates.hr.domain.employees.Employee;
 import me.jincrates.hr.web.dto.attendance.AttendanceDTO;
+import me.jincrates.hr.web.dto.attendance.AttendanceV2DTO;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 @Schema(description = "출퇴근")
@@ -76,6 +78,17 @@ public class Attendance extends BaseEntity {
                 .workDate(dto.getWorkDate())
                 .inDate(dto.getInDate())
                 .outDate(dto.getOutDate())
+                .breakTime(dto.getBreakTime())
+                .overTime(dto.getOverTime())
+                .build();
+    }
+
+    public static Attendance toEntity(Employee employee, AttendanceV2DTO dto) {
+        return Attendance.builder()
+                .employee(employee)
+                .workDate(LocalDate.parse(dto.getWorkDate()))
+                .inDate(LocalDateTime.parse(dto.getWorkDate() + " " + dto.getInDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+                .outDate(LocalDateTime.parse(dto.getWorkDate() + " " + dto.getOutDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .breakTime(dto.getBreakTime())
                 .overTime(dto.getOverTime())
                 .build();

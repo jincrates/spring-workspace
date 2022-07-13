@@ -14,6 +14,7 @@ import me.jincrates.hr.service.attendance.AttendanceService;
 import me.jincrates.hr.web.dto.ResponseDTO;
 import me.jincrates.hr.web.dto.attendance.AttendanceDTO;
 import me.jincrates.hr.web.dto.attendance.AttendanceSearchDTO;
+import me.jincrates.hr.web.dto.attendance.AttendanceV2DTO;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -88,6 +89,39 @@ public class ApiAttendanceController {
             Employee employee = employeeRepository.findByEmail(userId);
 
             Attendance entity = Attendance.toEntity(employee, dto);
+            List<Attendance> entityList = attendanceService.create(entity);
+            List<AttendanceDTO> dtoList = entityList.stream().map(AttendanceDTO::new).collect(Collectors.toList());
+
+            ResponseDTO<AttendanceDTO> response = ResponseDTO.<AttendanceDTO>builder().data(dtoList).build();
+
+            return ResponseEntity.ok().body(response);
+
+        } catch (Exception e) {
+            //7. 혹시 예외가 있는 경우 dto 대신 error에 메시지를 넣어 리턴한다.
+            String error = e.getMessage();
+
+            ResponseDTO<AttendanceDTO> response = ResponseDTO.<AttendanceDTO>builder().error(error).build();
+
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
+    @PostMapping(value = "/v2/create")
+    public ResponseEntity<?> createAttendanceV2(
+            @AuthenticationPrincipal String userId,
+            @Valid @RequestBody AttendanceV2DTO dto,
+            BindingResult bindingResult) {
+        //유효성 검사
+        if (bindingResult.hasErrors()) {
+            return validateParam(bindingResult);
+        }
+
+        try {
+            Employee employee = employeeRepository.findByEmail(userId);
+            System.out.println("DTO : " + dto.toString());
+
+            Attendance entity = Attendance.toEntity(employee, dto);
+
             List<Attendance> entityList = attendanceService.create(entity);
             List<AttendanceDTO> dtoList = entityList.stream().map(AttendanceDTO::new).collect(Collectors.toList());
 

@@ -6,9 +6,8 @@
 <!-- 사용자 CSS 추가 -->
 <th:block layout:fragment="css">
     <style>
-        .error {
-            color: #bd2130;
-        }
+        .error { color: #bd2130; }
+        a { color: black; text-decoration: none; }
     </style>
 </th:block>
 
@@ -17,21 +16,92 @@
         출퇴근 등록
     </h2>
 
-    <form role="form" method="post" action="/members/login">
-        <div class="form-group mb-2">
-            <label th:for="email">이메일 주소</label>
-            <input type="email" name="email" class="form-control" placeholder="이메일을 입력해주세요">
+    <div>
+        <div>
+            <h5 id="currentTime">00:00:00</h5>
+            <p id="currentDate"></p>
         </div>
-        <div class="form-group mb-2">
-            <label th:for="password">비밀번호</label>
-            <input type="password" name="password" class="form-control" placeholder="비밀번호 입력">
-        </div>
-        <p th:if="${loginErrorMsg}" class="error" th:text="${loginErrorMsg}"></p>
-        <div style="text-align:center;" class="py-3">
-            <button type="submit" class="btn btn-outline-dark">로그인</button>
-            <button type="button" class="btn btn-outline-dark" onclick="location.href='/employee/save'">회원가입</button>
-        </div>
-    </form>
-</div>
 
+        <div>
+            <table>
+                <colgroup>
+                    <col width="30%">
+                    <col width="70%">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <th>출근시간</th>
+                        <td class="text-center">미등록</td>
+                    </tr>
+                    <tr>
+                        <th>퇴근시간</th>
+                        <td class="text-center">미등록</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <div>
+            <button type="button" class="inDateTime" onclick="saveInWork();">출근하기</button>
+            <button type="button" class="outDateTime" onclick="saveOutWork();">퇴근하기</button>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        function saveInWork() {
+            //alert('출근시간: ' + currentTime());
+        }
+
+        function saveOutWork() {
+            //alert('퇴근시간: ' + currentTime());
+        }
+
+        function currentDate() {
+            var week = ['일', '월', '화', '수', '목', '금', '토'];
+
+            var dateInfo = new Date();
+            var year = dateInfo.getFullYear();
+            var month = dateInfo.getMonth() + 1; // monthIndex를 반환하기 때문에 1을 더해준다.
+            var date = dateInfo.getDate();
+            var dayOfWeek = week[dateInfo.getDay()];
+
+            return year + "년 " + month + "월 " + date + "일 (" + dayOfWeek + ")";
+        }
+
+        function currentTime() {
+            var dateInfo = new Date();
+            var hour = modifyNumber(dateInfo.getHours());
+            var min = modifyNumber(dateInfo.getMinutes());
+            var sec = modifyNumber(dateInfo.getSeconds());
+
+            return hour + ":" + min + ":" + sec;
+        }
+
+        function modifyNumber(time) {
+            if (parseInt(time) < 10) {
+                return "0" + time;
+            } else {
+                return time;
+            }
+        }
+
+        function setDate() {
+            const date = document.querySelector("#currentDate");
+            date.innerText = currentDate();
+        }
+
+        function setClock() {
+            const clock = document.querySelector("#currentTime");
+            clock.innerText = currentTime();
+        }
+
+        function init(){
+            setDate();
+            setInterval(setClock, 1000);
+        }
+
+        init();
+    </script>
+
+</div>
 </html>
