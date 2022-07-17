@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import me.jincrates.bookmanager.common.Status;
+import me.jincrates.bookmanager.web.dto.MemberDto;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
@@ -45,5 +46,16 @@ public class Member {
         this.phoneNumber = phoneNumber;
         this.role = role;
         this.status = status;
+    }
+
+    public static Member createMember(MemberDto memberDto) {
+        return Member.builder()
+                .name(memberDto.getName())
+                .email(memberDto.getEmail())
+                .password(memberDto.getPassword())
+                .phoneNumber(memberDto.getPhoneNumber())
+                .role(memberDto.getRole())
+                .status(memberDto.getStatus())
+                .build();
     }
 }

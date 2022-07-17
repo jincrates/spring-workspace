@@ -15,8 +15,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
-    public Member saveMember(MemberDto memberDto) {
-        Member member = memberDto.toEntity();
+    public Member saveMember(Member member) {
         validateDuplicateMember(member);
         return memberRepository.save(member);
     }
