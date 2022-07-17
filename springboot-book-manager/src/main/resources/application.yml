@@ -1,0 +1,28 @@
+spring:
+    mvc:
+        pathmatch:
+            matching-strategy: ant_path_matcher
+
+    h2:
+        console:
+            enabled: true
+
+    datasource:
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/book-manager
+        username: bootuser
+        password: bootuser
+
+    jpa:
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                format_sql: true
+                show_sql: true
+                default_batch_fetch_size: 1000
+        defer-datasource-initialization: true
+
+    logging:
+        level:
+            me.jincrates: DEBUG
