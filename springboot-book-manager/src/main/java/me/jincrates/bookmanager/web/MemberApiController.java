@@ -20,8 +20,8 @@ public class MemberApiController {
     @PostMapping(value = "/new")
     public ResponseEntity<?> createMember(@Valid @RequestBody MemberDto memberDto) {
         try {
-            Member member = MemberDto.toEntity(memberDto);
-            Member savedMember = memberService.saveMember(member);
+            Member entity = MemberDto.toEntity(memberDto);
+            Member savedMember = memberService.saveMember(entity);
 
             MemberDto response = Member.of(savedMember);
 
@@ -31,6 +31,5 @@ public class MemberApiController {
 
             return ResponseEntity.badRequest().body(response);
         }
-
     }
 }
