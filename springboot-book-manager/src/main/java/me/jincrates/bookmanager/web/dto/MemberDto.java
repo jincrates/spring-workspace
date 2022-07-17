@@ -51,14 +51,14 @@ public class MemberDto {
         this.status = status;
     }
 
-    public Member toEntity() {
+    public static Member toEntity(MemberDto dto) {
         return Member.builder()
-                .name(name)
-                .email(email)
-                .password(password)
-                .phoneNumber(phoneNumber)
-                .role(role)
-                .status(status)
+                .name(dto.getName())
+                .email(dto.getEmail())
+                .password(dto.getPassword())
+                .phoneNumber(dto.getPhoneNumber())
+                .role(dto.getRole())
+                .status(dto.getStatus())
                 .build();
     }
 }

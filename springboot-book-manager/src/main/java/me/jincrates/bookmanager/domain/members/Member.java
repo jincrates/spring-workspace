@@ -58,4 +58,15 @@ public class Member {
                 .status(memberDto.getStatus())
                 .build();
     }
+
+    public static MemberDto of(Member entity) {
+        return MemberDto.builder()
+                .name(entity.getName())
+                .email(entity.getEmail())
+                .password(entity.getPassword())
+                .phoneNumber(entity.getPhoneNumber())
+                .role(entity.getRole())
+                .status(entity.getStatus())
+                .build();
+    }
 }
