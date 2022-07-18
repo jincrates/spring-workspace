@@ -6,20 +6,20 @@ import java.util.Scanner;
 //https://www.acmicpc.net/problem/@@@@
 public class Baekjoon1012 {
     static int M, N, K;
-    static int[][] cabbage, visit;
+    static int[][] cabbage, check;
     static int[] dx = {0, 0, 1, -1};
     static int[] dy = {1, -1, 0, 0};
     static int answer = 0;
 
     public void DFS(int x, int y) {
-        visit[x][y] = 1;
+        check[x][y] = 1;
 
         for (int i = 0; i < 4; i++) {
             int nx = x + dx[i];
             int ny = y + dy[i];
 
             if (nx >= 0 && ny >= 0 && nx < M && ny < N) {
-                if (cabbage[nx][ny] == 1 && visit[nx][ny] == 0) {
+                if (cabbage[nx][ny] == 1 && check[nx][ny] == 0) {
                     DFS(nx, ny);
                 }
             }
@@ -38,14 +38,14 @@ public class Baekjoon1012 {
 
             //배추 밭
             cabbage = new int[M][N];
-            visit = new int[M][N];
+            check = new int[M][N];
             for (int j = 0; j < K; j++) {
                 cabbage[sc.nextInt()][sc.nextInt()] = 1;
             }
 
             for (int x = 0; x < M; x++) {
                 for (int y = 0; y < N; y++) {
-                    if (cabbage[x][y] == 1 && visit[x][y] == 0) {
+                    if (cabbage[x][y] == 1 && check[x][y] == 0) {
                         answer++;
                         T.DFS(x, y);
                     }

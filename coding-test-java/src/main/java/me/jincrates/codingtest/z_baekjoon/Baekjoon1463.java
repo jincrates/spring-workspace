@@ -29,7 +29,7 @@ dy[1]    dy[2]    dy[3]   dy[4]  dy[5]    dy[6]   dy[7]    dy[8]   dy[9]   dy[10
                 dy[i] = Math.min(dy[i], dy[i / 2] + 1);
             }
 
-            //System.out.println("dy[" + i + "] = " + dy[i]);
+            System.out.println("dy[" + i + "] = " + dy[i]);
         }
 
         return dy[x];
