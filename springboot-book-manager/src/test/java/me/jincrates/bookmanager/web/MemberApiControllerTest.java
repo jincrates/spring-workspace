@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import me.jincrates.bookmanager.common.Status;
 import me.jincrates.bookmanager.domain.members.Member;
 import me.jincrates.bookmanager.domain.members.MemberRole;
+import me.jincrates.bookmanager.service.MemberService;
 import me.jincrates.bookmanager.web.dto.MemberDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(MemberApiController.class)
+@WebMvcTest
 @AutoConfigureMockMvc
 @RunWith(SpringRunner.class)
 @TestPropertySource(properties = {"spring.config.location=classpath:application-dev.yml"})
@@ -54,25 +55,15 @@ class MemberApiControllerTest {
                     post("/api/members/new")
                         .content(json)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                ).andExpect(
-                    status().isOk()
-                ).andExpect(
-                    jsonPath("$.name").value("사용자1")
-                ).andExpect(
-                    jsonPath("$.email").value("user1@email.com")
-                ).andExpect(
-                    jsonPath("$.password").value("1111")
-                ).andExpect(
-                    jsonPath("$.phone_number").value("010-1111-2222")
-                ).andExpect(
-                    jsonPath("$.role").value(MemberRole.USER)
-                ).andExpect(
-                    jsonPath("$.status").value(Status.ACTIVE)
-                ).andExpect(
-                    status().isOk()
-                ).andDo(
-                    print()
-                );
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.name").value("사용자1"))
+                .andExpect(jsonPath("$.email").value("user1@email.com"))
+                .andExpect(jsonPath("$.password").value("1111"))
+                .andExpect(jsonPath("$.phone_number").value("010-1111-2222"))
+                .andExpect(jsonPath("$.role").value(MemberRole.USER))
+                .andExpect(jsonPath("$.status").value(Status.ACTIVE))
+                .andExpect(status().isOk())
+                .andDo(print());
     }
 }

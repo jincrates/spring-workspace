@@ -20,6 +20,7 @@ public class MemberApiController {
     @PostMapping(value = "/new")
     public ResponseEntity<?> createMember(@Valid @RequestBody MemberDto memberDto) {
         try {
+            System.out.println(memberDto);
             Member entity = MemberDto.toEntity(memberDto);
             Member savedMember = memberService.saveMember(entity);
 

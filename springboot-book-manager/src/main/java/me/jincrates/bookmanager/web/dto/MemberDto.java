@@ -32,7 +32,7 @@ public class MemberDto {
     private String password;
 
     @JsonProperty("phone_number")
-    @Pattern(regexp = "^\\\\d{2,3}-\\\\d{3,4}-\\\\d{4}\\$", message = "010-0000-0000 형식으로 입력해야 합니다.")
+    @Pattern(regexp = "\\d{3}-\\d{4}-\\d{4}", message = "010-0000-0000 형식으로 입력해야 합니다.")
     private String phoneNumber;
 
     @Enumerated(EnumType.STRING)

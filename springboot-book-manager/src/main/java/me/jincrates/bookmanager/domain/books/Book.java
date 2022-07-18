@@ -1,11 +1,13 @@
 package me.jincrates.bookmanager.domain.books;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 
 @Getter @ToString
 @NoArgsConstructor
@@ -26,15 +28,18 @@ public class Book {
     @Column(nullable = false)
     private String publisher;
 
+    @JsonProperty("publication_date")
+    @Pattern(regexp = "^([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))$", message = "yyyy-MM-dd 형식으로 입력해야 합니다.")
     @Column(nullable = false)
     private String publicationDate;
 
     @Column(nullable = false)
     private String isbn;
-
+    @JsonProperty("stock_number")
     @Column(nullable = false)
     private int stockNumber;
 
+    @JsonProperty("image_path")
     private String imagePath;
 
     @Builder
