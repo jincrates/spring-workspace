@@ -3,6 +3,8 @@ package me.jincrates.studymanager.account;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import me.jincrates.studymanager.domain.Account;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -19,7 +21,7 @@ public class AccountController {
 
     private final SignUpFormValidator signUpFormValidator;
     private final AccountRepository accountRepository;
-    //private final JavaMailSender javaMailSender;
+    private final JavaMailSender javaMailSender;
 
     // TODO WebDataBinder의 동작 원리
     @InitBinder("signUpForm")
@@ -51,13 +53,13 @@ public class AccountController {
         Account newAccount = accountRepository.save(account);
         // 이메일 발송
         newAccount.generateEmailCheckToken();
-        System.out.println(newAccount.getEmailCheckToken());
-//        SimpleMailMessage mailMessage = new SimpleMailMessage();
-//        mailMessage.setTo(newAccount.getEmail());
-//        mailMessage.setSubject("지호학, 회원가입 인증");
-//        mailMessage.setText("/check-email-token?token=" + newAccount.getEmailCheckToken()
-//                + "&email=" + newAccount.getEmail());
-//        javaMailSender.send(mailMessage);
+
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(newAccount.getEmail());
+        mailMessage.setSubject("지호학, 회원가입 인증");
+        mailMessage.setText("/check-email-token?token=" + newAccount.getEmailCheckToken()
+                + "&email=" + newAccount.getEmail());
+        javaMailSender.send(mailMessage);
 
         return "redirect:/";
     }
