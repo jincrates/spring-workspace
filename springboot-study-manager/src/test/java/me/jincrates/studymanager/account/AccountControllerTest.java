@@ -1,5 +1,6 @@
 package me.jincrates.studymanager.account;
 
+import me.jincrates.studymanager.domain.Account;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,14 +59,19 @@ class AccountControllerTest {
         mockMvc.perform(post("/sign-up")
                         .param("nickname", "jincates")
                         .param("email", "jincrates@email.com")
-                        .param("password", "12345")
+                        .param("password", "12345678")
                         .with(csrf()))  //이거 안넣으면 테스트 깨진다.
                         .andExpect(status().is3xxRedirection())
                         .andExpect(view().name("redirect:/"));
 
-        assertTrue(accountRepository.existsByEmail("jincrates@email.com"));
-        //메일 발송 확인
-        then(javaMailSender).should().send(any(SimpleMailMessage.class));
+
+        Account account = accountRepository.findByEmail("jincrates@email.com");
+        assertNotNull(account);
+        //System.out.println(account.getPassword());
+        assertNotEquals(account.getPassword(), "12345678");
+
+        //assertTrue(accountRepository.existsByEmail("jincrates@email.com"));  //위와 같은 테스트
+        then(javaMailSender).should().send(any(SimpleMailMessage.class));  //메일 발송 확인
     }
 
 }

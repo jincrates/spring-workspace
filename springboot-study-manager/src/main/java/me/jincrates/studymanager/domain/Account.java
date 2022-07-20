@@ -38,7 +38,7 @@ public class Account {
 
     private String location;  //varchar(255)
 
-    //Todo 왜 이렇게 설정했어?
+    //TODO 왜 이렇게 설정했어?
     @Lob @Basic(fetch = FetchType.EAGER)
     private String profileImage;
 
