@@ -1,12 +1,8 @@
 package me.jincrates.studymanager.account;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import me.jincrates.studymanager.domain.Account;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
@@ -15,7 +11,6 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
 
 @Controller
 @RequiredArgsConstructor
@@ -58,7 +53,7 @@ public class AccountController {
             return view;
         }
 
-        if(!account.getEmailCheckToken().equals(token)) {
+        if(!account.isValidToken(token)) {
             model.addAttribute("error", "wrong.token");
             return view;
 
