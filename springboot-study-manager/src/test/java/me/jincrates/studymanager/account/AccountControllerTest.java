@@ -10,6 +10,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -18,6 +19,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+@Transactional
 @SpringBootTest
 @AutoConfigureMockMvc
 class AccountControllerTest {
@@ -30,6 +32,39 @@ class AccountControllerTest {
 
     @MockBean
     JavaMailSender javaMailSender;
+
+    @DisplayName("인증 메일 확인 - 입력값 오류")
+    @Test
+    void checkEmailTokenFailTest() throws Exception {
+        mockMvc.perform(get("/check-email-token")
+                .param("token", "adfasdf")
+                .param("email", "email@email.com"))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("error"))
+                .andExpect(view().name("account/checked-email"));
+    }
+
+    @DisplayName("인증 메일 확인 - 입력값 정상")
+    @Test
+    void checkEmailTokenTest() throws Exception {
+        Account account = Account.builder()
+                .email("jincrates@email.com")
+                .password("12345678")
+                .nickname("jincrates")
+                .build();
+        Account newAccount = accountRepository.save(account);
+        newAccount.generateEmailCheckToken();
+
+        mockMvc.perform(get("/check-email-token")
+                        .param("token", newAccount.getEmailCheckToken())
+                        .param("email", newAccount.getEmail()))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeDoesNotExist("error"))
+                .andExpect(model().attributeExists("nickname"))
+                .andExpect(model().attributeExists("numberOfUser"))
+                .andExpect(view().name("account/checked-email"));
+    }
+
 
     // 매번 있는지 확인할 수 없으니 테스트 코드로 확인하기 위함
     @DisplayName("회원가입 화면 보이는지 테스트")
@@ -53,7 +88,7 @@ class AccountControllerTest {
                 .andExpect(view().name("account/sign-up"));
     }
 
-    @DisplayName("회원가입 처리")
+    @DisplayName("회원가입 처리 - 입력값 정상")
     @Test
     void signUpSubmitTest() throws Exception {
         mockMvc.perform(post("/sign-up")
