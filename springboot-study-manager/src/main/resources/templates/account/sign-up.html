@@ -26,7 +26,7 @@
 
     <nav th:fragment="main-nav" class="navbar navbar-expand-sm navbar-dark bg-dark">
         <a class="navbar-brand" href="/" th:href="@{/}">
-            <img src="/images/logo-wh.png" width="30" height="30">
+            <img src="/images/logo-white.png" width="32" height="32">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -50,8 +50,6 @@
                 </li>
                 <li class="nav-item" sec:authorize="isAuthenticated()">
                     <a class="nav-link" th:href="@{/notifications}">
-                        <i th:if="${!hasNotification}" class="fa fa-bell-o" aria-hidden="true"></i>
-                        <span class="text-info" th:if="${hasNotification}"><i class="fa fa-bell" aria-hidden="true"></i></span>
                     </a>
                 </li>
                 <li class="nav-item" sec:authorize="isAuthenticated()">
@@ -107,7 +105,7 @@
                     <input id="email" type="email" th:field="*{email}" class="form-control"
                            placeholder="your@email.com" aria-describedby="emailHelp" required>
                     <small id="emailHelp" class="form-text text-muted">
-                        지호학은 사용자의 이메일을 공개하지 않습니다.
+                        지호락은 사용자의 이메일을 공개하지 않습니다.
                     </small>
                     <small class="invalid-feedback">이메일을 입력하세요.</small>
                     <small class="form-text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</small>
@@ -134,6 +132,13 @@
             </form>
         </div>
     </div>
+
+    <footer th:fragment="footer">
+        <div class="row justify-content-center">
+            <img class="mb-2" src="/images/logo-long.png" alt="" width="120">
+            <small class="d-block mb-3 text-muted">&copy; 2022</small>
+        </div>
+    </footer>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
