@@ -19,7 +19,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http)  throws Exception {
         http.authorizeHttpRequests()
                 .mvcMatchers("/", "/login", "/sign-up", "/check-email", "/check-email-token",
-                        "/email-login", "/check-email-login", "/login-link", "/assets/**").permitAll()
+                        "/email-login", "/check-email-login", "/login-link").permitAll()
                 .mvcMatchers(HttpMethod.GET, "/profile/*").permitAll()
                 .anyRequest().authenticated();
 
@@ -29,7 +29,7 @@ public class SecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring()
-                .antMatchers("/h2-console")
+                .mvcMatchers("/h2-console", "/node_modules/**", "/assets/*")
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 }
